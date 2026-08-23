@@ -9,20 +9,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --mahogany-deep:#241010;
-    --mahogany:#3d1a1a;
-    --mahogany-light:#6b2e2a;
-    --gold:#c9a66b;
-    --gold-bright:#e8c784;
-    --cream:#f2e8d8;
-    --rose-dust:#a9776a;
-    --line: rgba(201,166,107,0.35);
+    --mahogany-deep:#1c0d0c;
+    --mahogany:#43201a;
+    --mahogany-light:#7a3d2c;
+    --bronze:#b3813f;
+    --gold:#c9a25a;
+    --gold-bright:#f0cd8e;
+    --cream:#efe4cf;
+    --rose-dust:#b98f72;
+    --line: rgba(201,162,90,0.32);
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
     margin:0;
-    background: radial-gradient(ellipse at top, var(--mahogany) 0%, var(--mahogany-deep) 65%);
+    background:
+      radial-gradient(ellipse 70% 40% at 50% 0%, rgba(179,129,63,0.16), transparent 65%),
+      radial-gradient(ellipse at top, var(--mahogany) 0%, var(--mahogany-deep) 68%);
     color: var(--cream);
     font-family:'EB Garamond', serif;
     text-align:center;
@@ -150,7 +153,9 @@
   .hero{
     padding: 90px 24px 70px;
     position:relative;
-    background: linear-gradient(180deg, var(--mahogany-deep), var(--mahogany) 60%, var(--mahogany-deep));
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(240,205,142,0.09), transparent 70%),
+      linear-gradient(180deg, var(--mahogany-deep), var(--mahogany) 55%, var(--mahogany-deep));
   }
   .hero .eyebrow{ margin-bottom: 14px; }
   .hero h1{
@@ -186,8 +191,9 @@
   }
 
   .card{
-    background: linear-gradient(160deg, rgba(107,46,42,0.35), rgba(36,16,16,0.5));
+    background: linear-gradient(160deg, rgba(122,61,44,0.4), rgba(28,13,12,0.55));
     border: 1px solid var(--line);
+    box-shadow: 0 0 0 1px rgba(179,129,63,0.08) inset, 0 12px 30px -18px rgba(0,0,0,0.6);
     padding: 30px 26px;
     margin: 0 auto;
     border-radius: 4px;
@@ -208,7 +214,7 @@
   .btn{
     display:inline-block;
     margin-top: 18px;
-    background: var(--gold);
+    background: linear-gradient(135deg, var(--gold-bright), var(--bronze));
     color: var(--mahogany-deep);
     padding: 11px 26px;
     border-radius: 999px;
@@ -216,9 +222,10 @@
     font-size: 0.85rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    transition: background 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 8px 20px -10px rgba(179,129,63,0.6);
+    transition: filter 0.3s ease, transform 0.3s ease;
   }
-  .btn:hover{ background: var(--gold-bright); transform: translateY(-1px); }
+  .btn:hover{ filter: brightness(1.1); transform: translateY(-1px); }
   .btn:focus-visible{ outline:2px solid var(--gold-bright); outline-offset:3px; }
 
   /* COUNTDOWN */
@@ -234,7 +241,7 @@
     padding: 16px 0;
     border: 1px solid var(--line);
     border-radius: 4px;
-    background: rgba(107,46,42,0.25);
+    background: linear-gradient(160deg, rgba(122,61,44,0.3), rgba(28,13,12,0.4));
   }
   .count-box .num{
     font-family:'Cormorant Garamond', serif;
@@ -323,7 +330,7 @@
     text-align:left;
   }
   .wish-card{
-    background: linear-gradient(160deg, rgba(107,46,42,0.3), rgba(36,16,16,0.45));
+    background: linear-gradient(160deg, rgba(122,61,44,0.32), rgba(28,13,12,0.5));
     border: 1px solid var(--line);
     border-radius: 4px;
     padding: 16px 18px;
@@ -334,12 +341,13 @@
     width: 38px; height:38px;
     min-width:38px;
     border-radius:50%;
-    border: 1px solid var(--gold);
+    background: linear-gradient(135deg, var(--gold-bright), var(--bronze));
     display:flex;
     align-items:center;
     justify-content:center;
     font-family:'Cormorant Garamond', serif;
-    color: var(--gold-bright);
+    color: var(--mahogany-deep);
+    font-weight:600;
     font-size: 1rem;
   }
   .wish-name{
@@ -378,7 +386,7 @@
   .wish-form button{
     align-self: center;
     margin-top: 4px;
-    background: var(--gold);
+    background: linear-gradient(135deg, var(--gold-bright), var(--bronze));
     color: var(--mahogany-deep);
     border:none;
     padding: 11px 26px;
@@ -387,9 +395,10 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     cursor:pointer;
-    transition: background 0.3s ease;
+    box-shadow: 0 8px 20px -10px rgba(179,129,63,0.6);
+    transition: filter 0.3s ease;
   }
-  .wish-form button:hover{ background: var(--gold-bright); }
+  .wish-form button:hover{ filter: brightness(1.1); }
   .wish-note{
     color: var(--rose-dust);
     font-size: 0.8rem;
@@ -421,8 +430,9 @@
     width: 46px; height:46px;
     border-radius: 50%;
     border: 1px solid var(--gold);
-    background: var(--mahogany-deep);
+    background: linear-gradient(160deg, var(--mahogany), var(--mahogany-deep));
     color: var(--gold-bright);
+    box-shadow: 0 8px 20px -8px rgba(0,0,0,0.6);
     display:flex;
     align-items:center;
     justify-content:center;
