@@ -484,7 +484,7 @@
   <div class="hero">
     <p class="eyebrow">Dengan Penuh Syukur</p>
     <div class="hero-photo">
-         <img src="EMI00753.JPG" alt="Foto WULAN">
+      <img src="EMI00753.jpg" alt="Foto Lala">
     </div>
     <h1>Lala<span class="role">telah menyelesaikan pendidikan Sarjana [Jurusan]</span></h1>
     <div class="ornament">
@@ -595,7 +595,7 @@
 </div>
 
 <!-- MUSIC -->
-   <audio id="music" src="musik.mp3" loop></audio>
+<audio id="music" src="musik.mp3" loop preload="auto"></audio>
 <button class="music-toggle" id="musicBtn" onclick="toggleMusic()" aria-label="Putar atau jeda musik" style="display:none;">♪</button>
 
 <!-- LIGHTBOX -->
@@ -614,6 +614,11 @@
     }
   })();
 
+  /* PRELOAD MUSIK dari awal biar tidak ada jeda saat dibuka */
+  window.addEventListener('DOMContentLoaded', function(){
+    document.getElementById('music').load();
+  });
+
   /* OPENING FUNCTION */
   function openInvite() {
     document.getElementById("opening").style.display = "none";
@@ -621,6 +626,7 @@
     main.style.display = "block";
     main.classList.add("show");
     const music = document.getElementById("music");
+    music.currentTime = 5; /* lewati 5 detik hening di awal file musik */
     music.play().catch(()=>{});
     document.getElementById("musicBtn").style.display = "flex";
   }
