@@ -694,11 +694,7 @@
     'foto 5.jpeg',
     'foto 6.jpeg',
     'foto 7.jpeg',
-    'foto 8.jpeg',
-    'https://picsum.photos/seed/wisuda1/200/240',
-    'https://picsum.photos/seed/wisuda2/200/240',
-    'https://picsum.photos/seed/wisuda3/200/240',
-    'https://picsum.photos/seed/wisuda4/200/240'
+    'foto 8.jpeg'
   ];
 
   let fallingPhotosInterval = null;
@@ -719,11 +715,11 @@
       el.appendChild(img);
 
       const leftPos = Math.random() * 100;
-      const size = 42 + Math.random() * 30;
-      const duration = 4.5 + Math.random() * 3.5;
-      const delay = Math.random() * 2.5;
-      const rotStart = (Math.random() * 40 - 20).toFixed(1);
-      const rotEnd = (Math.random() * 200 - 100).toFixed(1);
+      const size = 46 + Math.random() * 26;
+      const duration = 9 + Math.random() * 5;
+      const delay = Math.random() * 3;
+      const rotStart = (Math.random() * 20 - 10).toFixed(1);
+      const rotEnd = (Math.random() * 50 - 25).toFixed(1);
       const fallDistance = heroHeight + 160;
 
       el.style.left = leftPos + '%';
@@ -744,8 +740,8 @@
 
   function startFallingPhotosLoop(){
     if(fallingPhotosInterval) return; /* sudah jalan */
-    spawnFallingPhotos(18);
-    fallingPhotosInterval = setInterval(() => spawnFallingPhotos(10), 3000);
+    spawnFallingPhotos(8);
+    fallingPhotosInterval = setInterval(() => spawnFallingPhotos(5), 4500);
   }
 
   function stopFallingPhotosLoop(){
