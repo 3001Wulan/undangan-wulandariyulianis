@@ -157,6 +157,7 @@
   .hero{
     padding: 90px 24px 70px;
     position:relative;
+    overflow:hidden;
     background:
       radial-gradient(ellipse 60% 50% at 50% 0%, rgba(240,205,142,0.09), transparent 70%),
       linear-gradient(180deg, var(--mahogany-deep), var(--mahogany) 55%, var(--mahogany-deep));
@@ -176,39 +177,42 @@
     margin-top: 10px;
   }
 
-  /* HERO PHOTO — foto tidak terpotong; ruang kosong diisi versi blur dari foto yang sama */
-  .hero-photo{
-    width: 140px;
-    height: 140px;
-    margin: 0 auto 22px;
-    border-radius: 50%;
-    padding: 5px;
-    background: linear-gradient(135deg, var(--gold-bright), var(--bronze));
-    flex-shrink:0;
+  /* FALLING PHOTOS — foto-foto kecil berjatuhan di hero */
+  .falling-photos{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:1;
   }
-  .hero-photo-inner{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 2px solid var(--mahogany-deep);
+  .falling-photo{
+    position:absolute;
+    top:-120px;
+    width:52px;
+    height:64px;
+    padding:4px 4px 10px;
+    background: var(--cream);
+    border-radius:2px;
+    box-shadow: 0 10px 18px -8px rgba(0,0,0,0.55);
+    opacity:0;
+    animation-name: fallDown;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
   }
-  .hero-photo-bg{
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;        /* versi zoom untuk mengisi latar, tanpa blur */
-  }
-  .hero-photo img.hero-photo-main{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;      /* seluruh foto tampil utuh, tidak ada bagian yang hilang */
-    object-position: center;
+  .falling-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
     display:block;
+    filter: sepia(15%) saturate(90%);
   }
+  @keyframes fallDown{
+    0%{ transform: translateY(0) rotate(var(--rot-start)); opacity:0; }
+    8%{ opacity:0.95; }
+    85%{ opacity:0.9; }
+    100%{ transform: translateY(var(--fall-distance)) rotate(var(--rot-end)); opacity:0; }
+  }
+  .hero > *:not(.falling-photos){ position:relative; z-index:2; }
 
   .hero p{
     max-width: 460px;
@@ -505,6 +509,7 @@
 <div id="main">
 
   <div class="hero">
+    <div class="falling-photos" id="fallingPhotos" aria-hidden="true"></div>
     <p class="eyebrow">Dengan Penuh Syukur</p>
     <div class="hero-photo">
       <div class="hero-photo-inner">
@@ -645,6 +650,54 @@
     document.getElementById('music').load();
   });
 
+  /* FOTO BERJATUHAN di hero (Dengan Penuh Syukur) */
+  const fallingPhotoSources = [
+    'EMI00753.JPG',
+    'https://picsum.photos/seed/wisuda1/200/240',
+    'https://picsum.photos/seed/wisuda2/200/240',
+    'https://picsum.photos/seed/wisuda3/200/240',
+    'https://picsum.photos/seed/wisuda4/200/240'
+  ];
+
+  function spawnFallingPhotos(count){
+    const container = document.getElementById('fallingPhotos');
+    if(!container) return;
+    const heroHeight = container.parentElement.offsetHeight || 500;
+
+    for(let i = 0; i < count; i++){
+      const el = document.createElement('div');
+      el.className = 'falling-photo';
+
+      const src = fallingPhotoSources[Math.floor(Math.random() * fallingPhotoSources.length)];
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = '';
+      el.appendChild(img);
+
+      const leftPos = Math.random() * 100;
+      const size = 42 + Math.random() * 30;
+      const duration = 4.5 + Math.random() * 3.5;
+      const delay = Math.random() * 2.5;
+      const rotStart = (Math.random() * 40 - 20).toFixed(1);
+      const rotEnd = (Math.random() * 200 - 100).toFixed(1);
+      const fallDistance = heroHeight + 160;
+
+      el.style.left = leftPos + '%';
+      el.style.width = size + 'px';
+      el.style.height = (size * 1.2) + 'px';
+      el.style.setProperty('--rot-start', rotStart + 'deg');
+      el.style.setProperty('--rot-end', rotEnd + 'deg');
+      el.style.setProperty('--fall-distance', fallDistance + 'px');
+      el.style.animationDuration = duration + 's';
+      el.style.animationDelay = delay + 's';
+
+      container.appendChild(el);
+
+      /* bersihkan elemen setelah animasi selesai supaya ringan */
+      setTimeout(() => { el.remove(); }, (duration + delay) * 1000 + 500);
+    }
+  }
+
   /* OPENING FUNCTION */
   function openInvite() {
     document.getElementById("opening").style.display = "none";
@@ -655,6 +708,9 @@
     music.currentTime = 5; /* lewati 5 detik hening di awal file musik */
     music.play().catch(()=>{});
     document.getElementById("musicBtn").style.display = "flex";
+
+    /* jatuhkan foto-foto begitu undangan dibuka */
+    setTimeout(() => spawnFallingPhotos(18), 100);
   }
 
   function toggleMusic(){
