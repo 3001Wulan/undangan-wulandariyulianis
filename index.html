@@ -270,6 +270,132 @@
   }
   .tl-text{ color: var(--cream); font-size: 0.95rem; }
 
+  /* GALLERY */
+  .gallery{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .gallery a{
+    display:block;
+    aspect-ratio: 3/4;
+    overflow:hidden;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+  }
+  .gallery img{
+    width:100%; height:100%;
+    object-fit: cover;
+    display:block;
+    transition: transform 0.5s ease, filter 0.5s ease;
+    filter: sepia(20%) saturate(85%);
+  }
+  .gallery a:hover img{ transform: scale(1.06); filter: sepia(0%) saturate(100%); }
+
+  #lightbox{
+    position: fixed;
+    inset:0;
+    background: rgba(15,7,7,0.92);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index: 998;
+    padding: 24px;
+    cursor: zoom-out;
+  }
+  #lightbox.show{ display:flex; }
+  #lightbox img{
+    max-width: 100%;
+    max-height: 88vh;
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+  }
+
+  /* UCAPAN / WISHES */
+  .wishes-list{
+    max-width: 460px;
+    margin: 0 auto 28px;
+    display:flex;
+    flex-direction:column;
+    gap: 14px;
+    text-align:left;
+  }
+  .wish-card{
+    background: linear-gradient(160deg, rgba(107,46,42,0.3), rgba(36,16,16,0.45));
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 16px 18px;
+    display:flex;
+    gap: 12px;
+  }
+  .wish-avatar{
+    width: 38px; height:38px;
+    min-width:38px;
+    border-radius:50%;
+    border: 1px solid var(--gold);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Cormorant Garamond', serif;
+    color: var(--gold-bright);
+    font-size: 1rem;
+  }
+  .wish-name{
+    font-family:'Cormorant Garamond', serif;
+    color: var(--gold-bright);
+    font-size: 1.05rem;
+    margin: 0 0 4px;
+  }
+  .wish-text{
+    color: var(--cream);
+    font-size: 0.92rem;
+    line-height:1.5;
+    margin:0;
+  }
+  .wish-form{
+    max-width: 420px;
+    margin: 0 auto;
+    display:flex;
+    flex-direction:column;
+    gap: 10px;
+  }
+  .wish-form input, .wish-form textarea{
+    background: rgba(36,16,16,0.5);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 11px 14px;
+    color: var(--cream);
+    font-family:'EB Garamond', serif;
+    font-size: 0.95rem;
+  }
+  .wish-form textarea{ resize: vertical; min-height: 70px; }
+  .wish-form input:focus, .wish-form textarea:focus{
+    outline: none;
+    border-color: var(--gold);
+  }
+  .wish-form button{
+    align-self: center;
+    margin-top: 4px;
+    background: var(--gold);
+    color: var(--mahogany-deep);
+    border:none;
+    padding: 11px 26px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor:pointer;
+    transition: background 0.3s ease;
+  }
+  .wish-form button:hover{ background: var(--gold-bright); }
+  .wish-note{
+    color: var(--rose-dust);
+    font-size: 0.8rem;
+    margin-top: 14px;
+  }
+
   footer{
     padding: 50px 24px 60px;
     background: var(--mahogany-deep);
@@ -371,6 +497,18 @@
   </section>
 
   <section>
+    <p class="eyebrow">Kenangan</p>
+    <h2 class="section-title">Galeri Foto</h2>
+    <p class="section-sub">Klik foto untuk melihat lebih besar</p>
+    <div class="gallery">
+      <a href="https://picsum.photos/seed/wisuda1/800/1000" data-lightbox><img src="https://picsum.photos/seed/wisuda1/500/650" alt="Foto kenangan 1" loading="lazy"></a>
+      <a href="https://picsum.photos/seed/wisuda2/800/1000" data-lightbox><img src="https://picsum.photos/seed/wisuda2/500/650" alt="Foto kenangan 2" loading="lazy"></a>
+      <a href="https://picsum.photos/seed/wisuda3/800/1000" data-lightbox><img src="https://picsum.photos/seed/wisuda3/500/650" alt="Foto kenangan 3" loading="lazy"></a>
+      <a href="https://picsum.photos/seed/wisuda4/800/1000" data-lightbox><img src="https://picsum.photos/seed/wisuda4/500/650" alt="Foto kenangan 4" loading="lazy"></a>
+    </div>
+  </section>
+
+  <section>
     <p class="eyebrow">Menghitung Hari</p>
     <h2 class="section-title">Countdown</h2>
     <div class="countdown-grid" id="countdown">
@@ -390,6 +528,36 @@
     </div>
   </section>
 
+  <section>
+    <p class="eyebrow">Doa &amp; Restu</p>
+    <h2 class="section-title">Ucapan dari Teman-Teman</h2>
+    <p class="section-sub">Tinggalkan pesan untuk Lala</p>
+
+    <div class="wishes-list" id="wishesList">
+      <div class="wish-card">
+        <div class="wish-avatar">A</div>
+        <div>
+          <p class="wish-name">Anisa</p>
+          <p class="wish-text">Selamat atas kelulusannya! Semoga sukses selalu untuk langkah selanjutnya 🎓</p>
+        </div>
+      </div>
+      <div class="wish-card">
+        <div class="wish-avatar">R</div>
+        <div>
+          <p class="wish-name">Rian</p>
+          <p class="wish-text">Proud of you! Perjuangan selama ini akhirnya terbayar, selamat ya!</p>
+        </div>
+      </div>
+    </div>
+
+    <form class="wish-form" id="wishForm">
+      <input type="text" id="wishName" placeholder="Nama Anda" required>
+      <textarea id="wishMsg" placeholder="Tulis ucapan dan doa Anda di sini..." required></textarea>
+      <button type="submit">Kirim Ucapan</button>
+    </form>
+    <p class="wish-note">Ucapan akan tampil di halaman ini selama sesi kunjungan Anda terbuka.</p>
+  </section>
+
   <footer>
     <div class="ornament"><span class="rule"></span><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z" fill="#c9a66b"/></svg><span class="rule"></span></div>
     <p class="signature">Lala</p>
@@ -400,6 +568,11 @@
 <!-- MUSIC -->
 <audio id="music" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" loop></audio>
 <button class="music-toggle" id="musicBtn" onclick="toggleMusic()" aria-label="Putar atau jeda musik" style="display:none;">♪</button>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" alt="Foto diperbesar">
+</div>
 
 <script>
   /* PERSONALISASI NAMA TAMU via ?to=Nama */
@@ -447,6 +620,42 @@
   }
   updateCountdown();
   setInterval(updateCountdown, 1000);
+
+  /* GALLERY LIGHTBOX */
+  document.querySelectorAll('[data-lightbox]').forEach(link => {
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      const img = document.getElementById('lightboxImg');
+      img.src = this.getAttribute('href');
+      document.getElementById('lightbox').classList.add('show');
+    });
+  });
+  function closeLightbox(){
+    document.getElementById('lightbox').classList.remove('show');
+  }
+
+  /* UCAPAN / WISHES FORM */
+  document.getElementById('wishForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const nameInput = document.getElementById('wishName');
+    const msgInput = document.getElementById('wishMsg');
+    const name = nameInput.value.trim();
+    const msg = msgInput.value.trim();
+    if(!name || !msg) return;
+
+    const card = document.createElement('div');
+    card.className = 'wish-card';
+    const initial = name.charAt(0).toUpperCase();
+    card.innerHTML =
+      '<div class="wish-avatar">' + initial + '</div>' +
+      '<div><p class="wish-name"></p><p class="wish-text"></p></div>';
+    card.querySelector('.wish-name').textContent = name;
+    card.querySelector('.wish-text').textContent = msg;
+
+    document.getElementById('wishesList').prepend(card);
+    nameInput.value = '';
+    msgInput.value = '';
+  });
 </script>
 </body>
 </html>
