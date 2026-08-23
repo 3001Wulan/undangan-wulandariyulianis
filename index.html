@@ -684,7 +684,7 @@
     document.getElementById('music').load();
   });
 
-  /* FOTO BERJATUHAN di hero (Dengan Penuh Syukur) */
+  /* FOTO BERJATUHAN di hero (Dengan Penuh Syukur) — berulang selama section ini terlihat */
   const fallingPhotoSources = [
     'EMI00753.JPG',
     'https://picsum.photos/seed/wisuda1/200/240',
@@ -692,6 +692,8 @@
     'https://picsum.photos/seed/wisuda3/200/240',
     'https://picsum.photos/seed/wisuda4/200/240'
   ];
+
+  let fallingPhotosInterval = null;
 
   function spawnFallingPhotos(count){
     const container = document.getElementById('fallingPhotos');
@@ -732,6 +734,33 @@
     }
   }
 
+  function startFallingPhotosLoop(){
+    if(fallingPhotosInterval) return; /* sudah jalan */
+    spawnFallingPhotos(18);
+    fallingPhotosInterval = setInterval(() => spawnFallingPhotos(10), 3000);
+  }
+
+  function stopFallingPhotosLoop(){
+    if(fallingPhotosInterval){
+      clearInterval(fallingPhotosInterval);
+      fallingPhotosInterval = null;
+    }
+  }
+
+  /* pantau apakah section hero sedang terlihat di layar */
+  window.addEventListener('DOMContentLoaded', function(){
+    const heroEl = document.querySelector('.hero');
+    if(heroEl && 'IntersectionObserver' in window){
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){ startFallingPhotosLoop(); }
+          else { stopFallingPhotosLoop(); }
+        });
+      }, { threshold: 0.15 });
+      observer.observe(heroEl);
+    }
+  });
+
   /* OPENING FUNCTION */
   function openInvite() {
     document.getElementById("opening").style.display = "none";
@@ -743,8 +772,8 @@
     music.play().catch(()=>{});
     document.getElementById("musicBtn").style.display = "flex";
 
-    /* jatuhkan foto-foto begitu undangan dibuka */
-    setTimeout(() => spawnFallingPhotos(18), 100);
+    /* mulai loop foto jatuh begitu undangan dibuka (hero langsung terlihat) */
+    setTimeout(startFallingPhotosLoop, 100);
   }
 
   function toggleMusic(){
