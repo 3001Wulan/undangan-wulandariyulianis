@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Undangan Pernikahan — Lala & Pasangan</title>
+<title>Undangan Wisuda — Lala</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
@@ -48,7 +48,7 @@
     opacity:0.9;
   }
 
-  /* ORNAMENT — signature divider */
+  /* ORNAMENT — signature divider (medali/laurel motif) */
   .ornament{
     display:flex;
     align-items:center;
@@ -99,9 +99,15 @@
     font-size:1.6rem;
     color: var(--gold-bright);
   }
+  .opening-frame .eyebrow{ margin-bottom:6px; }
   .opening-frame h1{
-    font-size: clamp(2.1rem, 6vw, 2.8rem);
+    font-size: clamp(2rem, 6vw, 2.6rem);
     margin: 6px 0 4px;
+  }
+  .opening-frame .role{
+    color: var(--rose-dust);
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
   }
   .to-label{
     margin-top: 26px;
@@ -148,11 +154,18 @@
   }
   .hero .eyebrow{ margin-bottom: 14px; }
   .hero h1{
-    font-size: clamp(2.4rem, 8vw, 3.6rem);
+    font-size: clamp(2.3rem, 8vw, 3.4rem);
     margin: 0;
     line-height:1.15;
   }
-  .hero .amp{ color: var(--gold); font-style: italic; padding: 0 6px; }
+  .hero .role{
+    display:block;
+    font-family:'EB Garamond', serif;
+    font-style: italic;
+    color: var(--rose-dust);
+    font-size: 1.05rem;
+    margin-top: 10px;
+  }
   .hero p{
     max-width: 460px;
     margin: 22px auto 0;
@@ -236,6 +249,27 @@
     color: var(--rose-dust);
   }
 
+  /* TIMELINE (perjalanan studi) */
+  .timeline{
+    max-width: 420px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .tl-item{
+    display:flex;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .tl-item:last-child{ border-bottom:none; }
+  .tl-year{
+    font-family:'Cormorant Garamond', serif;
+    color: var(--gold-bright);
+    font-size: 1.1rem;
+    min-width: 60px;
+  }
+  .tl-text{ color: var(--cream); font-size: 0.95rem; }
+
   footer{
     padding: 50px 24px 60px;
     background: var(--mahogany-deep);
@@ -277,9 +311,10 @@
 <!-- OPENING -->
 <div id="opening">
   <div class="opening-frame">
-    <div class="monogram">L&nbsp;D</div>
-    <p class="eyebrow">Undangan Pernikahan</p>
-    <h1>Lala <span style="color:var(--gold); font-style:italic;">&amp;</span> [Nama Pasangan]</h1>
+    <div class="monogram">🎓</div>
+    <p class="eyebrow">Undangan Wisuda</p>
+    <h1>Lala</h1>
+    <p class="role">Sarjana [Jurusan] — [Nama Universitas]</p>
     <div class="ornament">
       <span class="rule"></span>
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z" fill="#c9a66b"/></svg>
@@ -295,33 +330,43 @@
 <div id="main">
 
   <div class="hero">
-    <p class="eyebrow">Save The Date</p>
-    <h1>Lala<span class="amp">&amp;</span>[Nama Pasangan]</h1>
+    <p class="eyebrow">Dengan Penuh Syukur</p>
+    <h1>Lala<span class="role">telah menyelesaikan pendidikan Sarjana [Jurusan]</span></h1>
     <div class="ornament">
       <span class="rule"></span>
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z" fill="#c9a66b"/></svg>
       <span class="rule"></span>
     </div>
-    <p>Dengan penuh syukur dan sukacita, kami mengundang Bapak/Ibu/Saudara/i untuk turut hadir dan memberikan doa restu pada hari bahagia kami.</p>
+    <p>Puji syukur atas nikmat yang diberikan, kami mengundang Bapak/Ibu/Saudara/i untuk turut hadir dan memberikan doa restu pada momen kelulusan ini.</p>
   </div>
 
   <section>
     <p class="eyebrow">Waktu &amp; Tempat</p>
-    <h2 class="section-title">Akad &amp; Resepsi</h2>
+    <h2 class="section-title">Prosesi Wisuda</h2>
     <p class="section-sub">Kami nantikan kehadiran Anda</p>
     <div class="card">
       <div class="big">Sabtu, 20 Juli 2026</div>
-      <div class="small">Pukul 10.00 WIB — Selesai</div>
+      <div class="small">Pukul 08.00 WIB — Selesai</div>
     </div>
   </section>
 
   <section>
     <p class="eyebrow">Lokasi Acara</p>
-    <h2 class="section-title">Gedung Serbaguna Ranah</h2>
+    <h2 class="section-title">Gedung Auditorium Kampus</h2>
     <p class="section-sub">Klik tombol di bawah untuk petunjuk arah</p>
     <div class="card">
       <div class="small" style="margin-top:0;">Jl. Contoh Alamat No. 123, Kota</div>
       <a class="btn" href="https://maps.google.com" target="_blank" rel="noopener">Lihat di Google Maps</a>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Perjalanan Studi</p>
+    <h2 class="section-title">Sekilas Perjalanan</h2>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-year">2022</div><div class="tl-text">Memulai perkuliahan di [Nama Universitas]</div></div>
+      <div class="tl-item"><div class="tl-year">2025</div><div class="tl-text">Menyelesaikan skripsi/tugas akhir</div></div>
+      <div class="tl-item"><div class="tl-year">2026</div><div class="tl-text">Dinyatakan lulus dan diwisuda</div></div>
     </div>
   </section>
 
@@ -347,7 +392,7 @@
 
   <footer>
     <div class="ornament"><span class="rule"></span><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z" fill="#c9a66b"/></svg><span class="rule"></span></div>
-    <p class="signature">Lala &amp; [Nama Pasangan]</p>
+    <p class="signature">Lala</p>
     <p>Terima kasih atas doa dan restu yang diberikan.</p>
   </footer>
 </div>
@@ -386,7 +431,7 @@
   }
 
   /* COUNTDOWN */
-  const targetDate = new Date("July 20, 2026 10:00:00").getTime();
+  const targetDate = new Date("July 20, 2026 08:00:00").getTime();
   function pad(n){ return String(n).padStart(2,'0'); }
   function updateCountdown(){
     const now = new Date().getTime();
