@@ -305,6 +305,45 @@
   .btn:hover{ filter: brightness(1.1); transform: translateY(-1px); }
   .btn:focus-visible{ outline:2px solid var(--gold-bright); outline-offset:3px; }
 
+  /* MINI CALENDAR */
+  .mini-calendar{
+    max-width: 300px;
+    margin: 8px auto 26px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: linear-gradient(160deg, rgba(122,61,44,0.3), rgba(28,13,12,0.4));
+    padding: 16px;
+  }
+  .mc-header{
+    font-family:'Cormorant Garamond', serif;
+    color: var(--gold-bright);
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+  }
+  .mc-grid{
+    display:grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+  .mc-dow{
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--rose-dust);
+    padding-bottom: 4px;
+  }
+  .mc-day{
+    font-size: 0.85rem;
+    color: var(--cream);
+    padding: 6px 0;
+    border-radius: 3px;
+  }
+  .mc-highlight{
+    background: linear-gradient(135deg, var(--gold-bright), var(--bronze));
+    color: var(--mahogany-deep);
+    font-weight: 600;
+  }
+
   /* COUNTDOWN */
   .countdown-grid{
     display:flex;
@@ -312,6 +351,7 @@
     justify-content:center;
     flex-wrap: wrap;
     margin-top: 8px;
+    margin-bottom: 26px;
   }
   .count-box{
     width: 78px;
@@ -565,18 +605,38 @@
     <p class="eyebrow">Waktu &amp; Tempat</p>
     <h2 class="section-title">Prosesi Wisuda</h2>
     <p class="section-sub">Kami nantikan kehadiran Anda</p>
+
+    <div class="mini-calendar" aria-label="Kalender September 2026">
+      <div class="mc-header">September 2026</div>
+      <div class="mc-grid">
+        <span class="mc-dow">Min</span><span class="mc-dow">Sen</span><span class="mc-dow">Sel</span><span class="mc-dow">Rab</span><span class="mc-dow">Kam</span><span class="mc-dow">Jum</span><span class="mc-dow">Sab</span>
+        <span></span><span></span><span></span><span class="mc-day">1</span><span class="mc-day">2</span><span class="mc-day">3</span><span class="mc-day">4</span>
+        <span class="mc-day">5</span><span class="mc-day">6</span><span class="mc-day">7</span><span class="mc-day">8</span><span class="mc-day">9</span><span class="mc-day">10</span><span class="mc-day">11</span>
+        <span class="mc-day">12</span><span class="mc-day">13</span><span class="mc-day">14</span><span class="mc-day">15</span><span class="mc-day">16</span><span class="mc-day">17</span><span class="mc-day mc-highlight">18</span>
+        <span class="mc-day">19</span><span class="mc-day">20</span><span class="mc-day">21</span><span class="mc-day">22</span><span class="mc-day">23</span><span class="mc-day">24</span><span class="mc-day">25</span>
+        <span class="mc-day">26</span><span class="mc-day">27</span><span class="mc-day">28</span><span class="mc-day">29</span><span class="mc-day">30</span><span class="mc-day">31</span><span></span>
+      </div>
+    </div>
+
+    <div class="countdown-grid" id="countdown">
+      <div class="count-box"><span class="num" id="cd-days">00</span><span class="unit">Hari</span></div>
+      <div class="count-box"><span class="num" id="cd-hours">00</span><span class="unit">Jam</span></div>
+      <div class="count-box"><span class="num" id="cd-mins">00</span><span class="unit">Menit</span></div>
+      <div class="count-box"><span class="num" id="cd-secs">00</span><span class="unit">Detik</span></div>
+    </div>
+
     <div class="card">
-      <div class="big">Sabtu, 20 Juli 2026</div>
-      <div class="small">Pukul 08.00 WIB — Selesai</div>
+      <div class="big">Jumat, 18 Juli 2026</div>
+      <div class="small">Pukul 13.00 — 15.00 WIB</div>
     </div>
   </section>
 
   <section>
     <p class="eyebrow">Lokasi Acara</p>
-    <h2 class="section-title">Gedung Auditorium Kampus</h2>
+    <h2 class="section-title">Gedung FTI</h2>
     <p class="section-sub">Klik tombol di bawah untuk petunjuk arah</p>
     <div class="card">
-      <div class="small" style="margin-top:0;">Jl. Contoh Alamat No. 123, Kota</div>
+      <div class="small" style="margin-top:0;">Fakultas Teknologi Informasi, Universitas Andalas</div>
       <a class="btn" href="https://maps.google.com" target="_blank" rel="noopener">Lihat di Google Maps</a>
     </div>
   </section>
@@ -600,26 +660,6 @@
       <a href="https://picsum.photos/seed/wisuda2/800/1000" data-lightbox><img src="https://picsum.photos/seed/wisuda2/500/650" alt="Foto kenangan 2" loading="lazy"></a>
       <a href="https://picsum.photos/seed/wisuda3/800/1000" data-lightbox><img src="https://picsum.photos/seed/wisuda3/500/650" alt="Foto kenangan 3" loading="lazy"></a>
       <a href="https://picsum.photos/seed/wisuda4/800/1000" data-lightbox><img src="https://picsum.photos/seed/wisuda4/500/650" alt="Foto kenangan 4" loading="lazy"></a>
-    </div>
-  </section>
-
-  <section>
-    <p class="eyebrow">Menghitung Hari</p>
-    <h2 class="section-title">Countdown</h2>
-    <div class="countdown-grid" id="countdown">
-      <div class="count-box"><span class="num" id="cd-days">00</span><span class="unit">Hari</span></div>
-      <div class="count-box"><span class="num" id="cd-hours">00</span><span class="unit">Jam</span></div>
-      <div class="count-box"><span class="num" id="cd-mins">00</span><span class="unit">Menit</span></div>
-      <div class="count-box"><span class="num" id="cd-secs">00</span><span class="unit">Detik</span></div>
-    </div>
-  </section>
-
-  <section>
-    <p class="eyebrow">Konfirmasi Kehadiran</p>
-    <h2 class="section-title">RSVP</h2>
-    <p class="section-sub">Mohon konfirmasi kehadiran Anda melalui WhatsApp</p>
-    <div class="card">
-      <a class="btn" href="https://wa.me/628xxxxxxxxxx" target="_blank" rel="noopener">Konfirmasi via WhatsApp</a>
     </div>
   </section>
 
@@ -789,7 +829,7 @@
   }
 
   /* COUNTDOWN */
-  const targetDate = new Date("July 20, 2026 08:00:00").getTime();
+  const targetDate = new Date("July 18, 2026 13:00:00").getTime();
   function pad(n){ return String(n).padStart(2,'0'); }
   function updateCountdown(){
     const now = new Date().getTime();
