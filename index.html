@@ -333,6 +333,39 @@
     line-height:1.7;
   }
 
+  /* HERO DIVIDER — efek transisi berkilau di akhir bagian foto berjatuhan */
+  .hero-divider{
+    position: relative;
+    width: 100%;
+    height: 56px;
+    margin-top: -2px;
+    overflow: hidden;
+    background: var(--mahogany-deep);
+  }
+  .hero-divider svg{
+    display:block;
+    width:100%;
+    height:100%;
+  }
+  .hero-divider-spark{
+    position:absolute;
+    top:50%;
+    left:-40%;
+    width: 45%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold-bright), transparent);
+    filter: blur(0.4px);
+    opacity:0.9;
+    animation: sparkSweep 4.5s ease-in-out infinite;
+  }
+  @keyframes sparkSweep{
+    0%{ left:-45%; }
+    100%{ left:120%; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-divider-spark{ animation:none; opacity:0.4; left:30%; }
+  }
+
   section{ padding: 56px 24px; }
   section h2.section-title{
     font-size: clamp(1.5rem, 4vw, 1.9rem);
@@ -494,42 +527,25 @@
     font-weight: 600;
   }
 
-  /* Tambah ke kalender — sekarang di dalam kartu mini kalender */
+  /* Tambah ke kalender — sekarang di dalam kartu mini kalender, langsung 1 klik */
   .add-to-calendar{
     text-align:center;
     margin-top: 14px;
     padding-top: 14px;
     border-top: 1px solid var(--line);
-    position: relative;
   }
-  .calendar-menu{
-    display:none;
-    flex-direction:column;
-    gap:2px;
-    max-width: 260px;
-    margin: 10px auto 0;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    overflow:hidden;
-    background: linear-gradient(160deg, rgba(122,61,44,0.5), rgba(28,13,12,0.7));
-  }
-  .calendar-menu.show{ display:flex; }
-  .calendar-menu a, .calendar-menu button{
+  .add-to-calendar .ics-link{
     display:block;
-    width:100%;
-    text-align:center;
-    padding: 11px 14px;
-    color: var(--cream);
-    text-decoration:none;
-    font-family:'EB Garamond', serif;
-    font-size: 0.88rem;
+    margin-top: 10px;
+    color: var(--rose-dust);
+    font-size: 0.78rem;
+    text-decoration: underline;
     background: transparent;
     border: none;
-    border-bottom: 1px solid var(--line);
     cursor: pointer;
+    font-family:'EB Garamond', serif;
   }
-  .calendar-menu a:last-child, .calendar-menu button:last-child{ border-bottom:none; }
-  .calendar-menu a:hover, .calendar-menu button:hover{ background: rgba(201,162,90,0.14); color: var(--gold-bright); }
+  .add-to-calendar .ics-link:hover{ color: var(--gold-bright); }
 
   /* COUNTDOWN */
   .countdown-grid{
@@ -878,11 +894,27 @@
     <p>Assalamualaikum warahmatullahi wabarakatuh.</p>
     <p>Puji syukur atas nikmat yang diberikan, kami mengundang Bapak/Ibu/Saudara/i untuk turut hadir dan memberikan doa restu pada momen kelulusan ini.</p>
 
-    <!-- SCROLL HINT: ajakan menggeser/scroll untuk melihat undangan, sekarang di halaman kedua -->
+    <!-- SCROLL HINT: ajakan menggeser/scroll untuk melihat undangan, tetap di halaman ini (hero)
+         dan langsung nampak begitu undangan dibuka -->
     <div class="scroll-hint" id="scrollHint" onclick="scrollToNext()" role="button" tabindex="0" onkeypress="if(event.key==='Enter')scrollToNext()">
-      <span>Geser untuk membuka</span>
+      <span>Scroll untuk melihat undangan</span>
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 4v14M6 13l6 6 6-6" stroke="#c9a25a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
+  </div>
+
+  <!-- EFEK TRANSISI setelah bagian foto berjatuhan: gelombang emas berkilau -->
+  <div class="hero-divider" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="hdGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#7a3d2c"/>
+          <stop offset="50%" stop-color="#43201a"/>
+          <stop offset="100%" stop-color="#7a3d2c"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z" fill="url(#hdGrad)"></path>
+    </svg>
+    <div class="hero-divider-spark"></div>
   </div>
 
   <section id="waktu-tempat">
@@ -900,13 +932,10 @@
         <span class="mc-day">26</span><span class="mc-day">27</span><span class="mc-day">28</span><span class="mc-day">29</span><span class="mc-day">30</span><span class="mc-day">31</span><span></span>
       </div>
 
-      <!-- TAMBAHKAN KE KALENDER — sekarang menyatu di dalam kartu kalender -->
+      <!-- TAMBAHKAN KE KALENDER — langsung 1 klik ke Google Calendar, tanpa menu/app tambahan -->
       <div class="add-to-calendar">
-        <button class="btn btn-sm" onclick="toggleCalendarMenu()">📅 Tambahkan ke Kalender</button>
-        <div class="calendar-menu" id="calendarMenu">
-          <a id="gcalLink" href="#" target="_blank" rel="noopener">Google Calendar</a>
-          <button onclick="downloadICS()">Unduh File .ics (Apple / Outlook)</button>
-        </div>
+        <a id="gcalLink" class="btn btn-sm" href="#" target="_blank" rel="noopener">📅 Tambahkan ke Google Calendar</a>
+        <button class="ics-link" onclick="downloadICS()" type="button">atau unduh file .ics (Apple / Outlook)</button>
       </div>
     </div>
 
@@ -1018,12 +1047,12 @@
       </div>
     </div>
 
-    <form class="wish-form reveal" id="wishForm">
+    <form class="wish-form" id="wishForm">
       <input type="text" id="wishName" placeholder="Nama Anda" required>
       <textarea id="wishMsg" placeholder="Tulis ucapan dan doa Anda di sini..." required></textarea>
       <button type="submit">Kirim Ucapan</button>
     </form>
-    <p class="wish-note">Ucapan akan tampil di halaman ini selama sesi kunjungan Anda terbuka.</p>
+    <p class="wish-note" id="wishNote">Ucapan Anda akan tersimpan dan tampil untuk semua tamu yang membuka undangan ini.</p>
   </section>
 
   <footer class="reveal">
@@ -1180,6 +1209,11 @@
     music.play().catch(()=>{});
     document.getElementById("musicBtn").style.display = "flex";
 
+    /* Tampilkan "geser untuk membuka" LANGSUNG saat undangan dibuka, di halaman yang sama
+       (hero), tanpa menunggu observer/animation frame */
+    const scrollHintNow = document.getElementById('scrollHint');
+    if(scrollHintNow) scrollHintNow.classList.add('show');
+
     /* Tunggu 2 frame render supaya browser sudah selesai melakukan layout untuk #main
        (yang baru saja berubah dari display:none ke block) sebelum memantau elemen. */
     requestAnimationFrame(function(){
@@ -1188,10 +1222,6 @@
         initHeroVisibilityObserver();
         initRevealObserver();
         initGalleryAutoScroll();
-        /* jaring pengaman: pastikan "geser untuk membuka" langsung terlihat di HP
-           begitu undangan dibuka, tanpa harus menggulir dulu */
-        const scrollHint = document.getElementById('scrollHint');
-        if(scrollHint) scrollHint.classList.add('show');
       });
     });
 
@@ -1277,7 +1307,7 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  /* TAMBAHKAN KE KALENDER — Google Calendar link + unduh .ics */
+  /* TAMBAHKAN KE KALENDER — Google Calendar link langsung (1 klik, tanpa app terpisah) + unduh .ics opsional */
   const EVENT_TITLE = "Wisuda Wulandari Yulianis, S.Kom";
   const EVENT_LOCATION = "Fakultas Teknologi Informasi, Universitas Andalas, Limau Manis, Padang, Sumatera Barat";
   const EVENT_DESC = "Prosesi wisuda Wulandari Yulianis, S.Kom - Sarjana Komputer S1 Sistem Informasi, Universitas Andalas.";
@@ -1296,10 +1326,6 @@
     return base + "&" + params.toString();
   }
   document.getElementById('gcalLink').href = buildGoogleCalendarLink();
-
-  function toggleCalendarMenu(){
-    document.getElementById('calendarMenu').classList.toggle('show');
-  }
 
   function downloadICS(){
     const ics = [
@@ -1414,15 +1440,27 @@
     document.getElementById('lightbox').classList.remove('show');
   }
 
-  /* UCAPAN / WISHES FORM */
-  document.getElementById('wishForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    const nameInput = document.getElementById('wishName');
-    const msgInput = document.getElementById('wishMsg');
-    const name = nameInput.value.trim();
-    const msg = msgInput.value.trim();
-    if(!name || !msg) return;
+  /* UCAPAN / WISHES — supaya ucapan tampil untuk SEMUA tamu (bukan cuma di HP pengirim),
+     situs ini perlu "penyimpanan bersama". Isi WISH_APPS_SCRIPT_URL di bawah ini dengan
+     URL Web App dari Google Apps Script (lihat panduan singkat yang saya berikan terpisah).
+     Selama URL belum diisi, ucapan otomatis memakai localStorage (hanya tersimpan di
+     perangkat masing-masing) supaya fitur tetap berjalan sambil menunggu dipasang. */
+  const WISH_APPS_SCRIPT_URL = ''; // <-- tempel URL Web App Google Apps Script di sini
+  const WISH_STORAGE_KEY = 'wisuda_wulandari_wishes_v1';
+  const wishNoteEl = document.getElementById('wishNote');
 
+  function getLocalWishes(){
+    try{
+      const raw = localStorage.getItem(WISH_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    }catch(e){ return []; }
+  }
+
+  function setLocalWishes(list){
+    try{ localStorage.setItem(WISH_STORAGE_KEY, JSON.stringify(list)); }catch(e){}
+  }
+
+  function renderWishCard(name, msg, prepend){
     const card = document.createElement('div');
     card.className = 'wish-card';
     const initial = name.charAt(0).toUpperCase();
@@ -1431,8 +1469,56 @@
       '<div><p class="wish-name"></p><p class="wish-text"></p></div>';
     card.querySelector('.wish-name').textContent = name;
     card.querySelector('.wish-text').textContent = msg;
+    const list = document.getElementById('wishesList');
+    if(prepend) list.prepend(card); else list.appendChild(card);
+  }
 
-    document.getElementById('wishesList').prepend(card);
+  /* muat ucapan: kalau penyimpanan bersama sudah dipasang, ambil dari sana (tampil untuk
+     semua tamu); kalau belum, pakai yang tersimpan di perangkat ini saja */
+  (function loadSavedWishes(){
+    if(WISH_APPS_SCRIPT_URL){
+      if(wishNoteEl) wishNoteEl.textContent = 'Ucapan Anda akan tersimpan dan tampil untuk semua tamu yang membuka undangan ini.';
+      fetch(WISH_APPS_SCRIPT_URL)
+        .then(r => r.json())
+        .then(list => {
+          (list || []).forEach(w => renderWishCard(w.name, w.msg, true));
+        })
+        .catch(() => {
+          /* kalau server bermasalah, jangan biarkan halaman error — tampilkan pesan lembut */
+          if(wishNoteEl) wishNoteEl.textContent = 'Tidak bisa memuat ucapan saat ini, coba muat ulang halaman.';
+        });
+    } else {
+      if(wishNoteEl) wishNoteEl.textContent = 'Ucapan tersimpan di perangkat ini. Aktifkan penyimpanan bersama agar tampil untuk semua tamu.';
+      const stored = getLocalWishes();
+      stored.slice().reverse().forEach(w => renderWishCard(w.name, w.msg, true));
+    }
+  })();
+
+  document.getElementById('wishForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const nameInput = document.getElementById('wishName');
+    const msgInput = document.getElementById('wishMsg');
+    const name = nameInput.value.trim();
+    const msg = msgInput.value.trim();
+    if(!name || !msg) return;
+
+    renderWishCard(name, msg, true);
+
+    if(WISH_APPS_SCRIPT_URL){
+      /* mode 'no-cors' + text/plain supaya tidak kena blokir CORS preflight;
+         kita tidak perlu membaca balasannya, cukup kirim datanya */
+      fetch(WISH_APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ name: name, msg: msg })
+      }).catch(() => {});
+    } else {
+      const stored = getLocalWishes();
+      stored.unshift({ name: name, msg: msg });
+      setLocalWishes(stored);
+    }
+
     nameInput.value = '';
     msgInput.value = '';
   });
