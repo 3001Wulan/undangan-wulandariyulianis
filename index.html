@@ -180,7 +180,10 @@
   }
   .open-btn:focus-visible{ outline: 2px solid var(--gold-bright); outline-offset:3px; }
 
-  /* SCROLL HINT */
+  /* SCROLL HINT — ajakan menggeser/scroll untuk melihat undangan.
+     Posisi fixed di bawah layar supaya LANGSUNG terlihat begitu undangan dibuka,
+     tanpa perlu digulir dulu (terutama di HP). max-width + safe-area supaya
+     tidak pernah terpotong oleh tepi layar atau bilah navigasi bawah di HP. */
   .scroll-hint{
     position: fixed;
     left: 50%;
@@ -237,7 +240,7 @@
       linear-gradient(180deg, var(--mahogany-deep), var(--mahogany) 55%, var(--mahogany-deep));
   }
 
-  /* FALLING PHOTOS */
+  /* FALLING PHOTOS — foto-foto kecil berjatuhan di hero */
   .falling-photos{
     position:absolute;
     inset:0;
@@ -288,7 +291,7 @@
     margin-top: 10px;
   }
 
-  /* HERO PHOTO */
+  /* HERO PHOTO — foto tidak terpotong; ruang kosong diisi versi blur dari foto yang sama */
   .hero-photo{
     width: 140px;
     height: 140px;
@@ -311,13 +314,13 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover;        /* versi zoom untuk mengisi latar, tanpa blur */
   }
   .hero-photo img.hero-photo-main{
     position: relative;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: contain;      /* seluruh foto tampil utuh, tidak ada bagian yang hilang */
     object-position: center;
     display:block;
   }
@@ -330,7 +333,7 @@
     line-height:1.7;
   }
 
-  /* HERO DIVIDER */
+  /* HERO DIVIDER — efek transisi berkilau di akhir bagian foto berjatuhan */
   .hero-divider{
     position: relative;
     width: 100%;
@@ -395,6 +398,7 @@
     margin-top: 4px;
   }
 
+  /* ringkasan acara: hari, tanggal, lokasi, jam */
   .event-summary{
     max-width: 420px;
     margin: 0 auto 18px;
@@ -477,6 +481,12 @@
     transition: background 0.3s ease, color 0.3s ease;
   }
   .btn-outline:hover{ background: var(--gold); color: var(--mahogany-deep); }
+  .btn-row{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:0;
+  }
 
   /* MINI CALENDAR */
   .mini-calendar{
@@ -517,6 +527,7 @@
     font-weight: 600;
   }
 
+  /* Tambah ke kalender — sekarang di dalam kartu mini kalender, langsung 1 klik */
   .add-to-calendar{
     text-align:center;
     margin-top: 14px;
@@ -565,7 +576,7 @@
     color: var(--rose-dust);
   }
 
-  /* MAP EMBED */
+  /* MAP EMBED (OpenStreetMap) */
   .map-embed{
     max-width: 420px;
     margin: 22px auto 0;
@@ -582,7 +593,7 @@
     filter: sepia(12%) saturate(85%) contrast(1.02);
   }
 
-  /* TIMELINE */
+  /* TIMELINE (perjalanan studi) */
   .timeline{
     max-width: 420px;
     margin: 0 auto;
@@ -603,7 +614,8 @@
   }
   .tl-text{ color: var(--cream); font-size: 0.95rem; }
 
-  /* GALLERY */
+  /* GALLERY — Baris 1: foto - video - foto (video di tengah).
+     Baris 2: banyak foto yang bisa digeser ke samping (scroll horizontal). */
   .gallery-row1{
     display:grid;
     grid-template-columns: repeat(3, 1fr);
@@ -658,7 +670,7 @@
     display:flex;
     gap: 10px;
     width: max-content;
-    padding: 2px;
+    padding: 2px 2px 2px 2px;
     user-select: none;
   }
   .gallery-row2-track a{
@@ -703,7 +715,7 @@
     border-radius: 4px;
   }
 
-  /* WISHES */
+  /* UCAPAN / WISHES */
   .wishes-list{
     max-width: 460px;
     margin: 0 auto 28px;
@@ -805,6 +817,7 @@
     margin: 4px 0;
   }
 
+  /* REVEAL ON SCROLL — elemen muncul lembut (fade + naik) saat digulir setelah hero */
   .reveal{
     opacity: 0;
     transform: translateY(28px);
@@ -848,7 +861,7 @@
     <div class="monogram">🎓</div>
     <p class="eyebrow">Undangan Wisuda</p>
     <h1>Wulandari Yulianis</h1>
-    <p class="role">Sarjana Komputer - S1 Sistem Informasi — Universitas Andalas</p>
+    <p class="role">Sarjana Komputer- S1 Sistem Informasi — Universitas Andalas</p>
     <div class="ornament">
       <span class="rule"></span>
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z" fill="#c9a66b"/></svg>
@@ -869,7 +882,7 @@
     <div class="hero-photo">
       <div class="hero-photo-inner">
         <img class="hero-photo-bg" src="EMI00753.JPG" alt="" aria-hidden="true">
-        <img class="hero-photo-main" src="EMI00753.JPG" alt="Foto Wulandari Yulianis">
+        <img class="hero-photo-main" src="EMI00753.JPG" alt="Foto Lann">
       </div>
     </div>
     <h1>Wulandari Yulianis, S.Kom<span class="role">telah menyelesaikan pendidikan Sarjana Komputer - S1 Sistem Informasi</span></h1>
@@ -881,16 +894,15 @@
     <p>Assalamualaikum warahmatullahi wabarakatuh.</p>
     <p>Puji syukur atas nikmat yang diberikan, kami mengundang Bapak/Ibu/Saudara/i untuk turut hadir dan memberikan doa restu pada momen kelulusan ini.</p>
 
-    <!-- SCROLL HINT -->
-    <div class="scroll-hint" id="scrollHint" onclick="scrollToContent()">
+    <!-- SCROLL HINT: ajakan menggeser/scroll untuk melihat undangan, tetap di halaman ini (hero)
+         dan langsung nampak begitu undangan dibuka -->
+    <div class="scroll-hint" id="scrollHint" onclick="scrollToNext()" role="button" tabindex="0" onkeypress="if(event.key==='Enter')scrollToNext()">
       <span>Scroll untuk melihat undangan</span>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 5v14M19 12l-7 7-7-7"/>
-      </svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 4v14M6 13l6 6 6-6" stroke="#c9a25a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
   </div>
 
-  <!-- EFEK TRANSISI -->
+  <!-- EFEK TRANSISI setelah bagian foto berjatuhan: gelombang emas berkilau -->
   <div class="hero-divider" aria-hidden="true">
     <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -912,57 +924,17 @@
     <div class="mini-calendar reveal" aria-label="Kalender September 2026">
       <div class="mc-header">September 2026</div>
       <div class="mc-grid">
-        <span class="mc-dow">Min</span>
-        <span class="mc-dow">Sen</span>
-        <span class="mc-dow">Sel</span>
-        <span class="mc-dow">Rab</span>
-        <span class="mc-dow">Kam</span>
-        <span class="mc-dow">Jum</span>
-        <span class="mc-dow">Sab</span>
-
-        <span></span>
-        <span></span>
-        <span class="mc-day">1</span>
-        <span class="mc-day">2</span>
-        <span class="mc-day">3</span>
-        <span class="mc-day">4</span>
-        <span class="mc-day">5</span>
-
-        <span class="mc-day">6</span>
-        <span class="mc-day">7</span>
-        <span class="mc-day">8</span>
-        <span class="mc-day">9</span>
-        <span class="mc-day">10</span>
-        <span class="mc-day">11</span>
-        <span class="mc-day">12</span>
-
-        <span class="mc-day">13</span>
-        <span class="mc-day">14</span>
-        <span class="mc-day">15</span>
-        <span class="mc-day">16</span>
-        <span class="mc-day">17</span>
-        <span class="mc-day mc-highlight">18</span>
-        <span class="mc-day">19</span>
-
-        <span class="mc-day">20</span>
-        <span class="mc-day">21</span>
-        <span class="mc-day">22</span>
-        <span class="mc-day">23</span>
-        <span class="mc-day">24</span>
-        <span class="mc-day">25</span>
-        <span class="mc-day">26</span>
-
-        <span class="mc-day">27</span>
-        <span class="mc-day">28</span>
-        <span class="mc-day">29</span>
-        <span class="mc-day">30</span>
-        <span></span>
-        <span></span>
-        <span></span>
+        <span class="mc-dow">Min</span><span class="mc-dow">Sen</span><span class="mc-dow">Sel</span><span class="mc-dow">Rab</span><span class="mc-dow">Kam</span><span class="mc-dow">Jum</span><span class="mc-dow">Sab</span>
+        <span></span><span></span><span></span><span class="mc-day">1</span><span class="mc-day">2</span><span class="mc-day">3</span><span class="mc-day">4</span>
+        <span class="mc-day">5</span><span class="mc-day">6</span><span class="mc-day">7</span><span class="mc-day">8</span><span class="mc-day">9</span><span class="mc-day">10</span><span class="mc-day">11</span>
+        <span class="mc-day">12</span><span class="mc-day">13</span><span class="mc-day">14</span><span class="mc-day">15</span><span class="mc-day">16</span><span class="mc-day">17</span><span class="mc-day mc-highlight">18</span>
+        <span class="mc-day">19</span><span class="mc-day">20</span><span class="mc-day">21</span><span class="mc-day">22</span><span class="mc-day">23</span><span class="mc-day">24</span><span class="mc-day">25</span>
+        <span class="mc-day">26</span><span class="mc-day">27</span><span class="mc-day">28</span><span class="mc-day">29</span><span class="mc-day">30</span><span class="mc-day">31</span><span></span>
       </div>
 
+      <!-- TAMBAHKAN KE KALENDER — langsung 1 klik ke Google Calendar, tanpa menu/app tambahan -->
       <div class="add-to-calendar">
-        <a id="gcalLink" class="btn btn-sm" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wisuda+Wulandari+Yulianis,+S.Kom&dates=20260918T060000Z/20260918T080000Z&details=Acara+Wisuda+Wulandari+Yulianis,+S.Kom+(S1+Sistem+Informasi+Universitas+Andalas)&location=Fakultas+Teknologi+Informasi,+Universitas+Andalas,+Padang" target="_blank" rel="noopener">📅 Tambahkan ke Google Calendar</a>
+        <a id="gcalLink" class="btn btn-sm" href="#" target="_blank" rel="noopener">📅 Tambahkan ke Google Calendar</a>
         <button class="ics-link" onclick="downloadICS()" type="button">atau unduh file .ics (Apple / Outlook)</button>
       </div>
     </div>
@@ -1003,6 +975,7 @@
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Fakultas+Teknologi+Informasi+Universitas+Andalas" target="_blank" rel="noopener">Lihat di Google Maps</a>
     </div>
 
+    <!-- PETA OPENSTREETMAP — bbox dipersempit agar langsung zoom ke Gedung FTI -->
     <div class="map-embed reveal">
       <iframe
         title="Peta lokasi Fakultas Teknologi Informasi Universitas Andalas"
@@ -1017,9 +990,9 @@
     <p class="eyebrow reveal">Perjalanan Studi</p>
     <h2 class="section-title reveal">Sekilas Perjalanan</h2>
     <div class="timeline">
-      <div class="tl-item reveal"><div class="tl-year">2022</div><div class="tl-text">Memulai perkuliahan S1 Sistem Informasi di Universitas Andalas</div></div>
-      <div class="tl-item reveal"><div class="tl-year">2025</div><div class="tl-text">Menyelesaikan skripsi dan tugas akhir</div></div>
-      <div class="tl-item reveal"><div class="tl-year">2026</div><div class="tl-text">Dinyatakan lulus dan resmi menyandang gelar S.Kom</div></div>
+      <div class="tl-item reveal"><div class="tl-year">2022</div><div class="tl-text">Memulai perkuliahan di [Nama Universitas]</div></div>
+      <div class="tl-item reveal"><div class="tl-year">2025</div><div class="tl-text">Menyelesaikan skripsi/tugas akhir</div></div>
+      <div class="tl-item reveal"><div class="tl-year">2026</div><div class="tl-text">Dinyatakan lulus dan diwisuda</div></div>
     </div>
   </section>
 
@@ -1029,6 +1002,7 @@
     <p class="section-sub reveal">Klik foto untuk melihat lebih besar</p>
     <div class="gallery-row1">
       <a class="reveal" href="https://picsum.photos/seed/wisuda1/800/1000" data-lightbox><img src="https://picsum.photos/seed/wisuda1/500/650" alt="Foto kenangan 1" loading="lazy"></a>
+      <!-- VIDEO di tengah, diapit foto di kiri dan kanan -->
       <div class="gallery-video reveal">
         <video controls preload="metadata" poster="EMI00753.JPG">
           <source src="video-wisuda.mp4" type="video/mp4">
@@ -1039,7 +1013,7 @@
     </div>
 
     <p class="gallery-hint reveal">Foto bergeser otomatis — sentuh untuk berhenti sejenak</p>
-    <div class="gallery-row2 reveal" id="galleryRow2">
+    <div class="gallery-row2 reveal">
       <div class="gallery-row2-track">
         <a href="https://picsum.photos/seed/wisuda3/800/1000" data-lightbox><img src="https://picsum.photos/seed/wisuda3/500/650" alt="Foto kenangan 3" loading="lazy"></a>
         <a href="https://picsum.photos/seed/wisuda4/800/1000" data-lightbox><img src="https://picsum.photos/seed/wisuda4/500/650" alt="Foto kenangan 4" loading="lazy"></a>
@@ -1052,186 +1026,498 @@
   </section>
 
   <section>
-    <p class="eyebrow reveal">Doa &amp; Ucapan</p>
-    <h2 class="section-title reveal">Berikan Ucapan</h2>
+    <p class="eyebrow reveal">Doa &amp; Restu</p>
+    <h2 class="section-title reveal">Ucapan dari Teman-Teman</h2>
+    <p class="section-sub reveal">Tinggalkan pesan untuk Lann</p>
+
     <div class="wishes-list reveal" id="wishesList">
       <div class="wish-card">
         <div class="wish-avatar">A</div>
         <div>
-          <div class="wish-name">Ahmad</div>
-          <p class="wish-text">Selamat atas kelulusannya Wulandari Yulianis, S.Kom! Sukses selalu untuk karir ke depannya.</p>
+          <p class="wish-name">Anisa</p>
+          <p class="wish-text">Selamat atas kelulusannya! Semoga sukses selalu untuk langkah selanjutnya 🎓</p>
+        </div>
+      </div>
+      <div class="wish-card">
+        <div class="wish-avatar">R</div>
+        <div>
+          <p class="wish-name">Rian</p>
+          <p class="wish-text">Proud of you! Perjuangan selama ini akhirnya terbayar, selamat ya!</p>
         </div>
       </div>
     </div>
 
-    <form class="wish-form reveal" onsubmit="addWish(event)">
+    <form class="wish-form" id="wishForm">
       <input type="text" id="wishName" placeholder="Nama Anda" required>
-      <textarea id="wishMessage" placeholder="Tuliskan ucapan & doa Anda..." required></textarea>
+      <textarea id="wishMsg" placeholder="Tulis ucapan dan doa Anda di sini..." required></textarea>
       <button type="submit">Kirim Ucapan</button>
     </form>
-    <p class="wish-note reveal">Terima kasih atas ucapan dan doa terbaik yang Anda berikan.</p>
+    <p class="wish-note" id="wishNote">Ucapan Anda akan tersimpan dan tampil untuk semua tamu yang membuka undangan ini.</p>
   </section>
 
-  <footer>
-    <div class="signature">Wulandari Yulianis, S.Kom</div>
-    <p>Universitas Andalas — 2026</p>
+  <footer class="reveal">
+    <div class="ornament"><span class="rule"></span><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z" fill="#c9a66b"/></svg><span class="rule"></span></div>
+    <p class="signature">Lann</p>
+    <p>Terima kasih atas doa dan restu yang diberikan.</p>
   </footer>
-
 </div>
+
+<!-- MUSIC -->
+<audio id="music" src="musik.mp3" loop preload="auto"></audio>
+<button class="music-toggle" id="musicBtn" onclick="toggleMusic()" aria-label="Putar atau jeda musik" style="display:none;">♪</button>
 
 <!-- LIGHTBOX -->
 <div id="lightbox" onclick="closeLightbox()">
-  <img id="lightboxImg" src="" alt="Enlarged photo">
+  <img id="lightboxImg" src="" alt="Foto diperbesar">
 </div>
 
-<!-- MUSIC CONTROLLER -->
-<button class="music-toggle" id="musicToggle" onclick="toggleMusic()" aria-label="Toggle Music">🎵</button>
-<audio id="bgMusic" loop>
-  <source src="audio.mp3" type="audio/mpeg">
-</audio>
-
 <script>
-  // Guest Name from Query String
-  const urlParams = new URLSearchParams(window.location.search);
-  const guest = urlParams.get('to');
-  if(guest) {
-    document.getElementById('guestName').innerText = guest;
+  /* PERSONALISASI NAMA TAMU via ?to=Nama */
+  (function(){
+    const params = new URLSearchParams(window.location.search);
+    const to = params.get('to');
+    if(to){
+      const decoded = decodeURIComponent(to.replace(/\+/g, ' '));
+      document.getElementById('guestName').textContent = decoded;
+    }
+  })();
+
+  /* PRELOAD MUSIK dari awal biar tidak ada jeda saat dibuka */
+  window.addEventListener('DOMContentLoaded', function(){
+    document.getElementById('music').load();
+  });
+
+  /* EFEK SPARKLE di halaman pembuka */
+  (function(){
+    const container = document.getElementById('sparkles');
+    if(!container) return;
+    const total = 22;
+    for(let i = 0; i < total; i++){
+      const s = document.createElement('span');
+      s.className = 'sparkle';
+      s.style.left = (Math.random() * 100) + '%';
+      s.style.top = (Math.random() * 100) + '%';
+      s.style.animationDelay = (Math.random() * 3.4) + 's';
+      s.style.animationDuration = (2.6 + Math.random() * 2.4) + 's';
+      container.appendChild(s);
+    }
+  })();
+
+  /* FOTO BERJATUHAN di hero (Dengan Penuh Syukur) — berulang selama section ini terlihat */
+  const fallingPhotoSources = [
+    'EMI00753.JPG',
+    'foto 1.jpeg',
+    'foto 2.jpeg',
+    'foto 3.jpeg',
+    'foto 4.jpeg',
+    'foto 5.jpeg',
+    'foto 6.jpeg',
+    'foto 7.jpeg',
+    'foto 8.jpeg'
+  ];
+
+  let fallingPhotosInterval = null;
+
+  function spawnFallingPhotos(count){
+    const container = document.getElementById('fallingPhotos');
+    if(!container) return;
+    const heroHeight = container.parentElement.offsetHeight || 500;
+
+    for(let i = 0; i < count; i++){
+      const el = document.createElement('div');
+      el.className = 'falling-photo';
+
+      const src = fallingPhotoSources[Math.floor(Math.random() * fallingPhotoSources.length)];
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = '';
+      el.appendChild(img);
+
+      const leftPos = Math.random() * 100;
+      const size = 46 + Math.random() * 26;
+      const duration = 9 + Math.random() * 5;
+      const delay = Math.random() * 3;
+      const rotStart = (Math.random() * 20 - 10).toFixed(1);
+      const rotEnd = (Math.random() * 50 - 25).toFixed(1);
+      const fallDistance = heroHeight + 160;
+
+      el.style.left = leftPos + '%';
+      el.style.width = size + 'px';
+      el.style.height = (size * 1.2) + 'px';
+      el.style.setProperty('--rot-start', rotStart + 'deg');
+      el.style.setProperty('--rot-end', rotEnd + 'deg');
+      el.style.setProperty('--fall-distance', fallDistance + 'px');
+      el.style.animationDuration = duration + 's';
+      el.style.animationDelay = delay + 's';
+
+      container.appendChild(el);
+
+      /* bersihkan elemen setelah animasi selesai supaya ringan */
+      setTimeout(() => { el.remove(); }, (duration + delay) * 1000 + 500);
+    }
   }
 
-  // Open Invitation
-  function openInvite() {
-    document.getElementById('opening').style.display = 'none';
-    const main = document.getElementById('main');
-    main.classList.add('show');
-    document.getElementById('scrollHint').classList.add('show');
-    initObserver();
-    startCountdown();
-    playMusic();
+  function startFallingPhotosLoop(){
+    if(fallingPhotosInterval) return; /* sudah jalan */
+    spawnFallingPhotos(8);
+    fallingPhotosInterval = setInterval(() => spawnFallingPhotos(5), 4500);
   }
 
-  // Scroll to Content
-  function scrollToContent() {
-    document.getElementById('waktu-tempat').scrollIntoView({ behavior: 'smooth' });
+  function stopFallingPhotosLoop(){
+    if(fallingPhotosInterval){
+      clearInterval(fallingPhotosInterval);
+      fallingPhotosInterval = null;
+    }
   }
 
-  // Countdown Timer
-  function startCountdown() {
-    const targetDate = new Date('September 18, 2026 13:00:00 GMT+0700').getTime();
-    setInterval(() => {
-      const now = new Date().getTime();
-      const diff = targetDate - now;
-
-      if(diff > 0) {
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const secs = Math.floor((diff % (1000 * 60)) / 1000);
-
-        document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
-        document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
-        document.getElementById('cd-mins').innerText = String(mins).padStart(2, '0');
-        document.getElementById('cd-secs').innerText = String(secs).padStart(2, '0');
-      }
-    }, 1000);
-  }
-
-  // Intersection Observer for Reveal Animation
-  function initObserver() {
-    const observer = new IntersectionObserver((entries) => {
+  /* pantau apakah section hero sedang terlihat di layar — foto jatuh + tombol "geser untuk membuka"
+     hanya tampil selama section ini ada di layar. Observer ini di-setup begitu undangan dibuka
+     (bukan saat DOMContentLoaded, karena #main masih display:none saat itu sehingga elemen
+     belum punya ukuran/posisi untuk dipantau). */
+  let heroVisibilityObserver = null;
+  function initHeroVisibilityObserver(){
+    const heroEl = document.querySelector('.hero');
+    const scrollHint = document.getElementById('scrollHint');
+    if(!heroEl) return;
+    if(!('IntersectionObserver' in window)){
+      if(scrollHint) scrollHint.classList.add('show');
+      return;
+    }
+    if(heroVisibilityObserver) heroVisibilityObserver.disconnect();
+    heroVisibilityObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if(entry.isIntersecting) {
-          entry.target.classList.add('show');
+        if(entry.isIntersecting){
+          startFallingPhotosLoop();
+          if(scrollHint) scrollHint.classList.add('show');
+        } else {
+          stopFallingPhotosLoop();
+          if(scrollHint) scrollHint.classList.remove('show');
         }
       });
     }, { threshold: 0.1 });
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    heroVisibilityObserver.observe(heroEl);
   }
 
-  // Download ICS File
-  function downloadICS() {
-    const csData = `BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//Undangan Wisuda Wulandari Yulianis//ID
-BEGIN:VEVENT
-SUMMARY:Wisuda Wulandari Yulianis, S.Kom
-DESCRIPTION:Prosesi Wisuda S1 Sistem Informasi Universitas Andalas
-LOCATION:Fakultas Teknologi Informasi, Universitas Andalas, Padang
-DTSTART:20260918T060000Z
-DTEND:20260918T080000Z
-END:VEVENT
-END:VCALENDAR`;
+  /* OPENING FUNCTION */
+  function openInvite() {
+    document.getElementById("opening").style.display = "none";
+    const main = document.getElementById("main");
+    main.style.display = "block";
+    main.classList.add("show");
+    const music = document.getElementById("music");
+    music.currentTime = 5; /* lewati 5 detik hening di awal file musik */
+    music.play().catch(()=>{});
+    document.getElementById("musicBtn").style.display = "flex";
 
-    const blob = new Blob([csData], { type: 'text/calendar;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.setAttribute('download', 'wisuda-wulandari.ics');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
+    /* Tampilkan "geser untuk membuka" LANGSUNG saat undangan dibuka, di halaman yang sama
+       (hero), tanpa menunggu observer/animation frame */
+    const scrollHintNow = document.getElementById('scrollHint');
+    if(scrollHintNow) scrollHintNow.classList.add('show');
 
-  // Lightbox Functionality
-  document.querySelectorAll('[data-lightbox]').forEach(el => {
-    el.addEventListener('click', (e) => {
-      e.preventDefault();
-      document.getElementById('lightboxImg').src = el.getAttribute('href');
-      document.getElementById('lightbox').classList.add('show');
+    /* Tunggu 2 frame render supaya browser sudah selesai melakukan layout untuk #main
+       (yang baru saja berubah dari display:none ke block) sebelum memantau elemen. */
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        startFallingPhotosLoop();
+        initHeroVisibilityObserver();
+        initRevealObserver();
+        initGalleryAutoScroll();
+      });
     });
-  });
 
-  function closeLightbox() {
+    /* jaring pengaman kedua: kalau ada elemen ".reveal" yang entah kenapa tidak pernah
+       ter-trigger observer-nya (mis. perangkat/browser tidak umum), paksa tampil
+       setelah beberapa detik supaya konten tidak pernah hilang permanen */
+    setTimeout(function(){
+      document.querySelectorAll('.reveal:not(.show)').forEach(el => el.classList.add('show'));
+    }, 4000);
+  }
+
+  /* geser dari halaman "Dengan Penuh Syukur" menuju bagian Waktu & Tempat */
+  function scrollToNext(){
+    const target = document.getElementById('waktu-tempat');
+    if(target){ target.scrollIntoView({ behavior: 'smooth' }); }
+  }
+
+  /* REVEAL ON SCROLL — setiap elemen ".reveal" muncul lembut (fade + naik) satu per satu
+     saat mulai terlihat di layar, memberi kesan elegan setelah bagian foto berjatuhan.
+     Di-setup dari openInvite() (bukan DOMContentLoaded) supaya elemen sudah punya
+     ukuran/posisi yang benar — sebelum undangan dibuka, #main masih display:none
+     sehingga IntersectionObserver tidak bisa memantaunya dengan akurat. */
+  let revealObserver = null;
+  function initRevealObserver(){
+    const revealEls = document.querySelectorAll('.reveal:not(.show)');
+    if(!revealEls.length) return;
+
+    if(!('IntersectionObserver' in window)){
+      revealEls.forEach(el => el.classList.add('show'));
+      return;
+    }
+
+    if(revealObserver) revealObserver.disconnect();
+    revealObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          const el = entry.target;
+          /* efek berjenjang: elemen yang berdekatan muncul dengan sedikit jeda */
+          const siblings = Array.from(el.parentElement ? el.parentElement.children : []).filter(c => c.classList.contains('reveal'));
+          const idx = siblings.indexOf(el);
+          const delay = Math.max(idx, 0) * 90;
+          setTimeout(() => el.classList.add('show'), delay);
+          obs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    /* jaring pengaman tambahan: pada layar tinggi/desktop sebagian elemen di bawah hero
+       bisa saja sudah langsung terlihat begitu dibuka — periksa manual sekali di awal */
+    revealEls.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if(rect.top < window.innerHeight && rect.bottom > 0){
+        el.classList.add('show');
+        revealObserver.unobserve(el);
+      }
+    });
+  }
+
+  function toggleMusic(){
+    const music = document.getElementById("music");
+    const btn = document.getElementById("musicBtn");
+    if(music.paused){ music.play(); btn.textContent = "♪"; }
+    else { music.pause(); btn.textContent = "❙❙"; }
+  }
+
+  /* COUNTDOWN — target: Jumat, 18 September 2026 pukul 13.00 WIB */
+  const targetDate = new Date("September 18, 2026 13:00:00").getTime();
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function updateCountdown(){
+    const now = new Date().getTime();
+    const distance = Math.max(targetDate - now, 0);
+    const days = Math.floor(distance / (1000*60*60*24));
+    const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+    const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+    const seconds = Math.floor((distance % (1000*60)) / 1000);
+    document.getElementById('cd-days').textContent = pad(days);
+    document.getElementById('cd-hours').textContent = pad(hours);
+    document.getElementById('cd-mins').textContent = pad(minutes);
+    document.getElementById('cd-secs').textContent = pad(seconds);
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  /* TAMBAHKAN KE KALENDER — Google Calendar link langsung (1 klik, tanpa app terpisah) + unduh .ics opsional */
+  const EVENT_TITLE = "Wisuda Wulandari Yulianis, S.Kom";
+  const EVENT_LOCATION = "Fakultas Teknologi Informasi, Universitas Andalas, Limau Manis, Padang, Sumatera Barat";
+  const EVENT_DESC = "Prosesi wisuda Wulandari Yulianis, S.Kom - Sarjana Komputer S1 Sistem Informasi, Universitas Andalas.";
+  /* Waktu lokal WIB (UTC+7) dikonversi ke UTC untuk format kalender: 18 September 2026 13:00-15:00 WIB = 06:00-08:00 UTC */
+  const EVENT_START_UTC = "20260918T060000Z";
+  const EVENT_END_UTC   = "20260918T080000Z";
+
+  function buildGoogleCalendarLink(){
+    const base = "https://calendar.google.com/calendar/render?action=TEMPLATE";
+    const params = new URLSearchParams({
+      text: EVENT_TITLE,
+      dates: EVENT_START_UTC + "/" + EVENT_END_UTC,
+      details: EVENT_DESC,
+      location: EVENT_LOCATION
+    });
+    return base + "&" + params.toString();
+  }
+  document.getElementById('gcalLink').href = buildGoogleCalendarLink();
+
+  function downloadICS(){
+    const ics = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//Undangan Wisuda//ID",
+      "BEGIN:VEVENT",
+      "UID:" + Date.now() + "@undangan-wisuda",
+      "DTSTAMP:" + EVENT_START_UTC,
+      "DTSTART:" + EVENT_START_UTC,
+      "DTEND:" + EVENT_END_UTC,
+      "SUMMARY:" + EVENT_TITLE,
+      "DESCRIPTION:" + EVENT_DESC,
+      "LOCATION:" + EVENT_LOCATION,
+      "END:VEVENT",
+      "END:VCALENDAR"
+    ].join("\r\n");
+    const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = "Undangan-Wisuda-Wulandari.ics";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  /* GALERI BARIS 2 — geser otomatis ke samping tanpa putus (looping),
+     berhenti sejenak kalau disentuh/digeser manual, lalu lanjut lagi otomatis. */
+  let galleryAutoScrollObserver = null;
+  let galleryVisible = false;
+  function initGalleryAutoScroll(){
+    const wrap = document.querySelector('.gallery-row2');
+    const track = document.querySelector('.gallery-row2-track');
+    if(!wrap || !track) return;
+
+    /* hormati preferensi pengguna yang mematikan animasi */
+    if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    /* duplikat isi baris sekali saja supaya loop terlihat menyambung tanpa jeda */
+    if(!track.dataset.duplicated){
+      track.insertAdjacentHTML('beforeend', track.innerHTML);
+      track.dataset.duplicated = 'true';
+    }
+
+    let paused = false;
+    let resumeTimer = null;
+    const speed = 0.035; /* px per milidetik, geser pelan dan halus */
+
+    function pause(){
+      paused = true;
+      if(resumeTimer) clearTimeout(resumeTimer);
+    }
+    function scheduleResume(){
+      if(resumeTimer) clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(() => { paused = false; }, 2200);
+    }
+
+    wrap.addEventListener('pointerdown', pause);
+    wrap.addEventListener('pointerup', scheduleResume);
+    wrap.addEventListener('pointerleave', scheduleResume);
+    wrap.addEventListener('touchstart', pause, { passive: true });
+    wrap.addEventListener('touchend', scheduleResume, { passive: true });
+    wrap.addEventListener('wheel', function(){ pause(); scheduleResume(); }, { passive: true });
+
+    /* pantau apakah galeri sedang terlihat di layar, supaya animasi berhenti
+       (hemat baterai) saat pengguna sedang membaca bagian lain */
+    if('IntersectionObserver' in window){
+      if(galleryAutoScrollObserver) galleryAutoScrollObserver.disconnect();
+      galleryAutoScrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { galleryVisible = entry.isIntersecting; });
+      }, { threshold: 0.1 });
+      galleryAutoScrollObserver.observe(wrap);
+    } else {
+      galleryVisible = true;
+    }
+
+    let lastTime = null;
+    let halfWidth = track.scrollWidth / 2;
+    /* ukuran gambar bisa berubah setelah semuanya selesai dimuat, hitung ulang */
+    window.addEventListener('load', function(){ halfWidth = track.scrollWidth / 2; });
+    setTimeout(function(){ halfWidth = track.scrollWidth / 2; }, 1200);
+
+    function step(timestamp){
+      if(lastTime === null) lastTime = timestamp;
+      const delta = timestamp - lastTime;
+      lastTime = timestamp;
+
+      if(!paused && galleryVisible && halfWidth > 0){
+        wrap.scrollLeft += speed * delta;
+        if(wrap.scrollLeft >= halfWidth){
+          wrap.scrollLeft -= halfWidth;
+        }
+      }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* GALLERY LIGHTBOX — delegated ke document supaya tetap berfungsi walau ada
+     foto yang diduplikasi (untuk efek geser otomatis tanpa putus di baris 2) */
+  document.addEventListener('click', function(e){
+    const link = e.target.closest('[data-lightbox]');
+    if(!link) return;
+    e.preventDefault();
+    const img = document.getElementById('lightboxImg');
+    img.src = link.getAttribute('href');
+    document.getElementById('lightbox').classList.add('show');
+  });
+  function closeLightbox(){
     document.getElementById('lightbox').classList.remove('show');
   }
 
-  // Music Controller
-  const bgMusic = document.getElementById('bgMusic');
-  let isPlaying = false;
+  /* UCAPAN / WISHES — supaya ucapan tampil untuk SEMUA tamu (bukan cuma di HP pengirim),
+     situs ini perlu "penyimpanan bersama". Isi WISH_APPS_SCRIPT_URL di bawah ini dengan
+     URL Web App dari Google Apps Script (lihat panduan singkat yang saya berikan terpisah).
+     Selama URL belum diisi, ucapan otomatis memakai localStorage (hanya tersimpan di
+     perangkat masing-masing) supaya fitur tetap berjalan sambil menunggu dipasang. */
+  const WISH_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzW2xVUz8xnyXSD3lDq5owFixgJlhswje0LH9pliK6UlIC1m9s_LqjALkFLB2RPwYRU7w/exec';
+  const WISH_STORAGE_KEY = 'wisuda_wulandari_wishes_v1';
+  const wishNoteEl = document.getElementById('wishNote');
 
-  function playMusic() {
-    bgMusic.play().then(() => {
-      isPlaying = true;
-      document.getElementById('musicToggle').innerText = '🎵';
-    }).catch(() => {
-      isPlaying = false;
-      document.getElementById('musicToggle').innerText = '🔇';
-    });
+  function getLocalWishes(){
+    try{
+      const raw = localStorage.getItem(WISH_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    }catch(e){ return []; }
   }
 
-  function toggleMusic() {
-    if(isPlaying) {
-      bgMusic.pause();
-      document.getElementById('musicToggle').innerText = '🔇';
-      isPlaying = false;
+  function setLocalWishes(list){
+    try{ localStorage.setItem(WISH_STORAGE_KEY, JSON.stringify(list)); }catch(e){}
+  }
+
+  function renderWishCard(name, msg, prepend){
+    const card = document.createElement('div');
+    card.className = 'wish-card';
+    const initial = name.charAt(0).toUpperCase();
+    card.innerHTML =
+      '<div class="wish-avatar">' + initial + '</div>' +
+      '<div><p class="wish-name"></p><p class="wish-text"></p></div>';
+    card.querySelector('.wish-name').textContent = name;
+    card.querySelector('.wish-text').textContent = msg;
+    const list = document.getElementById('wishesList');
+    if(prepend) list.prepend(card); else list.appendChild(card);
+  }
+
+  /* muat ucapan: kalau penyimpanan bersama sudah dipasang, ambil dari sana (tampil untuk
+     semua tamu); kalau belum, pakai yang tersimpan di perangkat ini saja */
+  (function loadSavedWishes(){
+    if(WISH_APPS_SCRIPT_URL){
+      if(wishNoteEl) wishNoteEl.textContent = 'Ucapan Anda akan tersimpan dan tampil untuk semua tamu yang membuka undangan ini.';
+      fetch(WISH_APPS_SCRIPT_URL)
+        .then(r => r.json())
+        .then(list => {
+          (list || []).forEach(w => renderWishCard(w.name, w.msg, true));
+        })
+        .catch(() => {
+          /* kalau server bermasalah, jangan biarkan halaman error — tampilkan pesan lembut */
+          if(wishNoteEl) wishNoteEl.textContent = 'Tidak bisa memuat ucapan saat ini, coba muat ulang halaman.';
+        });
     } else {
-      bgMusic.play();
-      document.getElementById('musicToggle').innerText = '🎵';
-      isPlaying = true;
+      if(wishNoteEl) wishNoteEl.textContent = 'Ucapan tersimpan di perangkat ini. Aktifkan penyimpanan bersama agar tampil untuk semua tamu.';
+      const stored = getLocalWishes();
+      stored.slice().reverse().forEach(w => renderWishCard(w.name, w.msg, true));
     }
-  }
+  })();
 
-  // Add Wish
-  function addWish(e) {
+  document.getElementById('wishForm').addEventListener('submit', function(e){
     e.preventDefault();
-    const name = document.getElementById('wishName').value;
-    const msg = document.getElementById('wishMessage').value;
-    
-    if(name && msg) {
-      const list = document.getElementById('wishesList');
-      const card = document.createElement('div');
-      card.className = 'wish-card';
-      card.innerHTML = `
-        <div class="wish-avatar">${name.charAt(0).toUpperCase()}</div>
-        <div>
-          <div class="wish-name">${name}</div>
-          <p class="wish-text">${msg}</p>
-        </div>
-      `;
-      list.prepend(card);
-      document.getElementById('wishName').value = '';
-      document.getElementById('wishMessage').value = '';
+    const nameInput = document.getElementById('wishName');
+    const msgInput = document.getElementById('wishMsg');
+    const name = nameInput.value.trim();
+    const msg = msgInput.value.trim();
+    if(!name || !msg) return;
+
+    renderWishCard(name, msg, true);
+
+    if(WISH_APPS_SCRIPT_URL){
+      /* pakai GET (bukan POST) supaya tidak kena masalah redirect Apps Script
+         yang sering membuang data saat memakai POST dari browser */
+      const url = WISH_APPS_SCRIPT_URL + '?name=' + encodeURIComponent(name) + '&msg=' + encodeURIComponent(msg);
+      fetch(url).catch(() => {});
+    } else {
+      const stored = getLocalWishes();
+      stored.unshift({ name: name, msg: msg });
+      setLocalWishes(stored);
     }
-  }
+
+    nameInput.value = '';
+    msgInput.value = '';
+  });
 </script>
 </body>
 </html>
