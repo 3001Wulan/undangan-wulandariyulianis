@@ -275,7 +275,7 @@
     85%{ opacity:0.9; }
     100%{ transform: translateY(var(--fall-distance)) rotate(var(--rot-end)); opacity:0; }
   }
-  .hero > *:not(.falling-photos){ position:relative; z-index:2; }
+  .hero > *:not(.falling-photos):not(.scroll-hint){ position:relative; z-index:2; }
   .hero .eyebrow{ margin-bottom: 14px; }
   .hero h1{
     font-size: clamp(2.3rem, 8vw, 3.4rem);
