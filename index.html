@@ -23,27 +23,34 @@
 ========================================================= */
 
 :root{
-  --deep:#16090b;
-  --deep2:#211014;
+  --deep:#12070a;
+  --deep2:#1b0b10;
 
-  --wine:#4b2029;
-  --wine2:#69313d;
-  --rose-dark:#814758;
-  --rose:#c08c9b;
+  --wine:#4a1d29;
+  --wine2:#672c3b;
+  --wine3:#7c3c50;
 
+  --rose-dark:#8f4b62;
+  --rose:#c394a4;
+  --rose-light:#ddb7c2;
+
+  --plum:#70516f;
   --mauve:#b99ab2;
-  --gold:#c9a25a;
-  --gold2:#e2ba77;
-  --gold3:#f6dfae;
 
-  --cream:#f7eadb;
-  --cream2:#fff6ed;
+  --gold:#c9a25a;
+  --gold2:#dfb970;
+  --gold3:#f7dfae;
+  --champagne:#fff0c9;
+
+  --cream:#f8eadc;
+  --cream2:#fff8f0;
 
   --line:rgba(226,186,119,.25);
 
   --glass:
-    rgba(77,32,41,.46);
+    rgba(79,31,45,.46);
 }
+
 
 /* =========================================================
    RESET
@@ -71,31 +78,32 @@ body{
   text-align:center;
 
   background:
+
     radial-gradient(
-      ellipse 90% 35% at 50% 0%,
-      rgba(225,177,88,.13),
+      ellipse 80% 35% at 50% 0%,
+      rgba(247,213,151,.15),
+      transparent 68%
+    ),
+
+    radial-gradient(
+      ellipse 70% 55% at 0% 35%,
+      rgba(128,52,76,.27),
       transparent 70%
     ),
 
     radial-gradient(
-      ellipse 80% 55% at 0% 35%,
-      rgba(126,58,75,.25),
-      transparent 68%
-    ),
-
-    radial-gradient(
-      ellipse 90% 60% at 100% 70%,
-      rgba(126,74,107,.20),
-      transparent 68%
+      ellipse 75% 60% at 100% 65%,
+      rgba(115,70,110,.23),
+      transparent 70%
     ),
 
     linear-gradient(
       180deg,
-      #16090b 0%,
-      #351720 25%,
-      #261018 50%,
-      #49202d 74%,
-      #17090c 100%
+      #13070a 0%,
+      #351520 22%,
+      #261018 47%,
+      #512536 72%,
+      #17080c 100%
     );
 }
 
@@ -113,8 +121,8 @@ body::before{
     radial-gradient(
       circle at 50% 20%,
       transparent 0,
-      rgba(0,0,0,.12) 72%,
-      rgba(0,0,0,.40) 100%
+      rgba(0,0,0,.10) 65%,
+      rgba(0,0,0,.45) 100%
     );
 }
 
@@ -158,6 +166,7 @@ a{
 
 }
 
+
 /* =========================================================
    TOP PROGRESS
 ========================================================= */
@@ -179,15 +188,17 @@ a{
       var(--rose-dark),
       var(--gold3),
       var(--gold),
-      var(--mauve)
+      var(--mauve),
+      var(--rose-light)
     );
 
   box-shadow:
-    0 0 12px rgba(240,205,142,.55);
+    0 0 14px rgba(240,205,142,.65);
 }
 
+
 /* =========================================================
-   GLOBAL AMBIENT EFFECT
+   AMBIENT BOKEH
 ========================================================= */
 
 #ambientEffects{
@@ -213,8 +224,8 @@ a{
   background:
     radial-gradient(
       circle,
-      rgba(242,206,142,.22),
-      rgba(218,155,184,.08) 45%,
+      rgba(242,206,142,.24),
+      rgba(218,155,184,.09) 45%,
       transparent 72%
     );
 
@@ -231,7 +242,7 @@ a{
 
   0%,100%{
     transform:translate3d(0,0,0);
-    opacity:.15;
+    opacity:.12;
   }
 
   50%{
@@ -242,10 +253,11 @@ a{
         0
       );
 
-    opacity:.55;
+    opacity:.52;
   }
 
 }
+
 
 /* =========================================================
    OPENING
@@ -266,22 +278,28 @@ a{
   background:
 
     radial-gradient(
-      circle at 50% 20%,
-      rgba(225,177,88,.13),
+      circle at 50% 15%,
+      rgba(238,199,128,.16),
       transparent 42%
     ),
 
     radial-gradient(
-      circle at 20% 90%,
-      rgba(155,73,102,.22),
+      circle at 15% 90%,
+      rgba(153,68,101,.24),
       transparent 45%
+    ),
+
+    radial-gradient(
+      circle at 90% 70%,
+      rgba(106,68,107,.18),
+      transparent 42%
     ),
 
     linear-gradient(
       145deg,
-      #130709,
-      #421c29 55%,
-      #16080b
+      #100608,
+      #431b2a 52%,
+      #16070b
     );
 
   z-index:9999;
@@ -303,7 +321,7 @@ a{
 
   border:
     1px solid
-    var(--line);
+    rgba(226,186,119,.27);
 }
 
 #opening::after{
@@ -311,8 +329,9 @@ a{
 
   border:
     1px solid
-    rgba(201,162,90,.08);
+    rgba(201,162,90,.10);
 }
+
 
 /* =========================================================
    OPENING SPARKLES
@@ -320,7 +339,6 @@ a{
 
 .sparkles{
   position:absolute;
-
   inset:0;
 }
 
@@ -347,17 +365,16 @@ a{
 
   0%,100%{
     opacity:0;
-
     transform:scale(.5);
   }
 
   50%{
     opacity:.9;
-
     transform:scale(1.5);
   }
 
 }
+
 
 /* =========================================================
    OPENING CARD
@@ -368,36 +385,40 @@ a{
 
   z-index:3;
 
-  width:min(450px,100%);
+  width:min(470px,100%);
 
-  padding:38px 25px;
+  padding:42px 28px;
 
-  border-radius:18px;
+  border-radius:22px;
 
   background:
+
     linear-gradient(
       145deg,
-      rgba(93,39,53,.35),
-      rgba(19,8,11,.32)
+      rgba(107,45,63,.43),
+      rgba(21,8,12,.48)
     );
 
   border:
     1px solid
-    rgba(226,186,119,.15);
+    rgba(226,186,119,.21);
 
   box-shadow:
-    0 30px 80px rgba(0,0,0,.50),
+
+    0 30px 90px rgba(0,0,0,.55),
+
+    0 0 45px rgba(201,162,90,.04),
 
     inset
-    0 0 40px
-    rgba(211,164,79,.035);
+    0 1px 0
+    rgba(255,255,255,.05);
 
-  backdrop-filter:blur(10px);
+  backdrop-filter:blur(14px);
 }
 
 .monogram{
-  width:74px;
-  height:74px;
+  width:78px;
+  height:78px;
 
   margin:
     0 auto 20px;
@@ -418,11 +439,15 @@ a{
   background:
     radial-gradient(
       circle,
-      rgba(211,164,79,.15),
-      transparent 70%
+      rgba(211,164,79,.18),
+      rgba(112,47,67,.10) 55%,
+      transparent 72%
     );
 
   color:var(--gold3);
+
+  box-shadow:
+    0 0 35px rgba(201,162,90,.08);
 
   animation:
     monogramFloat
@@ -435,18 +460,14 @@ a{
 
   0%,100%{
     transform:translateY(0);
-
-    box-shadow:
-      0 0 0
-      rgba(240,205,142,0);
   }
 
   50%{
     transform:translateY(-7px);
 
     box-shadow:
-      0 0 25px
-      rgba(240,205,142,.18);
+      0 0 28px
+      rgba(240,205,142,.20);
   }
 
 }
@@ -462,7 +483,7 @@ a{
 
   color:var(--gold2);
 
-  opacity:.92;
+  opacity:.94;
 }
 
 .opening-frame h1{
@@ -473,14 +494,14 @@ a{
     clamp(
       2rem,
       8vw,
-      2.7rem
+      2.75rem
     );
 
   line-height:1.12;
 }
 
 .role{
-  color:var(--rose);
+  color:var(--rose-light);
 
   font-size:.95rem;
 
@@ -556,8 +577,8 @@ a{
   background:
     linear-gradient(
       135deg,
-      rgba(201,162,90,.12),
-      rgba(173,88,115,.10)
+      rgba(247,223,174,.13),
+      rgba(173,88,115,.13)
     );
 
   color:var(--gold3);
@@ -571,10 +592,6 @@ a{
   text-transform:uppercase;
 
   cursor:pointer;
-
-  box-shadow:
-    0 0 0
-    rgba(201,162,90,0);
 
   animation:
     openPulse
@@ -595,8 +612,8 @@ a{
 
   50%{
     box-shadow:
-      0 0 22px
-      rgba(201,162,90,.22);
+      0 0 25px
+      rgba(201,162,90,.24);
   }
 
 }
@@ -613,6 +630,7 @@ a{
 
   transform:translateY(-2px);
 }
+
 
 /* =========================================================
    MAIN
@@ -635,17 +653,16 @@ a{
 
   from{
     opacity:0;
-
     transform:translateY(20px);
   }
 
   to{
     opacity:1;
-
     transform:none;
   }
 
 }
+
 
 /* =========================================================
    SCROLL REMINDER
@@ -684,8 +701,8 @@ a{
   background:
     linear-gradient(
       135deg,
-      rgba(75,31,42,.95),
-      rgba(24,9,13,.95)
+      rgba(75,31,42,.96),
+      rgba(24,9,13,.96)
     );
 
   color:var(--gold3);
@@ -737,6 +754,7 @@ a{
 
 }
 
+
 /* =========================================================
    HERO
 ========================================================= */
@@ -762,20 +780,26 @@ a{
 
     radial-gradient(
       ellipse 70% 50% at 50% 0%,
-      rgba(240,205,142,.12),
+      rgba(240,205,142,.13),
       transparent 68%
     ),
 
     radial-gradient(
       circle at 20% 75%,
-      rgba(143,70,99,.18),
+      rgba(143,70,99,.20),
       transparent 40%
+    ),
+
+    radial-gradient(
+      circle at 90% 65%,
+      rgba(104,67,109,.18),
+      transparent 42%
     ),
 
     linear-gradient(
       180deg,
       #16090b,
-      #451b29 55%,
+      #471c2b 55%,
       #1a090d
     );
 }
@@ -789,9 +813,9 @@ a{
 
   border:
     1px solid
-    rgba(201,162,90,.08);
+    rgba(201,162,90,.10);
 
-  border-radius:22px;
+  border-radius:24px;
 
   pointer-events:none;
 }
@@ -801,6 +825,7 @@ a{
 
   z-index:2;
 }
+
 
 /* =========================================================
    FALLING PHOTOS
@@ -912,6 +937,7 @@ a{
 
 }
 
+
 /* =========================================================
    HERO PHOTO
 ========================================================= */
@@ -945,7 +971,7 @@ a{
     rgba(0,0,0,.40),
 
     0 0 35px
-    rgba(201,162,90,.13);
+    rgba(201,162,90,.15);
 }
 
 .hero-photo-inner{
@@ -990,18 +1016,23 @@ a{
 }
 
 .hero h1{
-  max-width:550px;
+  max-width:100%;
 
   margin:0;
 
   font-size:
     clamp(
-      2.25rem,
-      8vw,
+      2.05rem,
+      7vw,
       3.5rem
     );
 
   line-height:1.12;
+
+  white-space:nowrap;
+
+  text-shadow:
+    0 3px 22px rgba(0,0,0,.25);
 }
 
 .hero h1 .role{
@@ -1018,6 +1049,8 @@ a{
   color:var(--rose);
 
   line-height:1.5;
+
+  white-space:normal;
 }
 
 .hero p:not(.eyebrow){
@@ -1026,12 +1059,13 @@ a{
   margin:
     18px auto 0;
 
-  color:var(--rose);
+  color:var(--rose-light);
 
   font-size:1.03rem;
 
   line-height:1.75;
 }
+
 
 /* =========================================================
    DIVIDER
@@ -1095,6 +1129,7 @@ a{
 
 }
 
+
 /* =========================================================
    SECTION
 ========================================================= */
@@ -1112,9 +1147,9 @@ section:nth-of-type(even){
   background:
     linear-gradient(
       180deg,
-      rgba(28,10,16,.15),
-      rgba(112,48,72,.13),
-      rgba(28,10,16,.15)
+      rgba(28,10,16,.16),
+      rgba(112,48,72,.14),
+      rgba(28,10,16,.16)
     );
 }
 
@@ -1135,7 +1170,7 @@ section::before{
   background:
     radial-gradient(
       circle,
-      rgba(201,162,90,.06),
+      rgba(201,162,90,.07),
       transparent 70%
     );
 
@@ -1159,7 +1194,7 @@ section::after{
   background:
     radial-gradient(
       circle,
-      rgba(190,120,160,.09),
+      rgba(190,120,160,.10),
       transparent 70%
     );
 
@@ -1192,6 +1227,109 @@ section h2.section-title{
   margin-bottom:28px;
 }
 
+
+/* =========================================================
+   PETAL EFFECT
+   MUNCUL DI HALAMAN SETELAH FOTO BERJATUHAN
+========================================================= */
+
+.petal-layer{
+  position:absolute;
+
+  inset:0;
+
+  overflow:hidden;
+
+  pointer-events:none;
+
+  z-index:1;
+}
+
+.petal{
+  position:absolute;
+
+  top:-35px;
+
+  width:10px;
+  height:15px;
+
+  border-radius:
+    80% 20% 80% 20%;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,224,229,.92),
+      rgba(205,129,151,.72)
+    );
+
+  box-shadow:
+    0 3px 8px rgba(0,0,0,.14);
+
+  opacity:0;
+
+  animation:
+    petalFall
+    var(--petal-duration)
+    linear
+    forwards;
+}
+
+.petal::after{
+  content:"";
+
+  position:absolute;
+
+  inset:2px;
+
+  border-radius:inherit;
+
+  background:
+    radial-gradient(
+      circle at 35% 25%,
+      rgba(255,255,255,.45),
+      transparent 55%
+    );
+}
+
+@keyframes petalFall{
+
+  0%{
+    transform:
+      translate3d(0,-30px,0)
+      rotate(0deg)
+      scale(.8);
+
+    opacity:0;
+  }
+
+  10%{
+    opacity:.75;
+  }
+
+  50%{
+    transform:
+      translate3d(var(--sway),45vh,0)
+      rotate(160deg)
+      scale(1);
+  }
+
+  90%{
+    opacity:.55;
+  }
+
+  100%{
+    transform:
+      translate3d(var(--sway2),110vh,0)
+      rotate(330deg)
+      scale(.85);
+
+    opacity:0;
+  }
+
+}
+
+
 /* =========================================================
    CARD
 ========================================================= */
@@ -1208,13 +1346,13 @@ section h2.section-title{
     1px solid
     var(--line);
 
-  border-radius:16px;
+  border-radius:18px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(119,53,71,.42),
-      rgba(28,10,16,.66)
+      rgba(119,53,71,.44),
+      rgba(28,10,16,.67)
     );
 
   box-shadow:
@@ -1224,9 +1362,9 @@ section h2.section-title{
 
     inset
     0 1px 0
-    rgba(255,255,255,.035);
+    rgba(255,255,255,.04);
 
-  backdrop-filter:blur(10px);
+  backdrop-filter:blur(12px);
 }
 
 .card + .card{
@@ -1249,8 +1387,9 @@ section h2.section-title{
   font-size:.92rem;
 }
 
+
 /* =========================================================
-   SAVE THE DATE
+   SAVE DATE
 ========================================================= */
 
 .save-date-label{
@@ -1269,12 +1408,16 @@ section h2.section-title{
 
   border:
     1px solid
-    rgba(226,186,119,.28);
+    rgba(226,186,119,.30);
 
   border-radius:999px;
 
   background:
-    rgba(110,46,65,.22);
+    linear-gradient(
+      135deg,
+      rgba(110,46,65,.30),
+      rgba(112,81,111,.16)
+    );
 
   color:var(--gold2);
 
@@ -1283,7 +1426,11 @@ section h2.section-title{
   letter-spacing:.16em;
 
   text-transform:uppercase;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.12);
 }
+
 
 /* =========================================================
    CALENDAR
@@ -1299,16 +1446,16 @@ section h2.section-title{
 
   border:
     1px solid
-    rgba(226,186,119,.28);
+    rgba(226,186,119,.30);
 
-  border-radius:18px;
+  border-radius:19px;
 
   background:
 
     linear-gradient(
       145deg,
-      rgba(111,49,67,.42),
-      rgba(23,8,13,.64)
+      rgba(111,49,67,.44),
+      rgba(23,8,13,.66)
     );
 
   box-shadow:
@@ -1316,11 +1463,13 @@ section h2.section-title{
     0 22px 55px
     rgba(0,0,0,.30),
 
+    0 0 35px rgba(201,162,90,.04),
+
     inset
     0 1px 0
     rgba(255,255,255,.04);
 
-  backdrop-filter:blur(10px);
+  backdrop-filter:blur(11px);
 }
 
 .mc-header{
@@ -1352,8 +1501,6 @@ section h2.section-title{
   font-size:.65rem;
 
   text-transform:uppercase;
-
-  letter-spacing:.03em;
 }
 
 .mc-day{
@@ -1434,6 +1581,7 @@ section h2.section-title{
 
   cursor:pointer;
 }
+
 
 /* =========================================================
    COUNTDOWN
@@ -1588,6 +1736,7 @@ section h2.section-title{
   font-style:italic;
 }
 
+
 /* =========================================================
    BUTTON
 ========================================================= */
@@ -1652,14 +1801,63 @@ section h2.section-title{
   font-size:.75rem;
 }
 
+
 /* =========================================================
-   EVENT
+   DETAIL ACARA
+   DESKTOP = SAMPINGAN
+   MOBILE = ATAS BAWAH
 ========================================================= */
+
+.event-layout{
+  width:min(1050px,100%);
+
+  margin:0 auto;
+
+  display:grid;
+
+  grid-template-columns:
+    minmax(0,1fr)
+    minmax(0,1fr);
+
+  gap:22px;
+
+  align-items:stretch;
+}
+
+.event-layout .card{
+  width:100%;
+
+  margin:0;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:center;
+}
+
+.event-layout .map-embed{
+  width:100%;
+
+  height:100%;
+
+  margin:0;
+
+  min-height:330px;
+}
+
+.event-layout .map-embed iframe{
+  height:100%;
+
+  min-height:330px;
+}
 
 .event-summary{
   max-width:420px;
 
   margin:0 auto;
+
+  width:100%;
 
   text-align:left;
 
@@ -1719,18 +1917,13 @@ section h2.section-title{
 }
 
 .map-embed{
-  width:min(430px,100%);
-
-  margin:
-    24px auto 0;
-
   overflow:hidden;
 
   border:
     1px solid
     var(--line);
 
-  border-radius:14px;
+  border-radius:17px;
 
   box-shadow:
     0 20px 45px
@@ -1740,16 +1933,15 @@ section h2.section-title{
 .map-embed iframe{
   width:100%;
 
-  height:270px;
-
   display:block;
 
   border:none;
 
   filter:
-    sepia(10%)
+    sepia(8%)
     saturate(80%);
 }
+
 
 /* =========================================================
    TIMELINE
@@ -1797,6 +1989,7 @@ section h2.section-title{
 
   line-height:1.5;
 }
+
 
 /* =========================================================
    GALLERY
@@ -1963,6 +2156,7 @@ section h2.section-title{
   filter:none;
 }
 
+
 /* =========================================================
    LIGHTBOX
 ========================================================= */
@@ -2006,6 +2200,7 @@ section h2.section-title{
     0 25px 70px
     rgba(0,0,0,.60);
 }
+
 
 /* =========================================================
    WISHES
@@ -2239,6 +2434,7 @@ section h2.section-title{
   font-size:.8rem;
 }
 
+
 /* =========================================================
    FOOTER
 ========================================================= */
@@ -2277,6 +2473,7 @@ footer p{
   font-size:.85rem;
 }
 
+
 /* =========================================================
    REVEAL
 ========================================================= */
@@ -2296,6 +2493,7 @@ footer p{
 
   transform:none;
 }
+
 
 /* =========================================================
    MUSIC
@@ -2342,11 +2540,12 @@ footer p{
   cursor:pointer;
 }
 
+
 /* =========================================================
    MOBILE
 ========================================================= */
 
-@media(max-width:480px){
+@media(max-width:700px){
 
   .hero{
     padding:
@@ -2358,9 +2557,41 @@ footer p{
     height:140px;
   }
 
+  .hero h1{
+    font-size:
+      clamp(
+        1.55rem,
+        7.3vw,
+        2.2rem
+      );
+
+    white-space:nowrap;
+  }
+
+  .hero h1 .role{
+    white-space:normal;
+
+    font-size:.9rem;
+  }
+
   section{
     padding:
       60px 20px;
+  }
+
+  /* DETAIL ACARA MENJADI ATAS-BAWAH */
+  .event-layout{
+    grid-template-columns:1fr;
+
+    gap:20px;
+  }
+
+  .event-layout .map-embed{
+    min-height:280px;
+  }
+
+  .event-layout .map-embed iframe{
+    min-height:280px;
   }
 
   .countdown-grid{
@@ -2425,6 +2656,7 @@ footer p{
 
 }
 
+
 /* =========================================================
    SMALL SCREEN
 ========================================================= */
@@ -2454,10 +2686,40 @@ footer p{
 
 }
 
+
+/* =========================================================
+   EXTRA SMALL PHONE
+========================================================= */
+
+@media(max-width:370px){
+
+  .hero h1{
+    font-size:1.42rem;
+  }
+
+  .hero h1 .role{
+    font-size:.82rem;
+  }
+
+  .hero p:not(.eyebrow){
+    font-size:.94rem;
+  }
+
+  .count-box .num{
+    font-size:1.7rem;
+  }
+
+  .count-box .unit{
+    font-size:.51rem;
+  }
+
+}
+
 </style>
 </head>
 
 <body>
+
 
 <!-- =========================================================
      PROGRESS
@@ -2600,7 +2862,6 @@ footer p{
     </div>
 
     <h1>
-
       Wulandari Yulianis, S.Kom
 
       <span class="role">
@@ -2711,9 +2972,16 @@ footer p{
 
   <!-- =======================================================
        SAVE THE DATE
+       HALAMAN INI DIMULAI DENGAN KELopak
   ======================================================== -->
 
   <section id="waktu-tempat">
+
+    <div
+      class="petal-layer"
+      id="petalLayer"
+      aria-hidden="true"
+    ></div>
 
     <p class="eyebrow reveal">
       Save the Date
@@ -2730,6 +2998,7 @@ footer p{
     <div class="save-date-label reveal">
       ✦ Momen Wisuda ✦
     </div>
+
 
     <!-- CALENDAR -->
 
@@ -2902,14 +3171,6 @@ footer p{
       Sampai bertemu di hari yang istimewa.
     </p>
 
-    <!--
-      TIDAK ADA LAGI KARTU HARI/TANGGAL
-      SETELAH COUNTDOWN.
-      
-      Setelah countdown langsung ke
-      section Detail Acara di bawah.
-    -->
-
   </section>
 
 
@@ -2931,94 +3192,103 @@ footer p{
       Informasi lengkap mengenai acara
     </p>
 
-    <div class="card reveal">
 
-      <div class="event-summary">
+    <div class="event-layout">
 
-        <div class="event-row">
+      <!-- KARTU INFORMASI -->
 
-          <span class="ico">
-            📆
-          </span>
+      <div class="card reveal">
 
-          <div>
+        <div class="event-summary">
 
-            <span class="label">
-              Hari &amp; Tanggal
+          <div class="event-row">
+
+            <span class="ico">
+              📆
             </span>
 
-            <span class="value">
-              Jumat, 18 September 2026
+            <div>
+
+              <span class="label">
+                Hari &amp; Tanggal
+              </span>
+
+              <span class="value">
+                Jumat, 18 September 2026
+              </span>
+
+            </div>
+
+          </div>
+
+          <div class="event-row">
+
+            <span class="ico">
+              🕐
             </span>
+
+            <div>
+
+              <span class="label">
+                Waktu
+              </span>
+
+              <span class="value">
+                13.00 — 15.00 WIB
+              </span>
+
+            </div>
+
+          </div>
+
+          <div class="event-row">
+
+            <span class="ico">
+              📍
+            </span>
+
+            <div>
+
+              <span class="label">
+                Lokasi
+              </span>
+
+              <span class="value">
+                Fakultas Teknologi Informasi,
+                Universitas Andalas,
+                Limau Manis, Padang
+              </span>
+
+            </div>
 
           </div>
 
         </div>
 
-        <div class="event-row">
-
-          <span class="ico">
-            🕐
-          </span>
-
-          <div>
-
-            <span class="label">
-              Waktu
-            </span>
-
-            <span class="value">
-              13.00 — 15.00 WIB
-            </span>
-
-          </div>
-
-        </div>
-
-        <div class="event-row">
-
-          <span class="ico">
-            📍
-          </span>
-
-          <div>
-
-            <span class="label">
-              Lokasi
-            </span>
-
-            <span class="value">
-              Fakultas Teknologi Informasi,
-              Universitas Andalas,
-              Limau Manis, Padang
-            </span>
-
-          </div>
-
-        </div>
+        <a
+          class="btn"
+          href="https://www.google.com/maps/search/?api=1&query=Fakultas+Teknologi+Informasi+Universitas+Andalas"
+          target="_blank"
+          rel="noopener"
+        >
+          Lihat di Google Maps
+        </a>
 
       </div>
 
-      <a
-        class="btn"
-        href="https://www.google.com/maps/search/?api=1&query=Fakultas+Teknologi+Informasi+Universitas+Andalas"
-        target="_blank"
-        rel="noopener"
-      >
-        Lihat di Google Maps
-      </a>
 
-    </div>
+      <!-- OPENSTREETMAP -->
 
+      <div class="map-embed reveal">
 
-    <div class="map-embed reveal">
+        <iframe
+          title="Peta lokasi Fakultas Teknologi Informasi Universitas Andalas"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=100.4560%2C-0.9165%2C100.4630%2C-0.9125&layer=mapnik&marker=-0.9145%2C100.4595"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
 
-      <iframe
-        title="Peta lokasi Fakultas Teknologi Informasi Universitas Andalas"
-        src="https://www.openstreetmap.org/export/embed.html?bbox=100.4560%2C-0.9165%2C100.4630%2C-0.9125&layer=mapnik&marker=-0.9145%2C100.4595"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
+      </div>
 
     </div>
 
@@ -3473,6 +3743,7 @@ footer p{
 
 <script>
 
+
 /* =========================================================
    NAMA TAMU
 ========================================================= */
@@ -3615,8 +3886,7 @@ footer p{
 
 
 /* =========================================================
-   FOTO BERJATUHAN DI HERO
-   TIDAK ADA PETAL / KELOPAK BUNGA
+   FOTO BERJATUHAN
 ========================================================= */
 
 const fallingPhotoSources = [
@@ -3770,6 +4040,108 @@ function stopFallingPhotosLoop(){
 
 
 /* =========================================================
+   KELOPAK BUNGA
+   DIMULAI DI SECTION SETELAH FOTO
+========================================================= */
+
+let petalInterval = null;
+
+
+function spawnPetals(count){
+
+  const container =
+    document.getElementById(
+      'petalLayer'
+    );
+
+  if(!container)
+    return;
+
+  for(let i=0;i<count;i++){
+
+    const petal =
+      document.createElement('span');
+
+    petal.className =
+      'petal';
+
+    const size =
+      7+
+      Math.random()*7;
+
+    petal.style.width =
+      size+'px';
+
+    petal.style.height =
+      size*1.45+'px';
+
+    petal.style.left =
+      Math.random()*100+'%';
+
+    petal.style.setProperty(
+      '--sway',
+      (
+        Math.random()*120-60
+      )+'px'
+    );
+
+    petal.style.setProperty(
+      '--sway2',
+      (
+        Math.random()*180-90
+      )+'px'
+    );
+
+    petal.style.setProperty(
+      '--petal-duration',
+      (
+        8+
+        Math.random()*7
+      )+'s'
+    );
+
+    petal.style.animationDelay =
+      Math.random()*5+
+      's';
+
+    petal.style.transform =
+      'rotate('+
+      Math.random()*360+
+      'deg)';
+
+    container.appendChild(petal);
+
+    setTimeout(
+      ()=>{
+        petal.remove();
+      },
+      18000
+    );
+
+  }
+
+}
+
+
+function startPetalLoop(){
+
+  if(petalInterval)
+    return;
+
+  spawnPetals(16);
+
+  petalInterval =
+    setInterval(
+      ()=>{
+        spawnPetals(7);
+      },
+      3500
+    );
+
+}
+
+
+/* =========================================================
    OPEN INVITATION
 ========================================================= */
 
@@ -3812,6 +4184,8 @@ function openInvite(){
         ()=>{
 
           startFallingPhotosLoop();
+
+          startPetalLoop();
 
           initRevealObserver();
 
@@ -4599,10 +4973,8 @@ function closeLightbox(){
 const WISH_APPS_SCRIPT_URL =
   'https://script.google.com/macros/s/AKfycbzW2xVUz8xnyXSD3lDq5owFixgJlhswje0LH9pliK6UlIC1m9s_LqjALkFLB2RPwYRU7w/exec';
 
-
 const WISH_STORAGE_KEY =
   'wisuda_wulandari_wishes_v1';
-
 
 const wishNoteEl =
   document.getElementById(
