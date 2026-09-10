@@ -192,6 +192,7 @@
     letter-spacing: 0.18em;
     text-transform: uppercase;
     opacity: 0.85;
+    cursor: pointer;
   }
   .scroll-hint svg{
     animation: scrollBounce 1.8s ease-in-out infinite;
@@ -308,6 +309,8 @@
     line-height:1.7;
   }
 
+  .hero .scroll-hint{ margin-top: 40px; }
+
   section{ padding: 56px 24px; }
   section h2.section-title{
     font-size: clamp(1.5rem, 4vw, 1.9rem);
@@ -343,24 +346,31 @@
   /* ringkasan acara: hari, tanggal, lokasi, jam */
   .event-summary{
     max-width: 420px;
-    margin: 0 auto 22px;
+    margin: 0 auto 18px;
     text-align:left;
     display:flex;
     flex-direction:column;
-    gap:10px;
+    gap:14px;
   }
   .event-row{
     display:flex;
     align-items:flex-start;
-    gap:12px;
+    gap:14px;
     color: var(--cream);
     font-size: 0.95rem;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .event-row:last-child{
+    border-bottom: none;
+    padding-bottom: 0;
   }
   .event-row .ico{
     color: var(--gold-bright);
-    font-size:1.1rem;
+    font-size:1.2rem;
     line-height:1.4;
-    min-width: 22px;
+    min-width: 24px;
+    text-align:center;
   }
   .event-row .label{
     display:block;
@@ -368,7 +378,10 @@
     letter-spacing:0.1em;
     text-transform:uppercase;
     color: var(--rose-dust);
-    margin-bottom:2px;
+    margin-bottom:3px;
+  }
+  .event-row .value{
+    line-height:1.5;
   }
 
   .btn{
@@ -390,6 +403,11 @@
   }
   .btn:hover{ filter: brightness(1.1); transform: translateY(-1px); }
   .btn:focus-visible{ outline:2px solid var(--gold-bright); outline-offset:3px; }
+  .btn-sm{
+    padding: 10px 22px;
+    font-size: 0.78rem;
+    margin-top: 14px;
+  }
   .btn-outline{
     display:inline-block;
     margin-top: 12px;
@@ -418,7 +436,7 @@
   /* MINI CALENDAR */
   .mini-calendar{
     max-width: 300px;
-    margin: 8px auto 16px;
+    margin: 8px auto 26px;
     border: 1px solid var(--line);
     border-radius: 4px;
     background: linear-gradient(160deg, rgba(122,61,44,0.3), rgba(28,13,12,0.4));
@@ -454,10 +472,12 @@
     font-weight: 600;
   }
 
-  /* Tambah ke kalender — tombol di bawah mini kalender */
+  /* Tambah ke kalender — sekarang di dalam kartu mini kalender */
   .add-to-calendar{
     text-align:center;
-    margin-bottom: 30px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
     position: relative;
   }
   .calendar-menu{
@@ -739,12 +759,6 @@
     <p class="to-label">Kepada Yth.</p>
     <p class="guest-name" id="guestName">Bapak/Ibu/Saudara/i</p>
     <button class="open-btn" onclick="openInvite()">Buka Undangan</button>
-
-    <!-- SCROLL HINT: ajakan menggeser/klik untuk melihat undangan -->
-    <div class="scroll-hint" onclick="openInvite()" role="button" tabindex="0" onkeypress="if(event.key==='Enter')openInvite()">
-      <span>Geser untuk membuka</span>
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 4v14M6 13l6 6 6-6" stroke="#c9a25a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div>
   </div>
 </div>
 
@@ -757,7 +771,7 @@
     <div class="hero-photo">
       <div class="hero-photo-inner">
         <img class="hero-photo-bg" src="EMI00753.JPG" alt="" aria-hidden="true">
-        <img class="hero-photo-main" src="EMI00753.JPG" alt="Foto Lala">
+        <img class="hero-photo-main" src="EMI00753.JPG" alt="Foto Lann">
       </div>
     </div>
     <h1>Wulandari Yulianis, S.Kom<span class="role">telah menyelesaikan pendidikan Sarjana Komputer - S1 Sistem Informasi</span></h1>
@@ -768,9 +782,15 @@
     </div>
     <p>Assalamualaikum warahmatullahi wabarakatuh.</p>
     <p>Puji syukur atas nikmat yang diberikan, kami mengundang Bapak/Ibu/Saudara/i untuk turut hadir dan memberikan doa restu pada momen kelulusan ini.</p>
+
+    <!-- SCROLL HINT: ajakan menggeser/scroll untuk melihat undangan, sekarang di halaman kedua -->
+    <div class="scroll-hint" onclick="scrollToNext()" role="button" tabindex="0" onkeypress="if(event.key==='Enter')scrollToNext()">
+      <span>Geser untuk membuka</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 4v14M6 13l6 6 6-6" stroke="#c9a25a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
   </div>
 
-  <section>
+  <section id="waktu-tempat">
     <p class="eyebrow">Waktu &amp; Tempat</p>
     <h2 class="section-title">Prosesi Wisuda</h2>
     <p class="section-sub">Kami nantikan kehadiran Anda</p>
@@ -785,14 +805,14 @@
         <span class="mc-day">19</span><span class="mc-day">20</span><span class="mc-day">21</span><span class="mc-day">22</span><span class="mc-day">23</span><span class="mc-day">24</span><span class="mc-day">25</span>
         <span class="mc-day">26</span><span class="mc-day">27</span><span class="mc-day">28</span><span class="mc-day">29</span><span class="mc-day">30</span><span class="mc-day">31</span><span></span>
       </div>
-    </div>
 
-    <!-- TAMBAHKAN KE KALENDER -->
-    <div class="add-to-calendar">
-      <button class="btn" onclick="toggleCalendarMenu()">📅 Tambahkan ke Kalender</button>
-      <div class="calendar-menu" id="calendarMenu">
-        <a id="gcalLink" href="#" target="_blank" rel="noopener">Google Calendar</a>
-        <button onclick="downloadICS()">Unduh File .ics (Apple / Outlook)</button>
+      <!-- TAMBAHKAN KE KALENDER — sekarang menyatu di dalam kartu kalender -->
+      <div class="add-to-calendar">
+        <button class="btn btn-sm" onclick="toggleCalendarMenu()">📅 Tambahkan ke Kalender</button>
+        <div class="calendar-menu" id="calendarMenu">
+          <a id="gcalLink" href="#" target="_blank" rel="noopener">Google Calendar</a>
+          <button onclick="downloadICS()">Unduh File .ics (Apple / Outlook)</button>
+        </div>
       </div>
     </div>
 
@@ -814,31 +834,29 @@
     <h2 class="section-title">Gedung FTI</h2>
     <p class="section-sub">Klik tombol di bawah untuk petunjuk arah</p>
 
-    <div class="event-summary">
-      <div class="event-row">
-        <span class="ico">📆</span>
-        <div><span class="label">Hari &amp; Tanggal</span>Jumat, 18 Juli 2026</div>
-      </div>
-      <div class="event-row">
-        <span class="ico">🕐</span>
-        <div><span class="label">Waktu</span>13.00 — 15.00 WIB</div>
-      </div>
-      <div class="event-row">
-        <span class="ico">📍</span>
-        <div><span class="label">Lokasi</span>Fakultas Teknologi Informasi, Universitas Andalas, Limau Manis, Padang</div>
-      </div>
-    </div>
-
     <div class="card">
-      <div class="small" style="margin-top:0;">Fakultas Teknologi Informasi, Universitas Andalas</div>
+      <div class="event-summary">
+        <div class="event-row">
+          <span class="ico">📆</span>
+          <div><span class="label">Hari &amp; Tanggal</span><span class="value">Jumat, 18 September 2026</span></div>
+        </div>
+        <div class="event-row">
+          <span class="ico">🕐</span>
+          <div><span class="label">Waktu</span><span class="value">13.00 — 15.00 WIB</span></div>
+        </div>
+        <div class="event-row">
+          <span class="ico">📍</span>
+          <div><span class="label">Lokasi</span><span class="value">Fakultas Teknologi Informasi, Universitas Andalas, Limau Manis, Padang</span></div>
+        </div>
+      </div>
       <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Fakultas+Teknologi+Informasi+Universitas+Andalas" target="_blank" rel="noopener">Lihat di Google Maps</a>
     </div>
 
-    <!-- PETA OPENSTREETMAP -->
+    <!-- PETA OPENSTREETMAP — bbox dipersempit agar langsung zoom ke Gedung FTI -->
     <div class="map-embed">
       <iframe
         title="Peta lokasi Fakultas Teknologi Informasi Universitas Andalas"
-        src="https://www.openstreetmap.org/export/embed.html?bbox=100.4495%2C-0.9185%2C100.4695%2C-0.9085&layer=mapnik&marker=-0.9145%2C100.4595"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=100.4560%2C-0.9165%2C100.4630%2C-0.9125&layer=mapnik&marker=-0.9145%2C100.4595"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade">
       </iframe>
@@ -870,7 +888,7 @@
   <section>
     <p class="eyebrow">Doa &amp; Restu</p>
     <h2 class="section-title">Ucapan dari Teman-Teman</h2>
-    <p class="section-sub">Tinggalkan pesan untuk Lala</p>
+    <p class="section-sub">Tinggalkan pesan untuk Lann</p>
 
     <div class="wishes-list" id="wishesList">
       <div class="wish-card">
@@ -899,7 +917,7 @@
 
   <footer>
     <div class="ornament"><span class="rule"></span><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z" fill="#c9a66b"/></svg><span class="rule"></span></div>
-    <p class="signature">Lala</p>
+    <p class="signature">Lann</p>
     <p>Terima kasih atas doa dan restu yang diberikan.</p>
   </footer>
 </div>
@@ -1041,6 +1059,12 @@
     setTimeout(startFallingPhotosLoop, 100);
   }
 
+  /* geser dari halaman "Dengan Penuh Syukur" menuju bagian Waktu & Tempat */
+  function scrollToNext(){
+    const target = document.getElementById('waktu-tempat');
+    if(target){ target.scrollIntoView({ behavior: 'smooth' }); }
+  }
+
   function toggleMusic(){
     const music = document.getElementById("music");
     const btn = document.getElementById("musicBtn");
@@ -1048,8 +1072,8 @@
     else { music.pause(); btn.textContent = "❙❙"; }
   }
 
-  /* COUNTDOWN */
-  const targetDate = new Date("July 18, 2026 13:00:00").getTime();
+  /* COUNTDOWN — target: Jumat, 18 September 2026 pukul 13.00 WIB */
+  const targetDate = new Date("September 18, 2026 13:00:00").getTime();
   function pad(n){ return String(n).padStart(2,'0'); }
   function updateCountdown(){
     const now = new Date().getTime();
@@ -1070,9 +1094,9 @@
   const EVENT_TITLE = "Wisuda Wulandari Yulianis, S.Kom";
   const EVENT_LOCATION = "Fakultas Teknologi Informasi, Universitas Andalas, Limau Manis, Padang, Sumatera Barat";
   const EVENT_DESC = "Prosesi wisuda Wulandari Yulianis, S.Kom - Sarjana Komputer S1 Sistem Informasi, Universitas Andalas.";
-  /* Waktu lokal WIB (UTC+7) dikonversi ke UTC untuk format kalender: 18 Juli 2026 13:00-15:00 WIB = 06:00-08:00 UTC */
-  const EVENT_START_UTC = "20260718T060000Z";
-  const EVENT_END_UTC   = "20260718T080000Z";
+  /* Waktu lokal WIB (UTC+7) dikonversi ke UTC untuk format kalender: 18 September 2026 13:00-15:00 WIB = 06:00-08:00 UTC */
+  const EVENT_START_UTC = "20260918T060000Z";
+  const EVENT_END_UTC   = "20260918T080000Z";
 
   function buildGoogleCalendarLink(){
     const base = "https://calendar.google.com/calendar/render?action=TEMPLATE";
