@@ -19,22 +19,30 @@
 <style>
 
 /* =========================================================
-   COLOR
+   COLOR PALETTE
 ========================================================= */
 
 :root{
-  --deep:#170807;
-  --mahogany:#351512;
-  --wine:#4d211d;
-  --wine2:#672d25;
-  --bronze:#a86f32;
+  --deep:#16090b;
+  --deep2:#211014;
+
+  --wine:#4b2029;
+  --wine2:#69313d;
+  --rose-dark:#814758;
+  --rose:#c08c9b;
+
+  --mauve:#b99ab2;
   --gold:#c9a25a;
-  --gold2:#e6bd78;
-  --gold3:#f5dca7;
-  --cream:#f3e7d2;
-  --rose:#bd9680;
-  --line:rgba(220,177,100,.28);
-  --glass:rgba(58,25,21,.52);
+  --gold2:#e2ba77;
+  --gold3:#f6dfae;
+
+  --cream:#f7eadb;
+  --cream2:#fff6ed;
+
+  --line:rgba(226,186,119,.25);
+
+  --glass:
+    rgba(77,32,41,.46);
 }
 
 /* =========================================================
@@ -53,52 +61,60 @@ html{
 body{
   margin:0;
   min-height:100vh;
+
   overflow-x:hidden;
 
   color:var(--cream);
 
   font-family:'EB Garamond',serif;
+
   text-align:center;
 
   background:
     radial-gradient(
-      ellipse 80% 35% at 50% 0%,
-      rgba(225,177,88,.16),
+      ellipse 90% 35% at 50% 0%,
+      rgba(225,177,88,.13),
       transparent 70%
     ),
+
     radial-gradient(
-      ellipse 100% 70% at 0% 35%,
-      rgba(105,42,33,.25),
-      transparent 65%
+      ellipse 80% 55% at 0% 35%,
+      rgba(126,58,75,.25),
+      transparent 68%
     ),
+
     radial-gradient(
-      ellipse 100% 70% at 100% 65%,
-      rgba(92,35,29,.20),
-      transparent 65%
+      ellipse 90% 60% at 100% 70%,
+      rgba(126,74,107,.20),
+      transparent 68%
     ),
+
     linear-gradient(
       180deg,
-      #170807 0%,
-      #351512 28%,
-      #24100e 53%,
-      #421a16 76%,
-      #170807 100%
+      #16090b 0%,
+      #351720 25%,
+      #261018 50%,
+      #49202d 74%,
+      #17090c 100%
     );
 }
 
 body::before{
   content:"";
+
   position:fixed;
   inset:0;
+
   pointer-events:none;
+
   z-index:0;
 
   background:
     radial-gradient(
       circle at 50% 20%,
       transparent 0,
-      rgba(0,0,0,.15) 75%,
-      rgba(0,0,0,.38) 100%
+      rgba(0,0,0,.12) 72%,
+      rgba(0,0,0,.40) 100%
     );
 }
 
@@ -107,10 +123,16 @@ body > *{
   z-index:1;
 }
 
-h1,h2,h3,.display{
+h1,
+h2,
+h3,
+.display{
   font-family:'Cormorant Garamond',serif;
+
   font-weight:500;
+
   letter-spacing:.035em;
+
   color:var(--gold3);
 }
 
@@ -133,6 +155,7 @@ a{
     transition-duration:.001ms!important;
     scroll-behavior:auto!important;
   }
+
 }
 
 /* =========================================================
@@ -141,6 +164,7 @@ a{
 
 .scroll-progress{
   position:fixed;
+
   top:0;
   left:0;
 
@@ -152,109 +176,30 @@ a{
   background:
     linear-gradient(
       90deg,
-      var(--bronze),
+      var(--rose-dark),
       var(--gold3),
-      var(--gold)
+      var(--gold),
+      var(--mauve)
     );
 
   box-shadow:
-    0 0 10px rgba(240,205,142,.55);
+    0 0 12px rgba(240,205,142,.55);
 }
 
 /* =========================================================
-   GLOBAL DECORATION
+   GLOBAL AMBIENT EFFECT
 ========================================================= */
 
 #ambientEffects{
   position:fixed;
+
   inset:0;
+
   overflow:hidden;
+
   pointer-events:none;
+
   z-index:5;
-}
-
-.petal{
-  position:absolute;
-  top:-50px;
-
-  width:12px;
-  height:18px;
-
-  border-radius:
-    80% 20% 80% 20%;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(239,188,169,.85),
-      rgba(173,102,83,.55)
-    );
-
-  opacity:0;
-
-  filter:
-    drop-shadow(
-      0 3px 6px rgba(0,0,0,.25)
-    );
-
-  animation:
-    petalFall linear forwards;
-}
-
-.petal::after{
-  content:"";
-  position:absolute;
-
-  width:4px;
-  height:4px;
-
-  top:3px;
-  left:3px;
-
-  border-radius:50%;
-
-  background:rgba(255,238,217,.55);
-}
-
-@keyframes petalFall{
-
-  0%{
-    transform:
-      translate3d(0,-40px,0)
-      rotate(0deg);
-
-    opacity:0;
-  }
-
-  10%{
-    opacity:.75;
-  }
-
-  50%{
-    transform:
-      translate3d(
-        var(--sway),
-        50vh,
-        0
-      )
-      rotate(180deg);
-  }
-
-  90%{
-    opacity:.5;
-  }
-
-  100%{
-    transform:
-      translate3d(
-        calc(var(--sway) * -1),
-        110vh,
-        0
-      )
-      rotate(360deg);
-
-    opacity:0;
-  }
 }
 
 .bokeh{
@@ -268,33 +213,38 @@ a{
   background:
     radial-gradient(
       circle,
-      rgba(242,206,142,.28),
-      rgba(242,206,142,.02) 70%
+      rgba(242,206,142,.22),
+      rgba(218,155,184,.08) 45%,
+      transparent 72%
     );
 
   filter:blur(1px);
 
   animation:
-    bokehFloat var(--duration) ease-in-out infinite;
+    bokehFloat
+    var(--duration)
+    ease-in-out
+    infinite;
 }
 
 @keyframes bokehFloat{
 
   0%,100%{
     transform:translate3d(0,0,0);
-    opacity:.2;
+    opacity:.15;
   }
 
   50%{
     transform:
       translate3d(
         var(--move),
-        -30px,
+        -35px,
         0
       );
 
-    opacity:.65;
+    opacity:.55;
   }
+
 }
 
 /* =========================================================
@@ -303,30 +253,35 @@ a{
 
 #opening{
   position:fixed;
+
   inset:0;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
   padding:30px;
 
   background:
+
     radial-gradient(
-      circle at 50% 25%,
-      rgba(221,177,91,.13),
-      transparent 45%
+      circle at 50% 20%,
+      rgba(225,177,88,.13),
+      transparent 42%
     ),
+
     radial-gradient(
       circle at 20% 90%,
-      rgba(115,47,38,.25),
+      rgba(155,73,102,.22),
       transparent 45%
     ),
+
     linear-gradient(
       145deg,
-      #160706,
-      #3b1713 55%,
-      #180807
+      #130709,
+      #421c29 55%,
+      #16080b
     );
 
   z-index:9999;
@@ -337,24 +292,35 @@ a{
 #opening::before,
 #opening::after{
   content:"";
+
   position:absolute;
+
   pointer-events:none;
 }
 
 #opening::before{
   inset:18px;
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
 }
 
 #opening::after{
   inset:27px;
 
-  border:1px solid rgba(201,162,90,.08);
+  border:
+    1px solid
+    rgba(201,162,90,.08);
 }
+
+/* =========================================================
+   OPENING SPARKLES
+========================================================= */
 
 .sparkles{
   position:absolute;
+
   inset:0;
 }
 
@@ -381,44 +347,63 @@ a{
 
   0%,100%{
     opacity:0;
+
     transform:scale(.5);
   }
 
   50%{
     opacity:.9;
-    transform:scale(1.4);
+
+    transform:scale(1.5);
   }
+
 }
+
+/* =========================================================
+   OPENING CARD
+========================================================= */
 
 .opening-frame{
   position:relative;
+
   z-index:3;
 
   width:min(450px,100%);
 
-  padding:35px 25px;
+  padding:38px 25px;
 
-  border-radius:12px;
+  border-radius:18px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(80,34,27,.32),
-      rgba(19,8,7,.25)
+      rgba(93,39,53,.35),
+      rgba(19,8,11,.32)
     );
 
+  border:
+    1px solid
+    rgba(226,186,119,.15);
+
   box-shadow:
-    0 30px 80px rgba(0,0,0,.45),
-    inset 0 0 40px rgba(211,164,79,.035);
+    0 30px 80px rgba(0,0,0,.50),
+
+    inset
+    0 0 40px
+    rgba(211,164,79,.035);
+
+  backdrop-filter:blur(10px);
 }
 
 .monogram{
   width:74px;
   height:74px;
 
-  margin:0 auto 20px;
+  margin:
+    0 auto 20px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
@@ -433,28 +418,37 @@ a{
   background:
     radial-gradient(
       circle,
-      rgba(211,164,79,.13),
+      rgba(211,164,79,.15),
       transparent 70%
     );
 
   color:var(--gold3);
 
   animation:
-    monogramFloat 4s ease-in-out infinite;
+    monogramFloat
+    4s
+    ease-in-out
+    infinite;
 }
 
 @keyframes monogramFloat{
 
   0%,100%{
     transform:translateY(0);
-    box-shadow:0 0 0 rgba(240,205,142,0);
+
+    box-shadow:
+      0 0 0
+      rgba(240,205,142,0);
   }
 
   50%{
     transform:translateY(-7px);
+
     box-shadow:
-      0 0 25px rgba(240,205,142,.18);
+      0 0 25px
+      rgba(240,205,142,.18);
   }
+
 }
 
 .eyebrow{
@@ -466,13 +460,14 @@ a{
 
   text-transform:uppercase;
 
-  color:var(--gold);
+  color:var(--gold2);
 
   opacity:.92;
 }
 
 .opening-frame h1{
-  margin:7px 0 4px;
+  margin:
+    7px 0 4px;
 
   font-size:
     clamp(
@@ -496,6 +491,7 @@ a{
 
 .ornament{
   display:flex;
+
   align-items:center;
   justify-content:center;
 
@@ -508,6 +504,7 @@ a{
 
 .ornament .rule{
   flex:1;
+
   height:1px;
 
   background:
@@ -534,7 +531,8 @@ a{
 }
 
 .guest-name{
-  margin:7px 0 28px;
+  margin:
+    7px 0 28px;
 
   color:var(--cream);
 
@@ -546,7 +544,8 @@ a{
 }
 
 .open-btn{
-  padding:14px 38px;
+  padding:
+    14px 38px;
 
   border:
     1px solid
@@ -557,8 +556,8 @@ a{
   background:
     linear-gradient(
       135deg,
-      rgba(201,162,90,.08),
-      rgba(201,162,90,.02)
+      rgba(201,162,90,.12),
+      rgba(173,88,115,.10)
     );
 
   color:var(--gold3);
@@ -574,26 +573,32 @@ a{
   cursor:pointer;
 
   box-shadow:
-    0 0 0 rgba(201,162,90,0);
+    0 0 0
+    rgba(201,162,90,0);
 
   animation:
-    openPulse 2.8s ease-in-out infinite;
+    openPulse
+    2.8s
+    ease-in-out
+    infinite;
 
-  transition:
-    .35s ease;
+  transition:.35s ease;
 }
 
 @keyframes openPulse{
 
   0%,100%{
     box-shadow:
-      0 0 0 rgba(201,162,90,0);
+      0 0 0
+      rgba(201,162,90,0);
   }
 
   50%{
     box-shadow:
-      0 0 22px rgba(201,162,90,.22);
+      0 0 22px
+      rgba(201,162,90,.22);
   }
+
 }
 
 .open-btn:hover{
@@ -601,7 +606,7 @@ a{
     linear-gradient(
       135deg,
       var(--gold3),
-      var(--bronze)
+      var(--gold)
     );
 
   color:var(--deep);
@@ -621,30 +626,36 @@ a{
   display:block;
 
   animation:
-    mainReveal 1.2s ease;
+    mainReveal
+    1.2s
+    ease;
 }
 
 @keyframes mainReveal{
 
   from{
     opacity:0;
+
     transform:translateY(20px);
   }
 
   to{
     opacity:1;
+
     transform:none;
   }
+
 }
 
 /* =========================================================
-   FIXED SCROLL REMINDER
+   SCROLL REMINDER
 ========================================================= */
 
 .scroll-reminder{
   position:fixed;
 
   left:50%;
+
   bottom:18px;
 
   transform:
@@ -653,6 +664,7 @@ a{
   z-index:9000;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
@@ -672,8 +684,8 @@ a{
   background:
     linear-gradient(
       135deg,
-      rgba(59,24,20,.94),
-      rgba(25,10,9,.94)
+      rgba(75,31,42,.95),
+      rgba(24,9,13,.95)
     );
 
   color:var(--gold3);
@@ -686,14 +698,15 @@ a{
 
   box-shadow:
     0 10px 30px rgba(0,0,0,.35),
-    0 0 18px rgba(201,162,90,.08);
 
-  backdrop-filter:blur(10px);
+    0 0 18px
+    rgba(201,162,90,.08);
+
+  backdrop-filter:blur(12px);
 
   cursor:pointer;
 
-  transition:
-    .35s ease;
+  transition:.35s ease;
 }
 
 .scroll-reminder:hover{
@@ -706,7 +719,10 @@ a{
 
 .scroll-reminder svg{
   animation:
-    reminderBounce 1.6s ease-in-out infinite;
+    reminderBounce
+    1.6s
+    ease-in-out
+    infinite;
 }
 
 @keyframes reminderBounce{
@@ -718,6 +734,7 @@ a{
   50%{
     transform:translateY(4px);
   }
+
 }
 
 /* =========================================================
@@ -735,21 +752,31 @@ a{
   overflow:hidden;
 
   display:flex;
+
   flex-direction:column;
+
   align-items:center;
   justify-content:center;
 
   background:
+
     radial-gradient(
       ellipse 70% 50% at 50% 0%,
       rgba(240,205,142,.12),
       transparent 68%
     ),
+
+    radial-gradient(
+      circle at 20% 75%,
+      rgba(143,70,99,.18),
+      transparent 40%
+    ),
+
     linear-gradient(
       180deg,
-      #170807,
-      #3b1713 55%,
-      #1a0908
+      #16090b,
+      #451b29 55%,
+      #1a090d
     );
 }
 
@@ -764,18 +791,24 @@ a{
     1px solid
     rgba(201,162,90,.08);
 
-  border-radius:18px;
+  border-radius:22px;
 
   pointer-events:none;
 }
 
 .hero > *:not(.falling-photos){
   position:relative;
+
   z-index:2;
 }
 
+/* =========================================================
+   FALLING PHOTOS
+========================================================= */
+
 .falling-photos{
   position:absolute;
+
   inset:0;
 
   overflow:hidden;
@@ -800,13 +833,13 @@ a{
     linear-gradient(
       135deg,
       #fff9ed,
-      #e8d8bd
+      #ead8dc
     );
 
-  border-radius:3px;
+  border-radius:4px;
 
   box-shadow:
-    0 15px 28px rgba(0,0,0,.4);
+    0 15px 28px rgba(0,0,0,.40);
 
   opacity:0;
 
@@ -824,6 +857,7 @@ a{
 
   left:5px;
   right:5px;
+
   bottom:4px;
 
   height:2px;
@@ -846,7 +880,7 @@ a{
   object-fit:cover;
 
   filter:
-    sepia(10%)
+    sepia(5%)
     saturate(90%);
 }
 
@@ -861,11 +895,11 @@ a{
   }
 
   8%{
-    opacity:.9;
+    opacity:.88;
   }
 
   88%{
-    opacity:.85;
+    opacity:.82;
   }
 
   100%{
@@ -875,13 +909,19 @@ a{
 
     opacity:0;
   }
+
 }
+
+/* =========================================================
+   HERO PHOTO
+========================================================= */
 
 .hero-photo{
   width:150px;
   height:150px;
 
-  margin:0 auto 24px;
+  margin:
+    0 auto 24px;
 
   padding:5px;
 
@@ -891,14 +931,21 @@ a{
     linear-gradient(
       135deg,
       var(--gold3),
-      var(--bronze),
-      var(--gold)
+      var(--gold),
+      var(--rose-dark),
+      var(--mauve)
     );
 
   box-shadow:
-    0 0 0 1px rgba(255,255,255,.05),
-    0 18px 45px rgba(0,0,0,.4),
-    0 0 35px rgba(201,162,90,.13);
+
+    0 0 0 1px
+    rgba(255,255,255,.05),
+
+    0 18px 45px
+    rgba(0,0,0,.40),
+
+    0 0 35px
+    rgba(201,162,90,.13);
 }
 
 .hero-photo-inner{
@@ -997,12 +1044,13 @@ a{
 
   overflow:hidden;
 
-  background:#170807;
+  background:#17090c;
 }
 
 .hero-divider svg{
   width:100%;
   height:100%;
+
   display:block;
 }
 
@@ -1010,6 +1058,7 @@ a{
   position:absolute;
 
   left:-40%;
+
   top:50%;
 
   width:40%;
@@ -1024,10 +1073,14 @@ a{
     );
 
   box-shadow:
-    0 0 12px var(--gold);
+    0 0 12px
+    var(--gold);
 
   animation:
-    sparkSweep 4.5s ease-in-out infinite;
+    sparkSweep
+    4.5s
+    ease-in-out
+    infinite;
 }
 
 @keyframes sparkSweep{
@@ -1039,6 +1092,7 @@ a{
   to{
     left:120%;
   }
+
 }
 
 /* =========================================================
@@ -1049,7 +1103,7 @@ section{
   position:relative;
 
   padding:
-    70px 24px;
+    72px 24px;
 
   overflow:hidden;
 }
@@ -1058,9 +1112,9 @@ section:nth-of-type(even){
   background:
     linear-gradient(
       180deg,
-      rgba(20,8,7,.18),
-      rgba(95,37,30,.13),
-      rgba(20,8,7,.18)
+      rgba(28,10,16,.15),
+      rgba(112,48,72,.13),
+      rgba(28,10,16,.15)
     );
 }
 
@@ -1069,18 +1123,19 @@ section::before{
 
   position:absolute;
 
-  width:280px;
-  height:280px;
+  width:300px;
+  height:300px;
 
-  left:-160px;
-  top:20%;
+  left:-170px;
+
+  top:15%;
 
   border-radius:50%;
 
   background:
     radial-gradient(
       circle,
-      rgba(201,162,90,.07),
+      rgba(201,162,90,.06),
       transparent 70%
     );
 
@@ -1092,10 +1147,11 @@ section::after{
 
   position:absolute;
 
-  width:240px;
-  height:240px;
+  width:260px;
+  height:260px;
 
-  right:-150px;
+  right:-170px;
+
   bottom:5%;
 
   border-radius:50%;
@@ -1103,7 +1159,7 @@ section::after{
   background:
     radial-gradient(
       circle,
-      rgba(122,61,44,.12),
+      rgba(190,120,160,.09),
       transparent 70%
     );
 
@@ -1112,6 +1168,7 @@ section::after{
 
 section > *{
   position:relative;
+
   z-index:2;
 }
 
@@ -1121,9 +1178,9 @@ section h2.section-title{
 
   font-size:
     clamp(
-      1.65rem,
+      1.7rem,
       5vw,
-      2.1rem
+      2.2rem
     );
 }
 
@@ -1151,20 +1208,25 @@ section h2.section-title{
     1px solid
     var(--line);
 
-  border-radius:10px;
+  border-radius:16px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(116,50,39,.42),
-      rgba(24,9,8,.62)
+      rgba(119,53,71,.42),
+      rgba(28,10,16,.66)
     );
 
   box-shadow:
-    0 25px 55px rgba(0,0,0,.28),
-    inset 0 1px 0 rgba(255,255,255,.025);
 
-  backdrop-filter:blur(8px);
+    0 25px 55px
+    rgba(0,0,0,.30),
+
+    inset
+    0 1px 0
+    rgba(255,255,255,.035);
+
+  backdrop-filter:blur(10px);
 }
 
 .card + .card{
@@ -1188,42 +1250,89 @@ section h2.section-title{
 }
 
 /* =========================================================
+   SAVE THE DATE
+========================================================= */
+
+.save-date-label{
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:8px;
+
+  margin:
+    0 auto 20px;
+
+  padding:
+    7px 16px;
+
+  border:
+    1px solid
+    rgba(226,186,119,.28);
+
+  border-radius:999px;
+
+  background:
+    rgba(110,46,65,.22);
+
+  color:var(--gold2);
+
+  font-size:.68rem;
+
+  letter-spacing:.16em;
+
+  text-transform:uppercase;
+}
+
+/* =========================================================
    CALENDAR
 ========================================================= */
 
 .mini-calendar{
-  width:min(320px,100%);
+  width:min(340px,100%);
 
   margin:
-    10px auto 28px;
+    8px auto 30px;
 
-  padding:18px;
+  padding:20px;
 
   border:
     1px solid
-    var(--line);
+    rgba(226,186,119,.28);
 
-  border-radius:10px;
+  border-radius:18px;
 
   background:
+
     linear-gradient(
       145deg,
-      rgba(105,44,35,.35),
-      rgba(21,8,7,.55)
+      rgba(111,49,67,.42),
+      rgba(23,8,13,.64)
     );
 
   box-shadow:
-    0 18px 45px rgba(0,0,0,.25);
+
+    0 22px 55px
+    rgba(0,0,0,.30),
+
+    inset
+    0 1px 0
+    rgba(255,255,255,.04);
+
+  backdrop-filter:blur(10px);
 }
 
 .mc-header{
-  margin-bottom:13px;
+  margin-bottom:17px;
 
   color:var(--gold3);
 
   font-family:'Cormorant Garamond',serif;
 
-  font-size:1.25rem;
+  font-size:1.45rem;
+
+  letter-spacing:.04em;
 }
 
 .mc-grid{
@@ -1232,36 +1341,41 @@ section h2.section-title{
   grid-template-columns:
     repeat(7,1fr);
 
-  gap:4px;
+  gap:5px;
 }
 
 .mc-dow{
-  padding-bottom:5px;
+  padding-bottom:7px;
 
   color:var(--rose);
 
   font-size:.65rem;
 
   text-transform:uppercase;
+
+  letter-spacing:.03em;
 }
 
 .mc-day{
-  padding:7px 0;
+  padding:8px 0;
 
   color:var(--cream);
 
-  font-size:.85rem;
+  font-size:.87rem;
 
-  border-radius:5px;
+  border-radius:7px;
 
   transition:.3s ease;
 }
 
 .mc-day:hover{
-  background:rgba(201,162,90,.1);
+  background:
+    rgba(201,162,90,.10);
 }
 
 .mc-highlight{
+  position:relative;
+
   color:var(--deep);
 
   font-weight:600;
@@ -1270,16 +1384,32 @@ section h2.section-title{
     linear-gradient(
       135deg,
       var(--gold3),
-      var(--bronze)
+      var(--gold2)
     );
 
   box-shadow:
-    0 0 18px rgba(240,205,142,.25);
+    0 0 20px
+    rgba(240,205,142,.25);
+}
+
+.mc-highlight::after{
+  content:"";
+
+  position:absolute;
+
+  inset:-3px;
+
+  border:
+    1px solid
+    rgba(246,223,174,.35);
+
+  border-radius:9px;
 }
 
 .add-to-calendar{
-  margin-top:16px;
-  padding-top:15px;
+  margin-top:18px;
+
+  padding-top:17px;
 
   border-top:
     1px solid
@@ -1290,11 +1420,12 @@ section h2.section-title{
   display:block;
 
   margin:
-    12px auto 0;
+    13px auto 0;
 
   color:var(--rose);
 
   background:none;
+
   border:none;
 
   text-decoration:underline;
@@ -1302,6 +1433,159 @@ section h2.section-title{
   font-family:'EB Garamond',serif;
 
   cursor:pointer;
+}
+
+/* =========================================================
+   COUNTDOWN
+========================================================= */
+
+.countdown-title{
+  margin:
+    0 0 18px;
+
+  color:var(--rose);
+
+  font-size:.78rem;
+
+  letter-spacing:.17em;
+
+  text-transform:uppercase;
+}
+
+.countdown-grid{
+  width:min(460px,100%);
+
+  margin:
+    0 auto;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:9px;
+}
+
+.count-box{
+  position:relative;
+
+  min-height:105px;
+
+  padding:
+    15px 7px 13px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+  justify-content:center;
+
+  border:
+    1px solid
+    rgba(226,186,119,.25);
+
+  border-radius:15px;
+
+  background:
+
+    linear-gradient(
+      145deg,
+      rgba(120,57,75,.46),
+      rgba(27,10,16,.70)
+    );
+
+  box-shadow:
+
+    0 14px 30px
+    rgba(0,0,0,.28),
+
+    inset
+    0 1px 0
+    rgba(255,255,255,.035);
+
+  backdrop-filter:blur(8px);
+
+  overflow:hidden;
+
+  transition:
+    transform .3s ease,
+    border-color .3s ease;
+}
+
+.count-box::before{
+  content:"";
+
+  position:absolute;
+
+  width:65px;
+  height:65px;
+
+  top:-35px;
+  right:-30px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(231,189,120,.15),
+      transparent 70%
+    );
+}
+
+.count-box:hover{
+  transform:translateY(-3px);
+
+  border-color:
+    rgba(226,186,119,.45);
+}
+
+.count-box .num{
+  display:block;
+
+  color:var(--gold3);
+
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:
+    clamp(
+      2rem,
+      8vw,
+      2.7rem
+    );
+
+  font-weight:500;
+
+  line-height:1;
+
+  text-shadow:
+    0 0 18px
+    rgba(240,205,142,.12);
+}
+
+.count-box .unit{
+  margin-top:8px;
+
+  color:var(--rose);
+
+  font-size:.64rem;
+
+  letter-spacing:.12em;
+
+  text-transform:uppercase;
+}
+
+.countdown-note{
+  margin:
+    18px auto 0;
+
+  color:
+    rgba(247,234,219,.65);
+
+  font-size:.78rem;
+
+  font-style:italic;
 }
 
 /* =========================================================
@@ -1324,7 +1608,8 @@ section h2.section-title{
     linear-gradient(
       135deg,
       var(--gold3),
-      var(--bronze)
+      var(--gold),
+      #b77a62
     );
 
   color:var(--deep);
@@ -1340,8 +1625,12 @@ section h2.section-title{
   text-decoration:none;
 
   box-shadow:
-    0 10px 25px rgba(0,0,0,.25),
-    0 0 18px rgba(201,162,90,.08);
+
+    0 10px 25px
+    rgba(0,0,0,.25),
+
+    0 0 18px
+    rgba(201,162,90,.08);
 
   transition:.3s ease;
 
@@ -1350,12 +1639,16 @@ section h2.section-title{
 
 .btn:hover{
   transform:translateY(-2px);
+
   filter:brightness(1.08);
 }
 
 .btn-sm{
   margin-top:0;
-  padding:10px 20px;
+
+  padding:
+    10px 20px;
+
   font-size:.75rem;
 }
 
@@ -1371,6 +1664,7 @@ section h2.section-title{
   text-align:left;
 
   display:flex;
+
   flex-direction:column;
 
   gap:14px;
@@ -1390,6 +1684,7 @@ section h2.section-title{
 
 .event-row:last-child{
   padding-bottom:0;
+
   border-bottom:none;
 }
 
@@ -1435,14 +1730,16 @@ section h2.section-title{
     1px solid
     var(--line);
 
-  border-radius:10px;
+  border-radius:14px;
 
   box-shadow:
-    0 20px 45px rgba(0,0,0,.3);
+    0 20px 45px
+    rgba(0,0,0,.30);
 }
 
 .map-embed iframe{
   width:100%;
+
   height:270px;
 
   display:block;
@@ -1530,9 +1827,13 @@ section h2.section-title{
     1px solid
     var(--line);
 
-  border-radius:8px;
+  border-radius:11px;
 
   background:var(--deep);
+
+  box-shadow:
+    0 12px 25px
+    rgba(0,0,0,.22);
 }
 
 .gallery-video{
@@ -1558,11 +1859,10 @@ section h2.section-title{
   object-fit:cover;
 
   filter:
-    sepia(12%)
-    saturate(88%);
+    sepia(8%)
+    saturate(90%);
 
-  transition:
-    .5s ease;
+  transition:.5s ease;
 }
 
 .gallery-row1 a:hover img{
@@ -1590,6 +1890,7 @@ section h2.section-title{
   margin:0 auto;
 
   overflow-x:auto;
+
   overflow-y:hidden;
 
   padding-bottom:8px;
@@ -1597,7 +1898,7 @@ section h2.section-title{
   scrollbar-width:thin;
 
   scrollbar-color:
-    var(--bronze)
+    var(--gold)
     transparent;
 }
 
@@ -1606,7 +1907,13 @@ section h2.section-title{
 }
 
 .gallery-row2::-webkit-scrollbar-thumb{
-  background:var(--bronze);
+  background:
+    linear-gradient(
+      90deg,
+      var(--rose-dark),
+      var(--gold)
+    );
+
   border-radius:5px;
 }
 
@@ -1632,7 +1939,7 @@ section h2.section-title{
     1px solid
     var(--line);
 
-  border-radius:7px;
+  border-radius:9px;
 }
 
 .gallery-row2-track img{
@@ -1644,8 +1951,8 @@ section h2.section-title{
   display:block;
 
   filter:
-    sepia(12%)
-    saturate(88%);
+    sepia(8%)
+    saturate(90%);
 
   transition:.5s ease;
 }
@@ -1662,6 +1969,7 @@ section h2.section-title{
 
 #lightbox{
   position:fixed;
+
   inset:0;
 
   z-index:10001;
@@ -1674,7 +1982,7 @@ section h2.section-title{
   padding:20px;
 
   background:
-    rgba(11,4,4,.94);
+    rgba(11,4,7,.95);
 
   cursor:zoom-out;
 }
@@ -1685,16 +1993,18 @@ section h2.section-title{
 
 #lightbox img{
   max-width:100%;
+
   max-height:88vh;
 
   border:
     1px solid
     var(--gold);
 
-  border-radius:7px;
+  border-radius:9px;
 
   box-shadow:
-    0 25px 70px rgba(0,0,0,.6);
+    0 25px 70px
+    rgba(0,0,0,.60);
 }
 
 /* =========================================================
@@ -1762,17 +2072,18 @@ section h2.section-title{
     1px solid
     var(--line);
 
-  border-radius:9px;
+  border-radius:12px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(104,45,35,.32),
-      rgba(24,9,8,.57)
+      rgba(104,45,64,.34),
+      rgba(24,9,14,.60)
     );
 
   box-shadow:
-    0 12px 30px rgba(0,0,0,.22);
+    0 12px 30px
+    rgba(0,0,0,.22);
 }
 
 .wish-avatar{
@@ -1782,6 +2093,7 @@ section h2.section-title{
   min-width:38px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
@@ -1797,7 +2109,8 @@ section h2.section-title{
     linear-gradient(
       135deg,
       var(--gold3),
-      var(--bronze)
+      var(--gold),
+      var(--rose)
     );
 }
 
@@ -1830,6 +2143,7 @@ section h2.section-title{
   margin:0 auto;
 
   display:flex;
+
   flex-direction:column;
 
   gap:10px;
@@ -1846,12 +2160,12 @@ section h2.section-title{
     1px solid
     var(--line);
 
-  border-radius:7px;
+  border-radius:9px;
 
   outline:none;
 
   background:
-    rgba(20,8,7,.55);
+    rgba(20,8,13,.58);
 
   color:var(--cream);
 
@@ -1867,7 +2181,8 @@ section h2.section-title{
   border-color:var(--gold);
 
   box-shadow:
-    0 0 14px rgba(201,162,90,.08);
+    0 0 14px
+    rgba(201,162,90,.08);
 }
 
 .wish-form textarea{
@@ -1892,7 +2207,7 @@ section h2.section-title{
     linear-gradient(
       135deg,
       var(--gold3),
-      var(--bronze)
+      var(--gold)
     );
 
   color:var(--deep);
@@ -1932,13 +2247,13 @@ footer{
   position:relative;
 
   padding:
-    60px 24px 95px;
+    60px 24px 105px;
 
   background:
     linear-gradient(
       180deg,
-      rgba(20,8,7,.3),
-      #130605
+      rgba(20,8,13,.30),
+      #130609
     );
 }
 
@@ -1990,6 +2305,7 @@ footer p{
   position:fixed;
 
   right:18px;
+
   bottom:76px;
 
   z-index:9500;
@@ -1998,6 +2314,7 @@ footer p{
   height:45px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
@@ -2010,8 +2327,8 @@ footer p{
   background:
     linear-gradient(
       145deg,
-      rgba(76,31,25,.96),
-      rgba(20,8,7,.96)
+      rgba(91,39,54,.96),
+      rgba(20,8,13,.96)
     );
 
   color:var(--gold3);
@@ -2019,7 +2336,8 @@ footer p{
   font-size:1rem;
 
   box-shadow:
-    0 10px 25px rgba(0,0,0,.35);
+    0 10px 25px
+    rgba(0,0,0,.35);
 
   cursor:pointer;
 }
@@ -2045,6 +2363,31 @@ footer p{
       60px 20px;
   }
 
+  .countdown-grid{
+    gap:6px;
+  }
+
+  .count-box{
+    min-height:92px;
+
+    padding:
+      12px 5px;
+  }
+
+  .count-box .num{
+    font-size:2rem;
+  }
+
+  .count-box .unit{
+    font-size:.57rem;
+
+    letter-spacing:.08em;
+  }
+
+  .mini-calendar{
+    padding:17px;
+  }
+
   .scroll-reminder{
     bottom:13px;
 
@@ -2058,6 +2401,7 @@ footer p{
 
   .music-toggle{
     right:14px;
+
     bottom:65px;
 
     width:42px;
@@ -2176,10 +2520,12 @@ footer p{
         viewBox="0 0 16 16"
         fill="none"
       >
+
         <path
           d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z"
           fill="#c9a66b"
         />
+
       </svg>
 
       <span class="rule"></span>
@@ -2327,17 +2673,17 @@ footer p{
 
           <stop
             offset="0%"
-            stop-color="#7a3d2c"
+            stop-color="#7a3d4d"
           />
 
           <stop
             offset="50%"
-            stop-color="#43201a"
+            stop-color="#43202b"
           />
 
           <stop
             offset="100%"
-            stop-color="#7a3d2c"
+            stop-color="#7a3d4d"
           />
 
         </linearGradient>
@@ -2364,18 +2710,28 @@ footer p{
 
 
   <!-- =======================================================
-       WAKTU
+       SAVE THE DATE
   ======================================================== -->
 
   <section id="waktu-tempat">
 
     <p class="eyebrow reveal">
-      Waktu &amp; Tempat
+      Save the Date
     </p>
 
     <h2 class="section-title reveal">
-      Prosesi Wisuda
+      September 2026
     </h2>
+
+    <p class="section-sub reveal">
+      Tandai tanggal spesial ini
+    </p>
+
+    <div class="save-date-label reveal">
+      ✦ Momen Wisuda ✦
+    </div>
+
+    <!-- CALENDAR -->
 
     <div
       class="mini-calendar reveal"
@@ -2469,45 +2825,90 @@ footer p{
     </div>
 
 
+    <!-- COUNTDOWN -->
+
+    <div class="countdown-title reveal">
+      Menghitung menuju hari istimewa
+    </div>
+
     <div
       class="countdown-grid reveal"
       id="countdown"
     >
 
       <div class="count-box">
-        <span class="num" id="cd-days">00</span>
-        <span class="unit">Hari</span>
+
+        <span
+          class="num"
+          id="cd-days"
+        >
+          00
+        </span>
+
+        <span class="unit">
+          Hari
+        </span>
+
       </div>
 
       <div class="count-box">
-        <span class="num" id="cd-hours">00</span>
-        <span class="unit">Jam</span>
+
+        <span
+          class="num"
+          id="cd-hours"
+        >
+          00
+        </span>
+
+        <span class="unit">
+          Jam
+        </span>
+
       </div>
 
       <div class="count-box">
-        <span class="num" id="cd-mins">00</span>
-        <span class="unit">Menit</span>
+
+        <span
+          class="num"
+          id="cd-mins"
+        >
+          00
+        </span>
+
+        <span class="unit">
+          Menit
+        </span>
+
       </div>
 
       <div class="count-box">
-        <span class="num" id="cd-secs">00</span>
-        <span class="unit">Detik</span>
+
+        <span
+          class="num"
+          id="cd-secs"
+        >
+          00
+        </span>
+
+        <span class="unit">
+          Detik
+        </span>
+
       </div>
 
     </div>
 
+    <p class="countdown-note reveal">
+      Sampai bertemu di hari yang istimewa.
+    </p>
 
-    <div class="card reveal">
-
-      <div class="big">
-        Jumat, 18 September 2026
-      </div>
-
-      <div class="small">
-        Pukul 13.00 — 15.00 WIB
-      </div>
-
-    </div>
+    <!--
+      TIDAK ADA LAGI KARTU HARI/TANGGAL
+      SETELAH COUNTDOWN.
+      
+      Setelah countdown langsung ke
+      section Detail Acara di bawah.
+    -->
 
   </section>
 
@@ -2527,7 +2928,7 @@ footer p{
     </h2>
 
     <p class="section-sub reveal">
-      Klik tombol di bawah untuk petunjuk arah
+      Informasi lengkap mengenai acara
     </p>
 
     <div class="card reveal">
@@ -2536,7 +2937,9 @@ footer p{
 
         <div class="event-row">
 
-          <span class="ico">📆</span>
+          <span class="ico">
+            📆
+          </span>
 
           <div>
 
@@ -2554,7 +2957,9 @@ footer p{
 
         <div class="event-row">
 
-          <span class="ico">🕐</span>
+          <span class="ico">
+            🕐
+          </span>
 
           <div>
 
@@ -2572,7 +2977,9 @@ footer p{
 
         <div class="event-row">
 
-          <span class="ico">📍</span>
+          <span class="ico">
+            📍
+          </span>
 
           <div>
 
@@ -2752,52 +3159,82 @@ footer p{
 
       <div class="gallery-row2-track">
 
-        <a href="foto 3.jpeg" data-lightbox>
+        <a
+          href="foto 3.jpeg"
+          data-lightbox
+        >
+
           <img
             src="foto 3.jpeg"
             alt="Foto kenangan 3"
             loading="lazy"
           >
+
         </a>
 
-        <a href="foto 4.jpeg" data-lightbox>
+        <a
+          href="foto 4.jpeg"
+          data-lightbox
+        >
+
           <img
             src="foto 4.jpeg"
             alt="Foto kenangan 4"
             loading="lazy"
           >
+
         </a>
 
-        <a href="foto 5.jpeg" data-lightbox>
+        <a
+          href="foto 5.jpeg"
+          data-lightbox
+        >
+
           <img
             src="foto 5.jpeg"
             alt="Foto kenangan 5"
             loading="lazy"
           >
+
         </a>
 
-        <a href="foto 6.jpeg" data-lightbox>
+        <a
+          href="foto 6.jpeg"
+          data-lightbox
+        >
+
           <img
             src="foto 6.jpeg"
             alt="Foto kenangan 6"
             loading="lazy"
           >
+
         </a>
 
-        <a href="foto 7.jpeg" data-lightbox>
+        <a
+          href="foto 7.jpeg"
+          data-lightbox
+        >
+
           <img
             src="foto 7.jpeg"
             alt="Foto kenangan 7"
             loading="lazy"
           >
+
         </a>
 
-        <a href="foto 8.jpeg" data-lightbox>
+        <a
+          href="foto 8.jpeg"
+          data-lightbox
+        >
+
           <img
             src="foto 8.jpeg"
             alt="Foto kenangan 8"
             loading="lazy"
           >
+
         </a>
 
       </div>
@@ -3178,110 +3615,8 @@ footer p{
 
 
 /* =========================================================
-   PETAL EFFECT
-========================================================= */
-
-let petalTimer = null;
-
-function createPetal(){
-
-  const container =
-    document.getElementById(
-      'ambientEffects'
-    );
-
-  if(!container)
-    return;
-
-  const petal =
-    document.createElement('span');
-
-  petal.className =
-    'petal';
-
-  const size =
-    7+
-    Math.random()*10;
-
-  petal.style.width =
-    size+'px';
-
-  petal.style.height =
-    size*1.45+'px';
-
-  petal.style.left =
-    Math.random()*100+'%';
-
-  petal.style.setProperty(
-    '--sway',
-    (
-      Math.random()*180-90
-    )+'px'
-  );
-
-  petal.style.animationDuration =
-    (
-      8+
-      Math.random()*8
-    )+'s';
-
-  petal.style.animationDelay =
-    (
-      Math.random()*2
-    )+'s';
-
-  container.appendChild(petal);
-
-  setTimeout(
-    ()=>{
-      petal.remove();
-    },
-    18000
-  );
-
-}
-
-
-function startPetals(){
-
-  if(petalTimer)
-    return;
-
-  for(let i=0;i<12;i++){
-
-    setTimeout(
-      createPetal,
-      i*350
-    );
-
-  }
-
-  petalTimer =
-    setInterval(
-      createPetal,
-      850
-    );
-
-}
-
-
-function stopPetals(){
-
-  if(petalTimer){
-
-    clearInterval(
-      petalTimer
-    );
-
-    petalTimer = null;
-
-  }
-
-}
-
-
-/* =========================================================
    FOTO BERJATUHAN DI HERO
+   TIDAK ADA PETAL / KELOPAK BUNGA
 ========================================================= */
 
 const fallingPhotoSources = [
@@ -3383,7 +3718,8 @@ function spawnFallingPhotos(count){
     );
 
     el.style.animationDelay =
-      Math.random()*3+'s';
+      Math.random()*3+
+      's';
 
     container.appendChild(el);
 
@@ -3474,12 +3810,17 @@ function openInvite(){
     ()=>{
       requestAnimationFrame(
         ()=>{
+
           startFallingPhotosLoop();
-          startPetals();
+
           initRevealObserver();
+
           initGalleryAutoScroll();
+
           initWishesAutoScroll();
+
           updateScrollUI();
+
         }
       );
     }
@@ -3503,54 +3844,66 @@ function handleScrollReminder(){
   if(nearBottom){
 
     window.scrollTo({
+
       top:0,
+
       behavior:'smooth'
+
+    });
+
+    return;
+
+  }
+
+  const sections =
+    document.querySelectorAll(
+      '#main section'
+    );
+
+  let next =
+    null;
+
+  const current =
+    window.scrollY+
+    window.innerHeight*.35;
+
+  sections.forEach(
+    section=>{
+
+      if(
+        !next &&
+        section.offsetTop >
+        current
+      ){
+
+        next =
+          section;
+
+      }
+
+    }
+  );
+
+  if(next){
+
+    next.scrollIntoView({
+
+      behavior:'smooth',
+
+      block:'start'
+
     });
 
   }else{
 
-    const sections =
-      document.querySelectorAll(
-        '#main section'
-      );
+    window.scrollBy({
 
-    let next =
-      null;
+      top:
+        window.innerHeight*.75,
 
-    const current =
-      window.scrollY+
-      window.innerHeight*.35;
+      behavior:'smooth'
 
-    sections.forEach(
-      section=>{
-
-        if(
-          !next &&
-          section.offsetTop >
-          current
-        ){
-          next =
-            section;
-        }
-
-      }
-    );
-
-    if(next){
-
-      next.scrollIntoView({
-        behavior:'smooth',
-        block:'start'
-      });
-
-    }else{
-
-      window.scrollBy({
-        top:window.innerHeight*.75,
-        behavior:'smooth'
-      });
-
-    }
+    });
 
   }
 
@@ -3589,7 +3942,8 @@ function updateScrollUI(){
     window.innerHeight;
 
   const scrollable =
-    docHeight-viewport;
+    docHeight-
+    viewport;
 
   const percent =
     scrollable>0
@@ -3720,6 +4074,7 @@ function initRevealObserver(){
       },
       {
         threshold:.08,
+
         rootMargin:
           '0px 0px -8% 0px'
       }
@@ -3831,27 +4186,44 @@ function updateCountdown(){
       1000
     );
 
-  document.getElementById(
-    'cd-days'
-  ).textContent =
-    pad(days);
+  const daysEl =
+    document.getElementById(
+      'cd-days'
+    );
 
-  document.getElementById(
-    'cd-hours'
-  ).textContent =
-    pad(hours);
+  const hoursEl =
+    document.getElementById(
+      'cd-hours'
+    );
 
-  document.getElementById(
-    'cd-mins'
-  ).textContent =
-    pad(mins);
+  const minsEl =
+    document.getElementById(
+      'cd-mins'
+    );
 
-  document.getElementById(
-    'cd-secs'
-  ).textContent =
-    pad(secs);
+  const secsEl =
+    document.getElementById(
+      'cd-secs'
+    );
+
+  if(daysEl)
+    daysEl.textContent =
+      pad(days);
+
+  if(hoursEl)
+    hoursEl.textContent =
+      pad(hours);
+
+  if(minsEl)
+    minsEl.textContent =
+      pad(mins);
+
+  if(secsEl)
+    secsEl.textContent =
+      pad(secs);
 
 }
+
 
 updateCountdown();
 
@@ -3927,8 +4299,11 @@ function downloadICS(){
   const ics = [
 
     'BEGIN:VCALENDAR',
+
     'VERSION:2.0',
+
     'PRODID:-//Undangan Wisuda//ID',
+
     'BEGIN:VEVENT',
 
     'UID:'+
@@ -3954,6 +4329,7 @@ function downloadICS(){
       EVENT_LOCATION,
 
     'END:VEVENT',
+
     'END:VCALENDAR'
 
   ].join('\r\n');
@@ -4374,12 +4750,14 @@ function renderWishCard(
 
       .catch(
         ()=>{
+
           if(wishNoteEl){
 
             wishNoteEl.textContent =
               'Tidak bisa memuat ucapan saat ini, coba muat ulang halaman.';
 
           }
+
         }
       );
 
@@ -4481,6 +4859,7 @@ function initWishesAutoScroll(){
     true;
 
   wishPosition=0;
+
   wishLastTime=null;
 
   function animate(timestamp){
@@ -4686,6 +5065,7 @@ document
       }
 
       nameInput.value='';
+
       msgInput.value='';
 
       wishPauseUntil =
@@ -4702,11 +5082,13 @@ document
 window.addEventListener(
   'DOMContentLoaded',
   ()=>{
+
     document
       .getElementById('music')
       .load();
 
     updateScrollUI();
+
   }
 );
 
