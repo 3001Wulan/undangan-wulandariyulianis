@@ -180,9 +180,14 @@
   }
   .open-btn:focus-visible{ outline: 2px solid var(--gold-bright); outline-offset:3px; }
 
-  /* SCROLL HINT — ajakan menggeser/scroll untuk melihat undangan */
+  /* SCROLL HINT — ajakan menggeser/scroll untuk melihat undangan.
+     Posisi fixed di bawah layar supaya LANGSUNG terlihat begitu undangan dibuka,
+     tanpa perlu digulir dulu (terutama di HP). */
   .scroll-hint{
-    margin-top: 30px;
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%) translateY(10px);
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -191,8 +196,19 @@
     font-size: 0.7rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    opacity: 0.85;
     cursor: pointer;
+    z-index: 45;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    background: linear-gradient(180deg, transparent, rgba(28,13,12,0.75) 55%);
+    padding: 18px 22px 10px;
+    border-radius: 12px;
+  }
+  .scroll-hint.show{
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
   }
   .scroll-hint svg{
     animation: scrollBounce 1.8s ease-in-out infinite;
@@ -308,8 +324,6 @@
     font-size: 1.05rem;
     line-height:1.7;
   }
-
-  .hero .scroll-hint{ margin-top: 40px; }
 
   section{ padding: 56px 24px; }
   section h2.section-title{
@@ -721,6 +735,21 @@
     margin: 4px 0;
   }
 
+  /* REVEAL ON SCROLL — elemen muncul lembut (fade + naik) saat digulir setelah hero */
+  .reveal{
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+    will-change: opacity, transform;
+  }
+  .reveal.show{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+  }
+
   .music-toggle{
     position: fixed;
     bottom: 20px;
@@ -784,18 +813,18 @@
     <p>Puji syukur atas nikmat yang diberikan, kami mengundang Bapak/Ibu/Saudara/i untuk turut hadir dan memberikan doa restu pada momen kelulusan ini.</p>
 
     <!-- SCROLL HINT: ajakan menggeser/scroll untuk melihat undangan, sekarang di halaman kedua -->
-    <div class="scroll-hint" onclick="scrollToNext()" role="button" tabindex="0" onkeypress="if(event.key==='Enter')scrollToNext()">
+    <div class="scroll-hint" id="scrollHint" onclick="scrollToNext()" role="button" tabindex="0" onkeypress="if(event.key==='Enter')scrollToNext()">
       <span>Geser untuk membuka</span>
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 4v14M6 13l6 6 6-6" stroke="#c9a25a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
   </div>
 
   <section id="waktu-tempat">
-    <p class="eyebrow">Waktu &amp; Tempat</p>
-    <h2 class="section-title">Prosesi Wisuda</h2>
-    <p class="section-sub">Kami nantikan kehadiran Anda</p>
+    <p class="eyebrow reveal">Waktu &amp; Tempat</p>
+    <h2 class="section-title reveal">Prosesi Wisuda</h2>
+    <p class="section-sub reveal">Kami nantikan kehadiran Anda</p>
 
-    <div class="mini-calendar" aria-label="Kalender September 2026">
+    <div class="mini-calendar reveal" aria-label="Kalender September 2026">
       <div class="mc-header">September 2026</div>
       <div class="mc-grid">
         <span class="mc-dow">Min</span><span class="mc-dow">Sen</span><span class="mc-dow">Sel</span><span class="mc-dow">Rab</span><span class="mc-dow">Kam</span><span class="mc-dow">Jum</span><span class="mc-dow">Sab</span>
@@ -816,25 +845,25 @@
       </div>
     </div>
 
-    <div class="countdown-grid" id="countdown">
+    <div class="countdown-grid reveal" id="countdown">
       <div class="count-box"><span class="num" id="cd-days">00</span><span class="unit">Hari</span></div>
       <div class="count-box"><span class="num" id="cd-hours">00</span><span class="unit">Jam</span></div>
       <div class="count-box"><span class="num" id="cd-mins">00</span><span class="unit">Menit</span></div>
       <div class="count-box"><span class="num" id="cd-secs">00</span><span class="unit">Detik</span></div>
     </div>
 
-    <div class="card">
+    <div class="card reveal">
       <div class="big">Jumat, 18 September 2026</div>
       <div class="small">Pukul 13.00 — 15.00 WIB</div>
     </div>
   </section>
 
   <section>
-    <p class="eyebrow">Lokasi Acara</p>
-    <h2 class="section-title">Gedung FTI</h2>
-    <p class="section-sub">Klik tombol di bawah untuk petunjuk arah</p>
+    <p class="eyebrow reveal">Lokasi Acara</p>
+    <h2 class="section-title reveal">Gedung FTI</h2>
+    <p class="section-sub reveal">Klik tombol di bawah untuk petunjuk arah</p>
 
-    <div class="card">
+    <div class="card reveal">
       <div class="event-summary">
         <div class="event-row">
           <span class="ico">📆</span>
@@ -853,7 +882,7 @@
     </div>
 
     <!-- PETA OPENSTREETMAP — bbox dipersempit agar langsung zoom ke Gedung FTI -->
-    <div class="map-embed">
+    <div class="map-embed reveal">
       <iframe
         title="Peta lokasi Fakultas Teknologi Informasi Universitas Andalas"
         src="https://www.openstreetmap.org/export/embed.html?bbox=100.4560%2C-0.9165%2C100.4630%2C-0.9125&layer=mapnik&marker=-0.9145%2C100.4595"
@@ -864,33 +893,33 @@
   </section>
 
   <section>
-    <p class="eyebrow">Perjalanan Studi</p>
-    <h2 class="section-title">Sekilas Perjalanan</h2>
+    <p class="eyebrow reveal">Perjalanan Studi</p>
+    <h2 class="section-title reveal">Sekilas Perjalanan</h2>
     <div class="timeline">
-      <div class="tl-item"><div class="tl-year">2022</div><div class="tl-text">Memulai perkuliahan di [Nama Universitas]</div></div>
-      <div class="tl-item"><div class="tl-year">2025</div><div class="tl-text">Menyelesaikan skripsi/tugas akhir</div></div>
-      <div class="tl-item"><div class="tl-year">2026</div><div class="tl-text">Dinyatakan lulus dan diwisuda</div></div>
+      <div class="tl-item reveal"><div class="tl-year">2022</div><div class="tl-text">Memulai perkuliahan di [Nama Universitas]</div></div>
+      <div class="tl-item reveal"><div class="tl-year">2025</div><div class="tl-text">Menyelesaikan skripsi/tugas akhir</div></div>
+      <div class="tl-item reveal"><div class="tl-year">2026</div><div class="tl-text">Dinyatakan lulus dan diwisuda</div></div>
     </div>
   </section>
 
   <section>
-    <p class="eyebrow">Kenangan</p>
-    <h2 class="section-title">Galeri Foto</h2>
-    <p class="section-sub">Klik foto untuk melihat lebih besar</p>
+    <p class="eyebrow reveal">Kenangan</p>
+    <h2 class="section-title reveal">Galeri Foto</h2>
+    <p class="section-sub reveal">Klik foto untuk melihat lebih besar</p>
     <div class="gallery">
-      <a href="https://picsum.photos/seed/wisuda1/800/1000" data-lightbox><img src="https://picsum.photos/seed/wisuda1/500/650" alt="Foto kenangan 1" loading="lazy"></a>
-      <a href="https://picsum.photos/seed/wisuda2/800/1000" data-lightbox><img src="https://picsum.photos/seed/wisuda2/500/650" alt="Foto kenangan 2" loading="lazy"></a>
-      <a href="https://picsum.photos/seed/wisuda3/800/1000" data-lightbox><img src="https://picsum.photos/seed/wisuda3/500/650" alt="Foto kenangan 3" loading="lazy"></a>
-      <a href="https://picsum.photos/seed/wisuda4/800/1000" data-lightbox><img src="https://picsum.photos/seed/wisuda4/500/650" alt="Foto kenangan 4" loading="lazy"></a>
+      <a class="reveal" href="https://picsum.photos/seed/wisuda1/800/1000" data-lightbox><img src="https://picsum.photos/seed/wisuda1/500/650" alt="Foto kenangan 1" loading="lazy"></a>
+      <a class="reveal" href="https://picsum.photos/seed/wisuda2/800/1000" data-lightbox><img src="https://picsum.photos/seed/wisuda2/500/650" alt="Foto kenangan 2" loading="lazy"></a>
+      <a class="reveal" href="https://picsum.photos/seed/wisuda3/800/1000" data-lightbox><img src="https://picsum.photos/seed/wisuda3/500/650" alt="Foto kenangan 3" loading="lazy"></a>
+      <a class="reveal" href="https://picsum.photos/seed/wisuda4/800/1000" data-lightbox><img src="https://picsum.photos/seed/wisuda4/500/650" alt="Foto kenangan 4" loading="lazy"></a>
     </div>
   </section>
 
   <section>
-    <p class="eyebrow">Doa &amp; Restu</p>
-    <h2 class="section-title">Ucapan dari Teman-Teman</h2>
-    <p class="section-sub">Tinggalkan pesan untuk Lann</p>
+    <p class="eyebrow reveal">Doa &amp; Restu</p>
+    <h2 class="section-title reveal">Ucapan dari Teman-Teman</h2>
+    <p class="section-sub reveal">Tinggalkan pesan untuk Lann</p>
 
-    <div class="wishes-list" id="wishesList">
+    <div class="wishes-list reveal" id="wishesList">
       <div class="wish-card">
         <div class="wish-avatar">A</div>
         <div>
@@ -907,7 +936,7 @@
       </div>
     </div>
 
-    <form class="wish-form" id="wishForm">
+    <form class="wish-form reveal" id="wishForm">
       <input type="text" id="wishName" placeholder="Nama Anda" required>
       <textarea id="wishMsg" placeholder="Tulis ucapan dan doa Anda di sini..." required></textarea>
       <button type="submit">Kirim Ucapan</button>
@@ -915,7 +944,7 @@
     <p class="wish-note">Ucapan akan tampil di halaman ini selama sesi kunjungan Anda terbuka.</p>
   </section>
 
-  <footer>
+  <footer class="reveal">
     <div class="ornament"><span class="rule"></span><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z" fill="#c9a66b"/></svg><span class="rule"></span></div>
     <p class="signature">Lann</p>
     <p>Terima kasih atas doa dan restu yang diberikan.</p>
@@ -1030,19 +1059,33 @@
     }
   }
 
-  /* pantau apakah section hero sedang terlihat di layar */
-  window.addEventListener('DOMContentLoaded', function(){
+  /* pantau apakah section hero sedang terlihat di layar — foto jatuh + tombol "geser untuk membuka"
+     hanya tampil selama section ini ada di layar. Observer ini di-setup begitu undangan dibuka
+     (bukan saat DOMContentLoaded, karena #main masih display:none saat itu sehingga elemen
+     belum punya ukuran/posisi untuk dipantau). */
+  let heroVisibilityObserver = null;
+  function initHeroVisibilityObserver(){
     const heroEl = document.querySelector('.hero');
-    if(heroEl && 'IntersectionObserver' in window){
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if(entry.isIntersecting){ startFallingPhotosLoop(); }
-          else { stopFallingPhotosLoop(); }
-        });
-      }, { threshold: 0.15 });
-      observer.observe(heroEl);
+    const scrollHint = document.getElementById('scrollHint');
+    if(!heroEl) return;
+    if(!('IntersectionObserver' in window)){
+      if(scrollHint) scrollHint.classList.add('show');
+      return;
     }
-  });
+    if(heroVisibilityObserver) heroVisibilityObserver.disconnect();
+    heroVisibilityObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          startFallingPhotosLoop();
+          if(scrollHint) scrollHint.classList.add('show');
+        } else {
+          stopFallingPhotosLoop();
+          if(scrollHint) scrollHint.classList.remove('show');
+        }
+      });
+    }, { threshold: 0.1 });
+    heroVisibilityObserver.observe(heroEl);
+  }
 
   /* OPENING FUNCTION */
   function openInvite() {
@@ -1055,14 +1098,75 @@
     music.play().catch(()=>{});
     document.getElementById("musicBtn").style.display = "flex";
 
-    /* mulai loop foto jatuh begitu undangan dibuka (hero langsung terlihat) */
-    setTimeout(startFallingPhotosLoop, 100);
+    /* Tunggu 2 frame render supaya browser sudah selesai melakukan layout untuk #main
+       (yang baru saja berubah dari display:none ke block) sebelum memantau elemen. */
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        startFallingPhotosLoop();
+        initHeroVisibilityObserver();
+        initRevealObserver();
+        /* jaring pengaman: pastikan "geser untuk membuka" langsung terlihat di HP
+           begitu undangan dibuka, tanpa harus menggulir dulu */
+        const scrollHint = document.getElementById('scrollHint');
+        if(scrollHint) scrollHint.classList.add('show');
+      });
+    });
+
+    /* jaring pengaman kedua: kalau ada elemen ".reveal" yang entah kenapa tidak pernah
+       ter-trigger observer-nya (mis. perangkat/browser tidak umum), paksa tampil
+       setelah beberapa detik supaya konten tidak pernah hilang permanen */
+    setTimeout(function(){
+      document.querySelectorAll('.reveal:not(.show)').forEach(el => el.classList.add('show'));
+    }, 4000);
   }
 
   /* geser dari halaman "Dengan Penuh Syukur" menuju bagian Waktu & Tempat */
   function scrollToNext(){
     const target = document.getElementById('waktu-tempat');
     if(target){ target.scrollIntoView({ behavior: 'smooth' }); }
+  }
+
+  /* REVEAL ON SCROLL — setiap elemen ".reveal" muncul lembut (fade + naik) satu per satu
+     saat mulai terlihat di layar, memberi kesan elegan setelah bagian foto berjatuhan.
+     Di-setup dari openInvite() (bukan DOMContentLoaded) supaya elemen sudah punya
+     ukuran/posisi yang benar — sebelum undangan dibuka, #main masih display:none
+     sehingga IntersectionObserver tidak bisa memantaunya dengan akurat. */
+  let revealObserver = null;
+  function initRevealObserver(){
+    const revealEls = document.querySelectorAll('.reveal:not(.show)');
+    if(!revealEls.length) return;
+
+    if(!('IntersectionObserver' in window)){
+      revealEls.forEach(el => el.classList.add('show'));
+      return;
+    }
+
+    if(revealObserver) revealObserver.disconnect();
+    revealObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          const el = entry.target;
+          /* efek berjenjang: elemen yang berdekatan muncul dengan sedikit jeda */
+          const siblings = Array.from(el.parentElement ? el.parentElement.children : []).filter(c => c.classList.contains('reveal'));
+          const idx = siblings.indexOf(el);
+          const delay = Math.max(idx, 0) * 90;
+          setTimeout(() => el.classList.add('show'), delay);
+          obs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    /* jaring pengaman tambahan: pada layar tinggi/desktop sebagian elemen di bawah hero
+       bisa saja sudah langsung terlihat begitu dibuka — periksa manual sekali di awal */
+    revealEls.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if(rect.top < window.innerHeight && rect.bottom > 0){
+        el.classList.add('show');
+        revealObserver.unobserve(el);
+      }
+    });
   }
 
   function toggleMusic(){
