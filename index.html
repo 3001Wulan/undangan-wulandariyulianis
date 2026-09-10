@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -17,10 +18,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 
 <style>
-
-/* =========================================================
-   COLOR PALETTE
-========================================================= */
 
 :root{
   --deep:#12070a;
@@ -50,11 +47,6 @@
   --glass:
     rgba(79,31,45,.46);
 }
-
-
-/* =========================================================
-   RESET
-========================================================= */
 
 *{
   box-sizing:border-box;
@@ -2075,6 +2067,8 @@ section h2.section-title{
 .gallery-row2-track{
   display:flex;
 
+  align-items:center;
+
   gap:10px;
 
   width:max-content;
@@ -2095,6 +2089,12 @@ section h2.section-title{
     var(--line);
 
   border-radius:9px;
+
+  background:var(--deep);
+
+  display:block;
+
+  transition:.3s ease;
 }
 
 .gallery-row2-track img{
@@ -2120,8 +2120,84 @@ section h2.section-title{
 
 
 /* =========================================================
+   LANDSCAPE GALLERY
+   Foto landscape tetap landscape dan tanpa garis tepi
+========================================================= */
+
+.gallery-row1 a.landscape{
+  aspect-ratio:auto;
+
+  border:none;
+
+  border-radius:9px;
+
+  background:transparent;
+
+  box-shadow:none;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  overflow:hidden;
+}
+
+.gallery-row1 a.landscape img{
+  width:100%;
+  height:auto;
+
+  aspect-ratio:auto;
+
+  object-fit:contain;
+
+  border:none;
+
+  border-radius:9px;
+
+  transform:none;
+}
+
+.gallery-row2-track a.landscape{
+  flex:
+    0 0 178px;
+
+  aspect-ratio:3/2;
+
+  border:none;
+
+  border-radius:9px;
+
+  background:transparent;
+
+  box-shadow:none;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  overflow:hidden;
+}
+
+.gallery-row2-track a.landscape img{
+  width:100%;
+  height:100%;
+
+  object-fit:contain;
+
+  border:none;
+
+  border-radius:9px;
+
+  transform:none;
+}
+
+
+/* =========================================================
    KUTIPAN
-   DITAMBAHKAN SETELAH GALERI
 ========================================================= */
 
 .quote-section{
@@ -2763,6 +2839,10 @@ footer p{
     font-size:1.25rem;
   }
 
+  .gallery-row2-track a.landscape{
+    flex-basis:155px;
+  }
+
 }
 
 
@@ -2834,29 +2914,17 @@ footer p{
 <body>
 
 
-<!-- =========================================================
-     PROGRESS
-========================================================= -->
-
 <div
   class="scroll-progress"
   id="scrollProgress"
 ></div>
 
 
-<!-- =========================================================
-     GLOBAL EFFECTS
-========================================================= -->
-
 <div
   id="ambientEffects"
   aria-hidden="true"
 ></div>
 
-
-<!-- =========================================================
-     OPENING
-========================================================= -->
 
 <div id="opening">
 
@@ -2930,16 +2998,8 @@ footer p{
 </div>
 
 
-<!-- =========================================================
-     MAIN
-========================================================= -->
-
 <div id="main">
 
-
-  <!-- =======================================================
-       HERO
-  ======================================================== -->
 
   <div class="hero">
 
@@ -3020,10 +3080,6 @@ footer p{
   </div>
 
 
-  <!-- =======================================================
-       DIVIDER
-  ======================================================== -->
-
   <div
     class="hero-divider"
     aria-hidden="true"
@@ -3082,10 +3138,6 @@ footer p{
 
   </div>
 
-
-  <!-- =======================================================
-       SAVE THE DATE
-  ======================================================== -->
 
   <section id="waktu-tempat">
 
@@ -3240,10 +3292,6 @@ footer p{
   </section>
 
 
-  <!-- =======================================================
-       DETAIL ACARA
-  ======================================================== -->
-
   <section>
 
     <p class="eyebrow reveal">
@@ -3355,10 +3403,6 @@ footer p{
   </section>
 
 
-  <!-- =======================================================
-       PERJALANAN
-  ======================================================== -->
-
   <section>
 
     <p class="eyebrow reveal">
@@ -3413,7 +3457,7 @@ footer p{
 
 
   <!-- =======================================================
-       GALERI
+       GALERI 25 FOTO
   ======================================================== -->
 
   <section>
@@ -3430,6 +3474,9 @@ footer p{
       Klik foto untuk melihat lebih besar
     </p>
 
+
+    <!-- FOTO 1 - 2 + VIDEO -->
+
     <div class="gallery-row1">
 
       <a
@@ -3445,6 +3492,7 @@ footer p{
         >
 
       </a>
+
 
       <div class="gallery-video reveal">
 
@@ -3465,6 +3513,7 @@ footer p{
 
       </div>
 
+
       <a
         class="reveal"
         href="foto 2.jpeg"
@@ -3481,91 +3530,294 @@ footer p{
 
     </div>
 
+
     <p class="gallery-hint reveal">
-      Geser foto untuk melihat kenangan lainnya
+      Geser foto untuk melihat 25 kenangan lainnya
     </p>
+
+
+    <!-- FOTO 3 - 25 -->
 
     <div class="gallery-row2 reveal">
 
       <div class="gallery-row2-track">
 
+
         <a
           href="foto 3.jpeg"
           data-lightbox
         >
-
           <img
             src="foto 3.jpeg"
             alt="Foto kenangan 3"
             loading="lazy"
           >
-
         </a>
+
 
         <a
           href="foto 4.jpeg"
           data-lightbox
         >
-
           <img
             src="foto 4.jpeg"
             alt="Foto kenangan 4"
             loading="lazy"
           >
-
         </a>
+
 
         <a
           href="foto 5.jpeg"
           data-lightbox
         >
-
           <img
             src="foto 5.jpeg"
             alt="Foto kenangan 5"
             loading="lazy"
           >
-
         </a>
+
 
         <a
           href="foto 6.jpeg"
           data-lightbox
         >
-
           <img
             src="foto 6.jpeg"
             alt="Foto kenangan 6"
             loading="lazy"
           >
-
         </a>
+
 
         <a
           href="foto 7.jpeg"
           data-lightbox
         >
-
           <img
             src="foto 7.jpeg"
             alt="Foto kenangan 7"
             loading="lazy"
           >
-
         </a>
+
 
         <a
           href="foto 8.jpeg"
           data-lightbox
         >
-
           <img
             src="foto 8.jpeg"
             alt="Foto kenangan 8"
             loading="lazy"
           >
-
         </a>
+
+
+        <a
+          href="foto 9.jpeg"
+          data-lightbox
+        >
+          <img
+            src="foto 9.jpeg"
+            alt="Foto kenangan 9"
+            loading="lazy"
+          >
+        </a>
+
+
+        <a
+          href="foto 10.jpeg"
+          data-lightbox
+        >
+          <img
+            src="foto 10.jpeg"
+            alt="Foto kenangan 10"
+            loading="lazy"
+          >
+        </a>
+
+
+        <a
+          href="foto 11.jpeg"
+          data-lightbox
+        >
+          <img
+            src="foto 11.jpeg"
+            alt="Foto kenangan 11"
+            loading="lazy"
+          >
+        </a>
+
+
+        <a
+          href="foto 12.jpeg"
+          data-lightbox
+        >
+          <img
+            src="foto 12.jpeg"
+            alt="Foto kenangan 12"
+            loading="lazy"
+          >
+        </a>
+
+
+        <a
+          href="foto 13.jpeg"
+          data-lightbox
+        >
+          <img
+            src="foto 13.jpeg"
+            alt="Foto kenangan 13"
+            loading="lazy"
+          >
+        </a>
+
+
+        <a
+          href="foto 14.jpeg"
+          data-lightbox
+        >
+          <img
+            src="foto 14.jpeg"
+            alt="Foto kenangan 14"
+            loading="lazy"
+          >
+        </a>
+
+
+        <a
+          href="foto 15.jpeg"
+          data-lightbox
+        >
+          <img
+            src="foto 15.jpeg"
+            alt="Foto kenangan 15"
+            loading="lazy"
+          >
+        </a>
+
+
+        <a
+          href="foto 16.jpeg"
+          data-lightbox
+        >
+          <img
+            src="foto 16.jpeg"
+            alt="Foto kenangan 16"
+            loading="lazy"
+          >
+        </a>
+
+
+        <a
+          href="foto 17.jpeg"
+          data-lightbox
+        >
+          <img
+            src="foto 17.jpeg"
+            alt="Foto kenangan 17"
+            loading="lazy"
+          >
+        </a>
+
+
+        <a
+          href="foto 18.jpeg"
+          data-lightbox
+        >
+          <img
+            src="foto 18.jpeg"
+            alt="Foto kenangan 18"
+            loading="lazy"
+          >
+        </a>
+
+
+        <a
+          href="foto 19.jpeg"
+          data-lightbox
+        >
+          <img
+            src="foto 19.jpeg"
+            alt="Foto kenangan 19"
+            loading="lazy"
+          >
+        </a>
+
+
+        <a
+          href="foto 20.jpeg"
+          data-lightbox
+        >
+          <img
+            src="foto 20.jpeg"
+            alt="Foto kenangan 20"
+            loading="lazy"
+          >
+        </a>
+
+
+        <a
+          href="foto 21.jpeg"
+          data-lightbox
+        >
+          <img
+            src="foto 21.jpeg"
+            alt="Foto kenangan 21"
+            loading="lazy"
+          >
+        </a>
+
+
+        <a
+          href="foto 22.jpeg"
+          data-lightbox
+        >
+          <img
+            src="foto 22.jpeg"
+            alt="Foto kenangan 22"
+            loading="lazy"
+          >
+        </a>
+
+
+        <a
+          href="foto 23.jpeg"
+          data-lightbox
+        >
+          <img
+            src="foto 23.jpeg"
+            alt="Foto kenangan 23"
+            loading="lazy"
+          >
+        </a>
+
+
+        <a
+          href="foto 24.jpeg"
+          data-lightbox
+        >
+          <img
+            src="foto 24.jpeg"
+            alt="Foto kenangan 24"
+            loading="lazy"
+          >
+        </a>
+
+
+        <a
+          href="foto 25.jpeg"
+          data-lightbox
+        >
+          <img
+            src="foto 25.jpeg"
+            alt="Foto kenangan 25"
+            loading="lazy"
+          >
+        </a>
+
 
       </div>
 
@@ -3573,10 +3825,6 @@ footer p{
 
   </section>
 
-
-  <!-- =======================================================
-       KUTIPAN
-  ======================================================== -->
 
   <section class="quote-section">
 
@@ -3602,10 +3850,6 @@ footer p{
 
   </section>
 
-
-  <!-- =======================================================
-       UCAPAN
-  ======================================================== -->
 
   <section>
 
@@ -3713,10 +3957,6 @@ footer p{
   </section>
 
 
-  <!-- =======================================================
-       FOOTER
-  ======================================================== -->
-
   <footer class="reveal">
 
     <div class="ornament">
@@ -3754,10 +3994,6 @@ footer p{
 </div>
 
 
-<!-- =========================================================
-     SCROLL REMINDER
-========================================================= -->
-
 <button
   class="scroll-reminder"
   id="scrollReminder"
@@ -3790,10 +4026,6 @@ footer p{
 </button>
 
 
-<!-- =========================================================
-     MUSIC
-========================================================= -->
-
 <audio
   id="music"
   src="musik.mp3"
@@ -3812,10 +4044,6 @@ footer p{
 </button>
 
 
-<!-- =========================================================
-     LIGHTBOX
-========================================================= -->
-
 <div
   id="lightbox"
   onclick="closeLightbox()"
@@ -3831,6 +4059,7 @@ footer p{
 
 
 <script>
+
 
 /* =========================================================
    NAMA TAMU
@@ -4856,6 +5085,62 @@ function initGalleryAutoScroll(){
   galleryAutoScrollStarted =
     true;
 
+
+  /*
+     Deteksi otomatis foto landscape.
+     Foto landscape diberi class "landscape"
+     sehingga tidak dipotong dan tidak memiliki border.
+  */
+
+  const galleryImages =
+    track.querySelectorAll('img');
+
+  galleryImages.forEach(
+    img=>{
+
+      const detectOrientation =
+        ()=>{
+
+          if(
+            img.naturalWidth >
+            img.naturalHeight
+          ){
+
+            const link =
+              img.closest('a');
+
+            if(link){
+
+              link.classList.add(
+                'landscape'
+              );
+
+            }
+
+          }
+
+        };
+
+      if(img.complete){
+
+        detectOrientation();
+
+      }else{
+
+        img.addEventListener(
+          'load',
+          detectOrientation,
+          {
+            once:true
+          }
+        );
+
+      }
+
+    }
+  );
+
+
   if(
     !track.dataset.duplicated
   ){
@@ -4870,6 +5155,7 @@ function initGalleryAutoScroll(){
 
   }
 
+
   let paused =
     false;
 
@@ -4882,15 +5168,19 @@ function initGalleryAutoScroll(){
   const speed =
     .035;
 
+
   wrap.addEventListener(
     'pointerdown',
     ()=>{
+
       paused=true;
 
       if(resumeTimer)
         clearTimeout(resumeTimer);
+
     }
   );
+
 
   function resume(){
 
@@ -4907,10 +5197,12 @@ function initGalleryAutoScroll(){
 
   }
 
+
   wrap.addEventListener(
     'pointerup',
     resume
   );
+
 
   wrap.addEventListener(
     'touchend',
@@ -4920,6 +5212,7 @@ function initGalleryAutoScroll(){
     }
   );
 
+
   wrap.addEventListener(
     'wheel',
     resume,
@@ -4927,6 +5220,7 @@ function initGalleryAutoScroll(){
       passive:true
     }
   );
+
 
   if(
     'IntersectionObserver'
@@ -4955,8 +5249,10 @@ function initGalleryAutoScroll(){
 
   }
 
+
   let last =
     null;
+
 
   function animate(time){
 
@@ -4996,6 +5292,7 @@ function initGalleryAutoScroll(){
     );
 
   }
+
 
   requestAnimationFrame(
     animate
@@ -5533,6 +5830,65 @@ document
 
 
 /* =========================================================
+   DETEKSI LANDSCAPE FOTO BAGIAN ATAS
+========================================================= */
+
+function detectTopGalleryOrientation(){
+
+  const images =
+    document.querySelectorAll(
+      '.gallery-row1 a[data-lightbox] img'
+    );
+
+  images.forEach(
+    img=>{
+
+      const detect =
+        ()=>{
+
+          if(
+            img.naturalWidth >
+            img.naturalHeight
+          ){
+
+            const link =
+              img.closest('a');
+
+            if(link){
+
+              link.classList.add(
+                'landscape'
+              );
+
+            }
+
+          }
+
+        };
+
+      if(img.complete){
+
+        detect();
+
+      }else{
+
+        img.addEventListener(
+          'load',
+          detect,
+          {
+            once:true
+          }
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
    INITIAL
 ========================================================= */
 
@@ -5543,6 +5899,8 @@ window.addEventListener(
     document
       .getElementById('music')
       .load();
+
+    detectTopGalleryOrientation();
 
     updateScrollUI();
 
