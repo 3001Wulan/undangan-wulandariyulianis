@@ -18,17 +18,28 @@
 
 <style>
 
+/* =========================================================
+   COLOR
+========================================================= */
+
 :root{
-  --mahogany-deep:#1c0d0c;
-  --mahogany:#43201a;
-  --mahogany-light:#7a3d2c;
-  --bronze:#b3813f;
+  --deep:#170807;
+  --mahogany:#351512;
+  --wine:#4d211d;
+  --wine2:#672d25;
+  --bronze:#a86f32;
   --gold:#c9a25a;
-  --gold-bright:#f0cd8e;
-  --cream:#efe4cf;
-  --rose-dust:#b98f72;
-  --line:rgba(201,162,90,0.32);
+  --gold2:#e6bd78;
+  --gold3:#f5dca7;
+  --cream:#f3e7d2;
+  --rose:#bd9680;
+  --line:rgba(220,177,100,.28);
+  --glass:rgba(58,25,21,.52);
 }
+
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
   box-sizing:border-box;
@@ -36,319 +47,571 @@
 
 html{
   scroll-behavior:smooth;
+  scroll-padding-top:20px;
 }
 
 body{
   margin:0;
+  min-height:100vh;
+  overflow-x:hidden;
+
+  color:var(--cream);
+
+  font-family:'EB Garamond',serif;
+  text-align:center;
+
   background:
     radial-gradient(
-      ellipse 70% 40% at 50% 0%,
-      rgba(179,129,63,0.16),
+      ellipse 80% 35% at 50% 0%,
+      rgba(225,177,88,.16),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 100% 70% at 0% 35%,
+      rgba(105,42,33,.25),
       transparent 65%
     ),
     radial-gradient(
-      ellipse at top,
-      var(--mahogany) 0%,
-      var(--mahogany-deep) 68%
+      ellipse 100% 70% at 100% 65%,
+      rgba(92,35,29,.20),
+      transparent 65%
+    ),
+    linear-gradient(
+      180deg,
+      #170807 0%,
+      #351512 28%,
+      #24100e 53%,
+      #421a16 76%,
+      #170807 100%
     );
-  color:var(--cream);
-  font-family:'EB Garamond',serif;
-  text-align:center;
-  overflow-x:hidden;
 }
 
-@media (prefers-reduced-motion:reduce){
-  *{
-    animation-duration:0.001ms!important;
-    animation-iteration-count:1!important;
-    transition-duration:0.001ms!important;
-  }
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      transparent 0,
+      rgba(0,0,0,.15) 75%,
+      rgba(0,0,0,.38) 100%
+    );
+}
+
+body > *{
+  position:relative;
+  z-index:1;
 }
 
 h1,h2,h3,.display{
   font-family:'Cormorant Garamond',serif;
   font-weight:500;
-  letter-spacing:0.03em;
-  color:var(--gold-bright);
+  letter-spacing:.035em;
+  color:var(--gold3);
 }
 
-.eyebrow{
-  font-family:'EB Garamond',serif;
-  font-style:italic;
-  letter-spacing:0.35em;
-  text-transform:uppercase;
-  font-size:0.72rem;
-  color:var(--gold);
-  opacity:0.9;
+p{
+  margin-top:0;
 }
 
-/* ================= ORNAMENT ================= */
-
-.ornament{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:14px;
-  margin:22px auto;
-  width:min(280px,70%);
+button,
+a{
+  -webkit-tap-highlight-color:transparent;
 }
 
-.ornament .rule{
-  height:1px;
-  flex:1;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    var(--gold),
-    transparent
-  );
-  opacity:0.7;
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.001ms!important;
+    scroll-behavior:auto!important;
+  }
 }
 
-.ornament svg{
-  flex-shrink:0;
+/* =========================================================
+   TOP PROGRESS
+========================================================= */
+
+.scroll-progress{
+  position:fixed;
+  top:0;
+  left:0;
+
+  width:0;
+  height:3px;
+
+  z-index:10000;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--bronze),
+      var(--gold3),
+      var(--gold)
+    );
+
+  box-shadow:
+    0 0 10px rgba(240,205,142,.55);
 }
 
-/* ================= OPENING ================= */
+/* =========================================================
+   GLOBAL DECORATION
+========================================================= */
+
+#ambientEffects{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:5;
+}
+
+.petal{
+  position:absolute;
+  top:-50px;
+
+  width:12px;
+  height:18px;
+
+  border-radius:
+    80% 20% 80% 20%;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(239,188,169,.85),
+      rgba(173,102,83,.55)
+    );
+
+  opacity:0;
+
+  filter:
+    drop-shadow(
+      0 3px 6px rgba(0,0,0,.25)
+    );
+
+  animation:
+    petalFall linear forwards;
+}
+
+.petal::after{
+  content:"";
+  position:absolute;
+
+  width:4px;
+  height:4px;
+
+  top:3px;
+  left:3px;
+
+  border-radius:50%;
+
+  background:rgba(255,238,217,.55);
+}
+
+@keyframes petalFall{
+
+  0%{
+    transform:
+      translate3d(0,-40px,0)
+      rotate(0deg);
+
+    opacity:0;
+  }
+
+  10%{
+    opacity:.75;
+  }
+
+  50%{
+    transform:
+      translate3d(
+        var(--sway),
+        50vh,
+        0
+      )
+      rotate(180deg);
+  }
+
+  90%{
+    opacity:.5;
+  }
+
+  100%{
+    transform:
+      translate3d(
+        calc(var(--sway) * -1),
+        110vh,
+        0
+      )
+      rotate(360deg);
+
+    opacity:0;
+  }
+}
+
+.bokeh{
+  position:absolute;
+
+  width:var(--size);
+  height:var(--size);
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(242,206,142,.28),
+      rgba(242,206,142,.02) 70%
+    );
+
+  filter:blur(1px);
+
+  animation:
+    bokehFloat var(--duration) ease-in-out infinite;
+}
+
+@keyframes bokehFloat{
+
+  0%,100%{
+    transform:translate3d(0,0,0);
+    opacity:.2;
+  }
+
+  50%{
+    transform:
+      translate3d(
+        var(--move),
+        -30px,
+        0
+      );
+
+    opacity:.65;
+  }
+}
+
+/* =========================================================
+   OPENING
+========================================================= */
 
 #opening{
   position:fixed;
   inset:0;
+
   display:flex;
-  flex-direction:column;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
+
+  padding:30px;
 
   background:
     radial-gradient(
-      circle at 50% 30%,
-      rgba(201,166,107,0.10),
-      transparent 60%
+      circle at 50% 25%,
+      rgba(221,177,91,.13),
+      transparent 45%
     ),
-    var(--mahogany-deep);
+    radial-gradient(
+      circle at 20% 90%,
+      rgba(115,47,38,.25),
+      transparent 45%
+    ),
+    linear-gradient(
+      145deg,
+      #160706,
+      #3b1713 55%,
+      #180807
+    );
 
-  z-index:999;
-  padding:32px;
+  z-index:9999;
+
   overflow:hidden;
 }
 
-#opening::before{
+#opening::before,
+#opening::after{
   content:"";
   position:absolute;
-  inset:18px;
-  border:1px solid var(--line);
   pointer-events:none;
+}
+
+#opening::before{
+  inset:18px;
+
+  border:1px solid var(--line);
+}
+
+#opening::after{
+  inset:27px;
+
+  border:1px solid rgba(201,162,90,.08);
+}
+
+.sparkles{
+  position:absolute;
+  inset:0;
 }
 
 .sparkle{
   position:absolute;
+
   width:3px;
   height:3px;
-  background:var(--gold-bright);
+
   border-radius:50%;
+
+  background:var(--gold3);
+
   opacity:0;
-  pointer-events:none;
-  animation:twinkle 3.4s ease-in-out infinite;
+
+  animation:
+    sparkleTwinkle
+    var(--duration)
+    ease-in-out
+    infinite;
 }
 
-@keyframes twinkle{
+@keyframes sparkleTwinkle{
+
   0%,100%{
     opacity:0;
-    transform:scale(0.6);
+    transform:scale(.5);
   }
 
   50%{
-    opacity:0.9;
-    transform:scale(1.3);
+    opacity:.9;
+    transform:scale(1.4);
   }
 }
 
 .opening-frame{
   position:relative;
-  max-width:420px;
-  z-index:2;
+  z-index:3;
+
+  width:min(450px,100%);
+
+  padding:35px 25px;
+
+  border-radius:12px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(80,34,27,.32),
+      rgba(19,8,7,.25)
+    );
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.45),
+    inset 0 0 40px rgba(211,164,79,.035);
 }
 
 .monogram{
-  width:64px;
-  height:64px;
-  margin:0 auto 18px;
-  border:1px solid var(--gold);
-  border-radius:50%;
+  width:74px;
+  height:74px;
+
+  margin:0 auto 20px;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.6rem;
-  color:var(--gold-bright);
+  border:
+    1px solid
+    var(--gold);
+
+  border-radius:50%;
+
+  font-size:1.75rem;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(211,164,79,.13),
+      transparent 70%
+    );
+
+  color:var(--gold3);
 
   animation:
-    floatY 3.6s ease-in-out infinite,
-    glowPulse 3.6s ease-in-out infinite;
+    monogramFloat 4s ease-in-out infinite;
 }
 
-@keyframes floatY{
+@keyframes monogramFloat{
+
   0%,100%{
     transform:translateY(0);
-  }
-
-  50%{
-    transform:translateY(-8px);
-  }
-}
-
-@keyframes glowPulse{
-  0%,100%{
     box-shadow:0 0 0 rgba(240,205,142,0);
   }
 
   50%{
-    box-shadow:0 0 18px rgba(240,205,142,0.55);
+    transform:translateY(-7px);
+    box-shadow:
+      0 0 25px rgba(240,205,142,.18);
   }
 }
 
-.opening-frame .eyebrow{
-  margin-bottom:6px;
+.eyebrow{
+  font-size:.72rem;
+
+  font-style:italic;
+
+  letter-spacing:.32em;
+
+  text-transform:uppercase;
+
+  color:var(--gold);
+
+  opacity:.92;
 }
 
 .opening-frame h1{
-  font-size:clamp(2rem,6vw,2.6rem);
-  margin:6px 0 4px;
+  margin:7px 0 4px;
+
+  font-size:
+    clamp(
+      2rem,
+      8vw,
+      2.7rem
+    );
+
+  line-height:1.12;
 }
 
-.opening-frame .role{
-  color:var(--rose-dust);
-  font-size:0.95rem;
-  letter-spacing:0.05em;
+.role{
+  color:var(--rose);
+
+  font-size:.95rem;
+
+  line-height:1.55;
+
+  letter-spacing:.035em;
+}
+
+.ornament{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:13px;
+
+  width:min(280px,75%);
+
+  margin:22px auto;
+}
+
+.ornament .rule{
+  flex:1;
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--gold),
+      transparent
+    );
+
+  opacity:.7;
 }
 
 .to-label{
-  margin-top:26px;
-  font-size:0.85rem;
-  letter-spacing:0.12em;
-  color:var(--rose-dust);
+  margin-top:25px;
+
+  color:var(--rose);
+
+  font-size:.82rem;
+
   text-transform:uppercase;
+
+  letter-spacing:.13em;
 }
 
 .guest-name{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.5rem;
+  margin:7px 0 28px;
+
   color:var(--cream);
-  margin:6px 0 30px;
+
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:1.45rem;
+
   font-style:italic;
 }
 
 .open-btn{
   padding:14px 38px;
-  background:transparent;
-  color:var(--gold-bright);
-  border:1px solid var(--gold);
+
+  border:
+    1px solid
+    var(--gold);
+
   border-radius:999px;
 
+  background:
+    linear-gradient(
+      135deg,
+      rgba(201,162,90,.08),
+      rgba(201,162,90,.02)
+    );
+
+  color:var(--gold3);
+
   font-family:'EB Garamond',serif;
-  letter-spacing:0.18em;
+
+  font-size:.78rem;
+
+  letter-spacing:.18em;
+
   text-transform:uppercase;
-  font-size:0.78rem;
 
   cursor:pointer;
 
-  transition:
-    background 0.4s ease,
-    color 0.4s ease;
+  box-shadow:
+    0 0 0 rgba(201,162,90,0);
 
-  animation:btnPulse 2.6s ease-in-out infinite;
+  animation:
+    openPulse 2.8s ease-in-out infinite;
+
+  transition:
+    .35s ease;
 }
 
-@keyframes btnPulse{
+@keyframes openPulse{
+
   0%,100%{
-    box-shadow:0 0 0 0 rgba(201,162,90,0.45);
+    box-shadow:
+      0 0 0 rgba(201,162,90,0);
   }
 
   50%{
-    box-shadow:0 0 0 8px rgba(201,162,90,0);
+    box-shadow:
+      0 0 22px rgba(201,162,90,.22);
   }
 }
 
-.open-btn:hover,
-.open-btn:focus-visible{
-  background:var(--gold);
-  color:var(--mahogany-deep);
+.open-btn:hover{
+  background:
+    linear-gradient(
+      135deg,
+      var(--gold3),
+      var(--bronze)
+    );
+
+  color:var(--deep);
+
+  transform:translateY(-2px);
 }
 
-/* ================= SCROLL HINT ================= */
-
-.scroll-hint{
-  position:absolute;
-
-  left:50%;
-  bottom:22px;
-
-  transform:
-    translateX(-50%)
-    translateY(15px);
-
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
-
-  color:var(--rose-dust);
-  font-size:0.66rem;
-  letter-spacing:0.12em;
-  text-transform:uppercase;
-  text-align:center;
-
-  white-space:nowrap;
-
-  cursor:pointer;
-  z-index:45;
-
-  opacity:0;
-  pointer-events:none;
-
-  transition:
-    opacity 0.5s ease,
-    transform 0.5s ease;
-}
-
-.scroll-hint.show{
-  opacity:1;
-  pointer-events:auto;
-
-  transform:
-    translateX(-50%)
-    translateY(0);
-}
-
-.scroll-hint.hide{
-  opacity:0;
-  pointer-events:none;
-
-  transform:
-    translateX(-50%)
-    translateY(15px);
-}
-
-.scroll-hint svg{
-  flex-shrink:0;
-  animation:scrollBounce 1.8s ease-in-out infinite;
-}
-
-@keyframes scrollBounce{
-  0%,100%{
-    transform:translateY(0);
-    opacity:0.4;
-  }
-
-  50%{
-    transform:translateY(8px);
-    opacity:1;
-  }
-}
-
-/* ================= MAIN ================= */
+/* =========================================================
+   MAIN
+========================================================= */
 
 #main{
   display:none;
@@ -356,13 +619,16 @@ h1,h2,h3,.display{
 
 #main.show{
   display:block;
-  animation:riseIn 1.4s ease;
+
+  animation:
+    mainReveal 1.2s ease;
 }
 
-@keyframes riseIn{
+@keyframes mainReveal{
+
   from{
     opacity:0;
-    transform:translateY(14px);
+    transform:translateY(20px);
   }
 
   to{
@@ -371,141 +637,268 @@ h1,h2,h3,.display{
   }
 }
 
-/* ================= HERO ================= */
+/* =========================================================
+   FIXED SCROLL REMINDER
+========================================================= */
+
+.scroll-reminder{
+  position:fixed;
+
+  left:50%;
+  bottom:18px;
+
+  transform:
+    translateX(-50%);
+
+  z-index:9000;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:9px;
+
+  padding:
+    9px 16px;
+
+  min-width:210px;
+
+  border:
+    1px solid
+    rgba(201,162,90,.45);
+
+  border-radius:999px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(59,24,20,.94),
+      rgba(25,10,9,.94)
+    );
+
+  color:var(--gold3);
+
+  font-size:.72rem;
+
+  letter-spacing:.09em;
+
+  text-transform:uppercase;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.35),
+    0 0 18px rgba(201,162,90,.08);
+
+  backdrop-filter:blur(10px);
+
+  cursor:pointer;
+
+  transition:
+    .35s ease;
+}
+
+.scroll-reminder:hover{
+  transform:
+    translateX(-50%)
+    translateY(-3px);
+
+  border-color:var(--gold);
+}
+
+.scroll-reminder svg{
+  animation:
+    reminderBounce 1.6s ease-in-out infinite;
+}
+
+@keyframes reminderBounce{
+
+  0%,100%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(4px);
+  }
+}
+
+/* =========================================================
+   HERO
+========================================================= */
 
 .hero{
   min-height:100vh;
 
-  padding:90px 24px 70px;
+  padding:
+    90px 24px 100px;
 
   position:relative;
+
   overflow:hidden;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
 
   background:
     radial-gradient(
-      ellipse 60% 50% at 50% 0%,
-      rgba(240,205,142,0.09),
-      transparent 70%
+      ellipse 70% 50% at 50% 0%,
+      rgba(240,205,142,.12),
+      transparent 68%
     ),
     linear-gradient(
       180deg,
-      var(--mahogany-deep),
-      var(--mahogany) 55%,
-      var(--mahogany-deep)
+      #170807,
+      #3b1713 55%,
+      #1a0908
     );
+}
+
+.hero::before{
+  content:"";
+
+  position:absolute;
+
+  inset:30px 15px;
+
+  border:
+    1px solid
+    rgba(201,162,90,.08);
+
+  border-radius:18px;
+
+  pointer-events:none;
+}
+
+.hero > *:not(.falling-photos){
+  position:relative;
+  z-index:2;
 }
 
 .falling-photos{
   position:absolute;
   inset:0;
-  pointer-events:none;
+
   overflow:hidden;
+
+  pointer-events:none;
+
   z-index:1;
 }
 
 .falling-photo{
   position:absolute;
-  top:-120px;
 
-  width:52px;
-  height:64px;
+  top:-140px;
 
-  padding:4px 4px 10px;
+  width:60px;
+  height:75px;
 
-  background:var(--cream);
-  border-radius:2px;
+  padding:
+    4px 4px 11px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fff9ed,
+      #e8d8bd
+    );
+
+  border-radius:3px;
 
   box-shadow:
-    0 10px 18px -8px rgba(0,0,0,0.55);
+    0 15px 28px rgba(0,0,0,.4);
 
   opacity:0;
 
-  animation-name:fallDown;
-  animation-timing-function:ease-in;
-  animation-fill-mode:forwards;
+  animation:
+    fallingPhoto
+    var(--duration)
+    ease-in
+    forwards;
+}
+
+.falling-photo::after{
+  content:"";
+
+  position:absolute;
+
+  left:5px;
+  right:5px;
+  bottom:4px;
+
+  height:2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(130,78,37,.35),
+      transparent
+    );
 }
 
 .falling-photo img{
   width:100%;
   height:100%;
-  object-fit:cover;
+
   display:block;
 
+  object-fit:cover;
+
   filter:
-    sepia(15%)
+    sepia(10%)
     saturate(90%);
 }
 
-@keyframes fallDown{
+@keyframes fallingPhoto{
+
   0%{
     transform:
-      translateY(0)
-      rotate(var(--rot-start));
+      translateY(-100px)
+      rotate(var(--start));
+
     opacity:0;
   }
 
   8%{
-    opacity:0.95;
+    opacity:.9;
   }
 
-  85%{
-    opacity:0.9;
+  88%{
+    opacity:.85;
   }
 
   100%{
     transform:
-      translateY(var(--fall-distance))
-      rotate(var(--rot-end));
+      translateY(var(--distance))
+      rotate(var(--end));
+
     opacity:0;
   }
 }
 
-.hero > *:not(.falling-photos):not(.scroll-hint){
-  position:relative;
-  z-index:2;
-}
-
-.hero .eyebrow{
-  margin-bottom:14px;
-}
-
-.hero h1{
-  font-size:clamp(2.3rem,8vw,3.4rem);
-  margin:0;
-  line-height:1.15;
-}
-
-.hero .role{
-  display:block;
-
-  font-family:'EB Garamond',serif;
-  font-style:italic;
-
-  color:var(--rose-dust);
-
-  font-size:1.05rem;
-  margin-top:10px;
-}
-
-/* ================= HERO PHOTO ================= */
-
 .hero-photo{
-  width:140px;
-  height:140px;
+  width:150px;
+  height:150px;
 
-  margin:0 auto 22px;
+  margin:0 auto 24px;
+
+  padding:5px;
 
   border-radius:50%;
-  padding:5px;
 
   background:
     linear-gradient(
       135deg,
-      var(--gold-bright),
-      var(--bronze)
+      var(--gold3),
+      var(--bronze),
+      var(--gold)
     );
 
-  flex-shrink:0;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.05),
+    0 18px 45px rgba(0,0,0,.4),
+    0 0 35px rgba(201,162,90,.13);
 }
 
 .hero-photo-inner{
@@ -514,14 +907,21 @@ h1,h2,h3,.display{
   width:100%;
   height:100%;
 
-  border-radius:50%;
   overflow:hidden;
 
-  border:2px solid var(--mahogany-deep);
+  border:
+    2px solid
+    var(--deep);
+
+  border-radius:50%;
+
+  background:var(--deep);
 }
 
-.hero-photo-bg{
+.hero-photo-bg,
+.hero-photo-main{
   position:absolute;
+
   inset:0;
 
   width:100%;
@@ -530,323 +930,300 @@ h1,h2,h3,.display{
   object-fit:cover;
 }
 
+.hero-photo-bg{
+  filter:
+    blur(10px)
+    brightness(.65);
+
+  transform:scale(1.12);
+}
+
 .hero-photo-main{
-  position:relative;
-
-  width:100%;
-  height:100%;
-
   object-fit:contain;
-  object-position:center;
+}
 
+.hero h1{
+  max-width:550px;
+
+  margin:0;
+
+  font-size:
+    clamp(
+      2.25rem,
+      8vw,
+      3.5rem
+    );
+
+  line-height:1.12;
+}
+
+.hero h1 .role{
   display:block;
+
+  margin-top:12px;
+
+  font-family:'EB Garamond',serif;
+
+  font-style:italic;
+
+  font-size:1rem;
+
+  color:var(--rose);
+
+  line-height:1.5;
 }
 
-.hero p{
-  max-width:460px;
+.hero p:not(.eyebrow){
+  max-width:470px;
 
-  margin:22px auto 0;
+  margin:
+    18px auto 0;
 
-  color:var(--rose-dust);
+  color:var(--rose);
 
-  font-size:1.05rem;
-  line-height:1.7;
+  font-size:1.03rem;
+
+  line-height:1.75;
 }
 
-/* ================= DIVIDER ================= */
+/* =========================================================
+   DIVIDER
+========================================================= */
 
 .hero-divider{
+  height:70px;
+
   position:relative;
-
-  width:100%;
-  height:56px;
-
-  margin-top:-2px;
 
   overflow:hidden;
 
-  background:var(--mahogany-deep);
+  background:#170807;
 }
 
 .hero-divider svg{
-  display:block;
   width:100%;
   height:100%;
+  display:block;
 }
 
 .hero-divider-spark{
   position:absolute;
 
-  top:50%;
   left:-40%;
+  top:50%;
 
-  width:45%;
+  width:40%;
   height:2px;
 
   background:
     linear-gradient(
       90deg,
       transparent,
-      var(--gold-bright),
+      var(--gold3),
       transparent
     );
 
-  filter:blur(0.4px);
+  box-shadow:
+    0 0 12px var(--gold);
 
-  opacity:0.9;
-
-  animation:sparkSweep 4.5s ease-in-out infinite;
+  animation:
+    sparkSweep 4.5s ease-in-out infinite;
 }
 
 @keyframes sparkSweep{
-  0%{
+
+  from{
     left:-45%;
   }
 
-  100%{
+  to{
     left:120%;
   }
 }
 
-/* ================= SECTION ================= */
+/* =========================================================
+   SECTION
+========================================================= */
 
 section{
-  padding:56px 24px;
+  position:relative;
+
+  padding:
+    70px 24px;
+
+  overflow:hidden;
+}
+
+section:nth-of-type(even){
+  background:
+    linear-gradient(
+      180deg,
+      rgba(20,8,7,.18),
+      rgba(95,37,30,.13),
+      rgba(20,8,7,.18)
+    );
+}
+
+section::before{
+  content:"";
+
+  position:absolute;
+
+  width:280px;
+  height:280px;
+
+  left:-160px;
+  top:20%;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(201,162,90,.07),
+      transparent 70%
+    );
+
+  pointer-events:none;
+}
+
+section::after{
+  content:"";
+
+  position:absolute;
+
+  width:240px;
+  height:240px;
+
+  right:-150px;
+  bottom:5%;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(122,61,44,.12),
+      transparent 70%
+    );
+
+  pointer-events:none;
+}
+
+section > *{
+  position:relative;
+  z-index:2;
 }
 
 section h2.section-title{
-  font-size:clamp(1.5rem,4vw,1.9rem);
-  margin:0 0 6px;
+  margin:
+    0 0 8px;
+
+  font-size:
+    clamp(
+      1.65rem,
+      5vw,
+      2.1rem
+    );
 }
 
-section .section-sub{
-  color:var(--rose-dust);
-  font-size:0.95rem;
+.section-sub{
+  color:var(--rose);
+
+  font-size:.95rem;
+
   margin-bottom:28px;
 }
 
-/* ================= CARD ================= */
+/* =========================================================
+   CARD
+========================================================= */
 
 .card{
-  background:
-    linear-gradient(
-      160deg,
-      rgba(122,61,44,0.4),
-      rgba(28,13,12,0.55)
-    );
-
-  border:1px solid var(--line);
-
-  box-shadow:
-    0 0 0 1px rgba(179,129,63,0.08) inset,
-    0 12px 30px -18px rgba(0,0,0,0.6);
-
-  padding:30px 26px;
+  width:min(430px,100%);
 
   margin:0 auto;
 
-  border-radius:4px;
+  padding:
+    30px 26px;
 
-  width:min(420px,100%);
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:10px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(116,50,39,.42),
+      rgba(24,9,8,.62)
+    );
+
+  box-shadow:
+    0 25px 55px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.025);
+
+  backdrop-filter:blur(8px);
 }
 
 .card + .card{
-  margin-top:18px;
+  margin-top:20px;
 }
 
 .card .big{
   font-family:'Cormorant Garamond',serif;
+
+  color:var(--gold3);
+
   font-size:1.7rem;
-  color:var(--gold-bright);
 }
 
 .card .small{
-  color:var(--rose-dust);
-  font-size:0.92rem;
-  margin-top:4px;
+  margin-top:5px;
+
+  color:var(--rose);
+
+  font-size:.92rem;
 }
 
-/* ================= EVENT ================= */
-
-.event-summary{
-  max-width:420px;
-  margin:0 auto 18px;
-
-  text-align:left;
-
-  display:flex;
-  flex-direction:column;
-
-  gap:14px;
-}
-
-.event-row{
-  display:flex;
-  align-items:flex-start;
-
-  gap:14px;
-
-  color:var(--cream);
-
-  font-size:0.95rem;
-
-  padding-bottom:14px;
-
-  border-bottom:1px solid var(--line);
-}
-
-.event-row:last-child{
-  border-bottom:none;
-  padding-bottom:0;
-}
-
-.event-row .ico{
-  color:var(--gold-bright);
-  font-size:1.2rem;
-  line-height:1.4;
-
-  min-width:24px;
-
-  text-align:center;
-}
-
-.event-row .label{
-  display:block;
-
-  font-size:0.68rem;
-
-  letter-spacing:0.1em;
-  text-transform:uppercase;
-
-  color:var(--rose-dust);
-
-  margin-bottom:3px;
-}
-
-.event-row .value{
-  line-height:1.5;
-}
-
-/* ================= BUTTON ================= */
-
-.btn{
-  display:inline-block;
-
-  margin-top:18px;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--gold-bright),
-      var(--bronze)
-    );
-
-  color:var(--mahogany-deep);
-
-  padding:11px 26px;
-
-  border-radius:999px;
-
-  text-decoration:none;
-
-  font-size:0.85rem;
-
-  letter-spacing:0.08em;
-
-  text-transform:uppercase;
-
-  box-shadow:
-    0 8px 20px -10px rgba(179,129,63,0.6);
-
-  transition:
-    filter 0.3s ease,
-    transform 0.3s ease;
-
-  border:none;
-
-  cursor:pointer;
-
-  font-family:'EB Garamond',serif;
-}
-
-.btn:hover{
-  filter:brightness(1.1);
-  transform:translateY(-1px);
-}
-
-.btn-sm{
-  padding:10px 22px;
-  font-size:0.78rem;
-  margin-top:14px;
-}
-
-.btn-outline{
-  display:inline-block;
-
-  margin-top:12px;
-  margin-left:8px;
-
-  background:transparent;
-
-  color:var(--gold-bright);
-
-  border:1px solid var(--gold);
-
-  padding:10px 24px;
-
-  border-radius:999px;
-
-  text-decoration:none;
-
-  font-size:0.85rem;
-
-  letter-spacing:0.08em;
-
-  text-transform:uppercase;
-
-  cursor:pointer;
-
-  font-family:'EB Garamond',serif;
-
-  transition:
-    background 0.3s ease,
-    color 0.3s ease;
-}
-
-.btn-outline:hover{
-  background:var(--gold);
-  color:var(--mahogany-deep);
-}
-
-/* ================= CALENDAR ================= */
+/* =========================================================
+   CALENDAR
+========================================================= */
 
 .mini-calendar{
-  max-width:300px;
+  width:min(320px,100%);
 
-  margin:8px auto 26px;
+  margin:
+    10px auto 28px;
 
-  border:1px solid var(--line);
+  padding:18px;
 
-  border-radius:4px;
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:10px;
 
   background:
     linear-gradient(
-      160deg,
-      rgba(122,61,44,0.3),
-      rgba(28,13,12,0.4)
+      145deg,
+      rgba(105,44,35,.35),
+      rgba(21,8,7,.55)
     );
 
-  padding:16px;
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.25);
 }
 
 .mc-header{
+  margin-bottom:13px;
+
+  color:var(--gold3);
+
   font-family:'Cormorant Garamond',serif;
 
-  color:var(--gold-bright);
-
-  font-size:1.15rem;
-
-  margin-bottom:10px;
+  font-size:1.25rem;
 }
 
 .mc-grid{
@@ -859,164 +1236,230 @@ section .section-sub{
 }
 
 .mc-dow{
-  font-size:0.65rem;
+  padding-bottom:5px;
 
-  letter-spacing:0.05em;
+  color:var(--rose);
+
+  font-size:.65rem;
 
   text-transform:uppercase;
-
-  color:var(--rose-dust);
-
-  padding-bottom:4px;
 }
 
 .mc-day{
-  font-size:0.85rem;
+  padding:7px 0;
 
   color:var(--cream);
 
-  padding:6px 0;
+  font-size:.85rem;
 
-  border-radius:3px;
+  border-radius:5px;
+
+  transition:.3s ease;
+}
+
+.mc-day:hover{
+  background:rgba(201,162,90,.1);
 }
 
 .mc-highlight{
-  background:
-    linear-gradient(
-      135deg,
-      var(--gold-bright),
-      var(--bronze)
-    );
-
-  color:var(--mahogany-deep);
+  color:var(--deep);
 
   font-weight:600;
 
+  background:
+    linear-gradient(
+      135deg,
+      var(--gold3),
+      var(--bronze)
+    );
+
   box-shadow:
-    0 0 12px rgba(240,205,142,0.25);
+    0 0 18px rgba(240,205,142,.25);
 }
 
 .add-to-calendar{
-  text-align:center;
+  margin-top:16px;
+  padding-top:15px;
 
-  margin-top:14px;
-
-  padding-top:14px;
-
-  border-top:1px solid var(--line);
+  border-top:
+    1px solid
+    var(--line);
 }
 
-.add-to-calendar .ics-link{
+.ics-link{
   display:block;
 
-  margin-top:10px;
+  margin:
+    12px auto 0;
 
-  color:var(--rose-dust);
+  color:var(--rose);
 
-  font-size:0.78rem;
+  background:none;
+  border:none;
 
   text-decoration:underline;
 
-  background:transparent;
+  font-family:'EB Garamond',serif;
+
+  cursor:pointer;
+}
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.btn{
+  display:inline-block;
+
+  margin-top:18px;
+
+  padding:
+    11px 26px;
 
   border:none;
 
-  cursor:pointer;
+  border-radius:999px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--gold3),
+      var(--bronze)
+    );
+
+  color:var(--deep);
 
   font-family:'EB Garamond',serif;
+
+  font-size:.84rem;
+
+  letter-spacing:.08em;
+
+  text-transform:uppercase;
+
+  text-decoration:none;
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.25),
+    0 0 18px rgba(201,162,90,.08);
+
+  transition:.3s ease;
+
+  cursor:pointer;
 }
 
-.add-to-calendar .ics-link:hover{
-  color:var(--gold-bright);
+.btn:hover{
+  transform:translateY(-2px);
+  filter:brightness(1.08);
 }
 
-/* ================= COUNTDOWN ================= */
+.btn-sm{
+  margin-top:0;
+  padding:10px 20px;
+  font-size:.75rem;
+}
 
-.countdown-grid{
+/* =========================================================
+   EVENT
+========================================================= */
+
+.event-summary{
+  max-width:420px;
+
+  margin:0 auto;
+
+  text-align:left;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:14px;
+}
+
+.event-row{
   display:flex;
 
   gap:14px;
 
-  justify-content:center;
+  padding-bottom:14px;
 
-  flex-wrap:wrap;
-
-  margin-top:8px;
-
-  margin-bottom:26px;
+  border-bottom:
+    1px solid
+    var(--line);
 }
 
-.count-box{
-  width:78px;
-
-  padding:16px 0;
-
-  border:1px solid var(--line);
-
-  border-radius:4px;
-
-  background:
-    linear-gradient(
-      160deg,
-      rgba(122,61,44,0.3),
-      rgba(28,13,12,0.4)
-    );
+.event-row:last-child{
+  padding-bottom:0;
+  border-bottom:none;
 }
 
-.count-box .num{
-  font-family:'Cormorant Garamond',serif;
+.event-row .ico{
+  min-width:26px;
 
-  font-size:1.8rem;
+  color:var(--gold3);
 
-  color:var(--gold-bright);
+  font-size:1.15rem;
+}
 
+.event-row .label{
   display:block;
-}
 
-.count-box .unit{
-  font-size:0.68rem;
+  margin-bottom:3px;
 
-  letter-spacing:0.1em;
+  color:var(--rose);
+
+  font-size:.67rem;
+
+  letter-spacing:.1em;
 
   text-transform:uppercase;
-
-  color:var(--rose-dust);
 }
 
-/* ================= MAP ================= */
+.event-row .value{
+  color:var(--cream);
+
+  font-size:.95rem;
+
+  line-height:1.5;
+}
 
 .map-embed{
-  max-width:420px;
+  width:min(430px,100%);
 
-  margin:22px auto 0;
-
-  border:1px solid var(--line);
-
-  border-radius:6px;
+  margin:
+    24px auto 0;
 
   overflow:hidden;
 
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:10px;
+
   box-shadow:
-    0 12px 30px -18px rgba(0,0,0,0.6);
+    0 20px 45px rgba(0,0,0,.3);
 }
 
 .map-embed iframe{
   width:100%;
-  height:260px;
+  height:270px;
 
-  border:0;
   display:block;
 
+  border:none;
+
   filter:
-    sepia(12%)
-    saturate(85%)
-    contrast(1.02);
+    sepia(10%)
+    saturate(80%);
 }
 
-/* ================= TIMELINE ================= */
+/* =========================================================
+   TIMELINE
+========================================================= */
 
 .timeline{
-  max-width:420px;
+  width:min(430px,100%);
 
   margin:0 auto;
 
@@ -1026,11 +1469,14 @@ section .section-sub{
 .tl-item{
   display:flex;
 
-  gap:16px;
+  gap:18px;
 
-  padding:14px 0;
+  padding:
+    17px 0;
 
-  border-bottom:1px solid var(--line);
+  border-bottom:
+    1px solid
+    var(--line);
 }
 
 .tl-item:last-child{
@@ -1038,55 +1484,60 @@ section .section-sub{
 }
 
 .tl-year{
+  min-width:60px;
+
+  color:var(--gold3);
+
   font-family:'Cormorant Garamond',serif;
 
-  color:var(--gold-bright);
-
-  font-size:1.1rem;
-
-  min-width:60px;
+  font-size:1.15rem;
 }
 
 .tl-text{
   color:var(--cream);
-  font-size:0.95rem;
+
+  font-size:.95rem;
+
+  line-height:1.5;
 }
 
-/* ================= GALLERY ================= */
+/* =========================================================
+   GALLERY
+========================================================= */
 
 .gallery-row1{
+  width:min(470px,100%);
+
+  margin:0 auto 14px;
+
   display:grid;
 
   grid-template-columns:
     repeat(3,1fr);
 
   gap:10px;
-
-  max-width:460px;
-
-  margin:0 auto 14px;
 }
 
 .gallery-row1 a,
 .gallery-video{
   display:block;
 
-  aspect-ratio:3/4;
-
   overflow:hidden;
 
-  border-radius:4px;
+  aspect-ratio:3/4;
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:8px;
+
+  background:var(--deep);
 }
 
 .gallery-video{
-  border-color:var(--gold);
-
-  box-shadow:
-    0 12px 26px -16px rgba(0,0,0,0.65);
-
-  background:var(--mahogany-deep);
+  border-color:
+    rgba(201,162,90,.55);
 }
 
 .gallery-video video{
@@ -1096,58 +1547,58 @@ section .section-sub{
   display:block;
 
   object-fit:cover;
-
-  background:var(--mahogany-deep);
 }
 
 .gallery-row1 img{
   width:100%;
   height:100%;
 
-  object-fit:cover;
-
   display:block;
 
-  transition:
-    transform 0.5s ease,
-    filter 0.5s ease;
+  object-fit:cover;
 
   filter:
-    sepia(20%)
-    saturate(85%);
+    sepia(12%)
+    saturate(88%);
+
+  transition:
+    .5s ease;
 }
 
 .gallery-row1 a:hover img{
-  transform:scale(1.06);
+  transform:scale(1.07);
 
   filter:
     sepia(0%)
     saturate(100%);
 }
 
+.gallery-hint{
+  margin:
+    5px 0 14px;
+
+  color:var(--rose);
+
+  font-size:.72rem;
+
+  font-style:italic;
+}
+
 .gallery-row2{
-  max-width:460px;
+  width:min(470px,100%);
 
   margin:0 auto;
 
   overflow-x:auto;
   overflow-y:hidden;
 
-  -webkit-overflow-scrolling:touch;
+  padding-bottom:8px;
 
   scrollbar-width:thin;
 
   scrollbar-color:
     var(--bronze)
     transparent;
-
-  padding-bottom:8px;
-
-  cursor:grab;
-}
-
-.gallery-row2:active{
-  cursor:grabbing;
 }
 
 .gallery-row2::-webkit-scrollbar{
@@ -1156,8 +1607,7 @@ section .section-sub{
 
 .gallery-row2::-webkit-scrollbar-thumb{
   background:var(--bronze);
-
-  border-radius:4px;
+  border-radius:5px;
 }
 
 .gallery-row2-track{
@@ -1171,17 +1621,18 @@ section .section-sub{
 }
 
 .gallery-row2-track a{
-  flex:0 0 118px;
+  flex:
+    0 0 118px;
 
   aspect-ratio:3/4;
 
-  display:block;
-
   overflow:hidden;
 
-  border-radius:4px;
+  border:
+    1px solid
+    var(--line);
 
-  border:1px solid var(--line);
+  border-radius:7px;
 }
 
 .gallery-row2-track img{
@@ -1192,50 +1643,38 @@ section .section-sub{
 
   display:block;
 
-  transition:
-    transform 0.5s ease,
-    filter 0.5s ease;
-
   filter:
-    sepia(20%)
-    saturate(85%);
+    sepia(12%)
+    saturate(88%);
+
+  transition:.5s ease;
 }
 
 .gallery-row2-track a:hover img{
-  transform:scale(1.06);
+  transform:scale(1.07);
 
-  filter:
-    sepia(0%)
-    saturate(100%);
+  filter:none;
 }
 
-.gallery-hint{
-  color:var(--rose-dust);
-
-  font-size:0.72rem;
-
-  font-style:italic;
-
-  margin:4px 0 14px;
-}
-
-/* ================= LIGHTBOX ================= */
+/* =========================================================
+   LIGHTBOX
+========================================================= */
 
 #lightbox{
   position:fixed;
-
   inset:0;
 
-  background:rgba(15,7,7,0.92);
+  z-index:10001;
 
   display:none;
 
   align-items:center;
   justify-content:center;
 
-  z-index:998;
+  padding:20px;
 
-  padding:24px;
+  background:
+    rgba(11,4,4,.94);
 
   cursor:zoom-out;
 }
@@ -1248,51 +1687,52 @@ section .section-sub{
   max-width:100%;
   max-height:88vh;
 
-  border:1px solid var(--gold);
+  border:
+    1px solid
+    var(--gold);
 
-  border-radius:4px;
+  border-radius:7px;
+
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.6);
 }
 
-/* ================= UCAPAN ================= */
-
-/*
-  Area ucapan dibuat tetap tingginya.
-  Jadi ucapan tidak akan membuat halaman menjadi semakin panjang.
-*/
+/* =========================================================
+   WISHES
+========================================================= */
 
 .wishes-wrapper{
-  max-width:460px;
+  width:min(460px,100%);
 
-  margin:0 auto 28px;
+  height:270px;
 
-  position:relative;
+  margin:
+    0 auto 28px;
 
   overflow:hidden;
 
-  height:270px;
+  position:relative;
 
   -webkit-mask-image:
     linear-gradient(
       to bottom,
-      transparent 0%,
+      transparent,
       black 8%,
       black 92%,
-      transparent 100%
+      transparent
     );
 
   mask-image:
     linear-gradient(
       to bottom,
-      transparent 0%,
+      transparent,
       black 8%,
       black 92%,
-      transparent 100%
+      transparent
     );
 }
 
 .wishes-list{
-  width:100%;
-
   display:flex;
 
   flex-direction:column;
@@ -1304,36 +1744,35 @@ section .section-sub{
   will-change:transform;
 }
 
-/*
-  Kartu ucapan
-*/
-
 .wish-card{
-  flex:0 0 auto;
-
   width:100%;
 
-  background:
-    linear-gradient(
-      160deg,
-      rgba(122,61,44,0.32),
-      rgba(28,13,12,0.5)
-    );
+  min-height:92px;
 
-  border:1px solid var(--line);
-
-  border-radius:4px;
-
-  padding:16px 18px;
+  flex:0 0 auto;
 
   display:flex;
 
   gap:12px;
 
-  min-height:92px;
+  padding:
+    16px 18px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:9px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(104,45,35,.32),
+      rgba(24,9,8,.57)
+    );
 
   box-shadow:
-    0 8px 20px -15px rgba(0,0,0,0.6);
+    0 12px 30px rgba(0,0,0,.22);
 }
 
 .wish-avatar{
@@ -1342,62 +1781,55 @@ section .section-sub{
 
   min-width:38px;
 
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
   border-radius:50%;
+
+  color:var(--deep);
+
+  font-family:'Cormorant Garamond',serif;
+
+  font-weight:600;
 
   background:
     linear-gradient(
       135deg,
-      var(--gold-bright),
+      var(--gold3),
       var(--bronze)
     );
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  font-family:'Cormorant Garamond',serif;
-
-  color:var(--mahogany-deep);
-
-  font-weight:600;
-
-  font-size:1rem;
 }
 
 .wish-name{
+  margin:
+    0 0 4px;
+
+  color:var(--gold3);
+
   font-family:'Cormorant Garamond',serif;
 
-  color:var(--gold-bright);
-
   font-size:1.05rem;
-
-  margin:0 0 4px;
 }
 
 .wish-text{
-  color:var(--cream);
-
-  font-size:0.92rem;
-
-  line-height:1.5;
-
   margin:0;
 
-  word-break:break-word;
+  color:var(--cream);
+
+  font-size:.92rem;
+
+  line-height:1.5;
 
   overflow-wrap:anywhere;
 }
 
-/* FORM UCAPAN */
-
 .wish-form{
-  max-width:420px;
+  width:min(420px,100%);
 
   margin:0 auto;
 
   display:flex;
-
   flex-direction:column;
 
   gap:10px;
@@ -1405,34 +1837,43 @@ section .section-sub{
 
 .wish-form input,
 .wish-form textarea{
-  background:rgba(36,16,16,0.5);
+  width:100%;
 
-  border:1px solid var(--line);
+  padding:
+    12px 14px;
 
-  border-radius:4px;
+  border:
+    1px solid
+    var(--line);
 
-  padding:11px 14px;
+  border-radius:7px;
+
+  outline:none;
+
+  background:
+    rgba(20,8,7,.55);
 
   color:var(--cream);
 
   font-family:'EB Garamond',serif;
 
-  font-size:0.95rem;
+  font-size:.95rem;
 
-  width:100%;
-}
-
-.wish-form textarea{
-  resize:vertical;
-
-  min-height:70px;
+  transition:.3s ease;
 }
 
 .wish-form input:focus,
 .wish-form textarea:focus{
-  outline:none;
-
   border-color:var(--gold);
+
+  box-shadow:
+    0 0 14px rgba(201,162,90,.08);
+}
+
+.wish-form textarea{
+  min-height:80px;
+
+  resize:vertical;
 }
 
 .wish-form button{
@@ -1440,149 +1881,187 @@ section .section-sub{
 
   margin-top:4px;
 
-  background:
-    linear-gradient(
-      135deg,
-      var(--gold-bright),
-      var(--bronze)
-    );
-
-  color:var(--mahogany-deep);
+  padding:
+    11px 27px;
 
   border:none;
 
-  padding:11px 26px;
-
   border-radius:999px;
 
-  font-size:0.85rem;
+  background:
+    linear-gradient(
+      135deg,
+      var(--gold3),
+      var(--bronze)
+    );
 
-  letter-spacing:0.08em;
+  color:var(--deep);
+
+  font-family:'EB Garamond',serif;
+
+  font-size:.84rem;
+
+  letter-spacing:.08em;
 
   text-transform:uppercase;
 
   cursor:pointer;
 
-  box-shadow:
-    0 8px 20px -10px rgba(179,129,63,0.6);
-
-  transition:
-    filter 0.3s ease;
+  transition:.3s ease;
 }
 
 .wish-form button:hover{
-  filter:brightness(1.1);
+  transform:translateY(-2px);
+
+  filter:brightness(1.08);
 }
 
 .wish-note{
-  color:var(--rose-dust);
-
-  font-size:0.8rem;
-
   margin-top:14px;
+
+  color:var(--rose);
+
+  font-size:.8rem;
 }
 
-/* ================= FOOTER ================= */
+/* =========================================================
+   FOOTER
+========================================================= */
 
 footer{
-  padding:50px 24px 60px;
+  position:relative;
 
-  background:var(--mahogany-deep);
+  padding:
+    60px 24px 95px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(20,8,7,.3),
+      #130605
+    );
 }
 
 footer .signature{
+  margin-bottom:8px;
+
+  color:var(--gold3);
+
   font-family:'Cormorant Garamond',serif;
 
+  font-size:1.4rem;
+
   font-style:italic;
-
-  font-size:1.3rem;
-
-  color:var(--gold-bright);
-
-  margin-bottom:8px;
 }
 
 footer p{
-  color:var(--rose-dust);
-
-  font-size:0.85rem;
-
   margin:4px 0;
+
+  color:var(--rose);
+
+  font-size:.85rem;
 }
 
-/* ================= REVEAL ================= */
+/* =========================================================
+   REVEAL
+========================================================= */
 
 .reveal{
   opacity:0;
 
-  transform:translateY(28px);
+  transform:translateY(30px);
 
   transition:
-    opacity 0.9s cubic-bezier(0.16,1,0.3,1),
-    transform 0.9s cubic-bezier(0.16,1,0.3,1);
-
-  will-change:
-    opacity,
-    transform;
+    opacity .9s cubic-bezier(.16,1,.3,1),
+    transform .9s cubic-bezier(.16,1,.3,1);
 }
 
 .reveal.show{
   opacity:1;
 
-  transform:translateY(0);
+  transform:none;
 }
 
-/* ================= MUSIC ================= */
+/* =========================================================
+   MUSIC
+========================================================= */
 
 .music-toggle{
   position:fixed;
 
-  bottom:20px;
-  right:20px;
+  right:18px;
+  bottom:76px;
 
-  z-index:50;
+  z-index:9500;
 
-  width:46px;
-  height:46px;
-
-  border-radius:50%;
-
-  border:1px solid var(--gold);
-
-  background:
-    linear-gradient(
-      160deg,
-      var(--mahogany),
-      var(--mahogany-deep)
-    );
-
-  color:var(--gold-bright);
-
-  box-shadow:
-    0 8px 20px -8px rgba(0,0,0,0.6);
+  width:45px;
+  height:45px;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 
-  cursor:pointer;
+  border:
+    1px solid
+    var(--gold);
 
-  font-size:1.1rem;
+  border-radius:50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(76,31,25,.96),
+      rgba(20,8,7,.96)
+    );
+
+  color:var(--gold3);
+
+  font-size:1rem;
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.35);
+
+  cursor:pointer;
 }
 
-/* ================= MOBILE ================= */
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media(max-width:480px){
 
-  .scroll-hint{
-    bottom:18px;
-
-    font-size:0.62rem;
+  .hero{
+    padding:
+      80px 20px 105px;
   }
 
-  .hero{
-    padding-top:75px;
+  .hero-photo{
+    width:140px;
+    height:140px;
+  }
+
+  section{
+    padding:
+      60px 20px;
+  }
+
+  .scroll-reminder{
+    bottom:13px;
+
+    min-width:205px;
+
+    padding:
+      8px 13px;
+
+    font-size:.66rem;
+  }
+
+  .music-toggle{
+    right:14px;
+    bottom:65px;
+
+    width:42px;
+    height:42px;
   }
 
   .wishes-wrapper{
@@ -1592,7 +2071,41 @@ footer p{
   .wish-card{
     min-height:88px;
 
-    padding:14px 15px;
+    padding:
+      14px 15px;
+  }
+
+  .gallery-row1{
+    gap:7px;
+  }
+
+}
+
+/* =========================================================
+   SMALL SCREEN
+========================================================= */
+
+@media(max-height:700px){
+
+  #opening{
+    padding-top:15px;
+    padding-bottom:15px;
+  }
+
+  .opening-frame{
+    padding:
+      18px 20px;
+  }
+
+  .monogram{
+    width:58px;
+    height:58px;
+
+    margin-bottom:10px;
+  }
+
+  .guest-name{
+    margin-bottom:18px;
   }
 
 }
@@ -1602,17 +2115,42 @@ footer p{
 
 <body>
 
-<!-- =====================================================
+<!-- =========================================================
+     PROGRESS
+========================================================= -->
+
+<div
+  class="scroll-progress"
+  id="scrollProgress"
+></div>
+
+
+<!-- =========================================================
+     GLOBAL EFFECTS
+========================================================= -->
+
+<div
+  id="ambientEffects"
+  aria-hidden="true"
+></div>
+
+
+<!-- =========================================================
      OPENING
-===================================================== -->
+========================================================= -->
 
 <div id="opening">
 
-  <div class="sparkles" id="sparkles"></div>
+  <div
+    class="sparkles"
+    id="sparkles"
+  ></div>
 
   <div class="opening-frame">
 
-    <div class="monogram">🎓</div>
+    <div class="monogram">
+      🎓
+    </div>
 
     <p class="eyebrow">
       Undangan Wisuda
@@ -1623,7 +2161,9 @@ footer p{
     </h1>
 
     <p class="role">
-      Sarjana Komputer - S1 Sistem Informasi — Universitas Andalas
+      Sarjana Komputer — S1 Sistem Informasi
+      <br>
+      Universitas Andalas
     </p>
 
     <div class="ornament">
@@ -1669,13 +2209,16 @@ footer p{
 </div>
 
 
-<!-- =====================================================
+<!-- =========================================================
      MAIN
-===================================================== -->
+========================================================= -->
 
 <div id="main">
 
-  <!-- HERO -->
+
+  <!-- =======================================================
+       HERO
+  ======================================================== -->
 
   <div class="hero">
 
@@ -1715,7 +2258,8 @@ footer p{
       Wulandari Yulianis, S.Kom
 
       <span class="role">
-        telah menyelesaikan pendidikan Sarjana Komputer - S1 Sistem Informasi
+        telah menyelesaikan pendidikan
+        Sarjana Komputer — S1 Sistem Informasi
       </span>
 
     </h1>
@@ -1730,10 +2274,12 @@ footer p{
         viewBox="0 0 16 16"
         fill="none"
       >
+
         <path
           d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z"
           fill="#c9a66b"
         />
+
       </svg>
 
       <span class="rule"></span>
@@ -1745,51 +2291,18 @@ footer p{
     </p>
 
     <p>
-      Puji syukur atas nikmat yang diberikan, kami mengundang
-      Bapak/Ibu/Saudara/i untuk turut hadir dan memberikan doa restu
+      Puji syukur atas nikmat yang diberikan,
+      kami mengundang Bapak/Ibu/Saudara/i
+      untuk turut hadir dan memberikan doa restu
       pada momen kelulusan ini.
     </p>
-
-
-    <!--
-      SCROLL HINT
-      Sekarang hanya berada di HERO.
-      Ketika halaman mulai digeser, tombol langsung menghilang.
-    -->
-
-    <div
-      class="scroll-hint"
-      id="scrollHint"
-      onclick="scrollToNext()"
-      role="button"
-      tabindex="0"
-    >
-
-      <span>
-        Scroll untuk melihat undangan
-      </span>
-
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-      >
-        <path
-          d="M12 4v14M6 13l6 6 6-6"
-          stroke="#c9a25a"
-          stroke-width="1.6"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-
-    </div>
 
   </div>
 
 
-  <!-- DIVIDER -->
+  <!-- =======================================================
+       DIVIDER
+  ======================================================== -->
 
   <div
     class="hero-divider"
@@ -1832,7 +2345,14 @@ footer p{
       </defs>
 
       <path
-        d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z"
+        d="
+          M0,40
+          C240,80 480,0 720,40
+          C960,80 1200,0 1440,40
+          L1440,80
+          L0,80
+          Z
+        "
         fill="url(#hdGrad)"
       />
 
@@ -1843,9 +2363,9 @@ footer p{
   </div>
 
 
-  <!-- =====================================================
-       WAKTU & TEMPAT
-  ====================================================== -->
+  <!-- =======================================================
+       WAKTU
+  ======================================================== -->
 
   <section id="waktu-tempat">
 
@@ -1856,19 +2376,6 @@ footer p{
     <h2 class="section-title reveal">
       Prosesi Wisuda
     </h2>
-
-
-    <!--
-      KALENDER SEPTEMBER 2026
-
-      September 2026 dimulai pada hari SELASA.
-      Jadi:
-      Minggu = kosong
-      Senin = kosong
-      Selasa = 1
-
-      Tanggal 18 = JUMAT.
-    -->
 
     <div
       class="mini-calendar reveal"
@@ -1889,9 +2396,6 @@ footer p{
         <span class="mc-dow">Jum</span>
         <span class="mc-dow">Sab</span>
 
-
-        <!-- MINGGU 30 AGUSTUS - SABTU 5 SEPTEMBER -->
-
         <span></span>
         <span></span>
 
@@ -1901,9 +2405,6 @@ footer p{
         <span class="mc-day">4</span>
         <span class="mc-day">5</span>
 
-
-        <!-- 6 - 12 -->
-
         <span class="mc-day">6</span>
         <span class="mc-day">7</span>
         <span class="mc-day">8</span>
@@ -1912,27 +2413,17 @@ footer p{
         <span class="mc-day">11</span>
         <span class="mc-day">12</span>
 
-
-        <!-- 13 - 19 -->
-
         <span class="mc-day">13</span>
         <span class="mc-day">14</span>
         <span class="mc-day">15</span>
         <span class="mc-day">16</span>
         <span class="mc-day">17</span>
 
-        <!-- JUMAT 18 -->
-
         <span class="mc-day mc-highlight">
           18
         </span>
 
-        <span class="mc-day">
-          19
-        </span>
-
-
-        <!-- 20 - 26 -->
+        <span class="mc-day">19</span>
 
         <span class="mc-day">20</span>
         <span class="mc-day">21</span>
@@ -1941,9 +2432,6 @@ footer p{
         <span class="mc-day">24</span>
         <span class="mc-day">25</span>
         <span class="mc-day">26</span>
-
-
-        <!-- 27 - 30 -->
 
         <span class="mc-day">27</span>
         <span class="mc-day">28</span>
@@ -1955,7 +2443,6 @@ footer p{
         <span></span>
 
       </div>
-
 
       <div class="add-to-calendar">
 
@@ -1974,7 +2461,7 @@ footer p{
           onclick="downloadICS()"
           type="button"
         >
-          atau unduh file .ics (Apple / Outlook)
+          atau unduh file .ics
         </button>
 
       </div>
@@ -1982,71 +2469,29 @@ footer p{
     </div>
 
 
-    <!-- COUNTDOWN -->
-
     <div
       class="countdown-grid reveal"
       id="countdown"
     >
 
       <div class="count-box">
-
-        <span
-          class="num"
-          id="cd-days"
-        >
-          00
-        </span>
-
-        <span class="unit">
-          Hari
-        </span>
-
+        <span class="num" id="cd-days">00</span>
+        <span class="unit">Hari</span>
       </div>
 
       <div class="count-box">
-
-        <span
-          class="num"
-          id="cd-hours"
-        >
-          00
-        </span>
-
-        <span class="unit">
-          Jam
-        </span>
-
+        <span class="num" id="cd-hours">00</span>
+        <span class="unit">Jam</span>
       </div>
 
       <div class="count-box">
-
-        <span
-          class="num"
-          id="cd-mins"
-        >
-          00
-        </span>
-
-        <span class="unit">
-          Menit
-        </span>
-
+        <span class="num" id="cd-mins">00</span>
+        <span class="unit">Menit</span>
       </div>
 
       <div class="count-box">
-
-        <span
-          class="num"
-          id="cd-secs"
-        >
-          00
-        </span>
-
-        <span class="unit">
-          Detik
-        </span>
-
+        <span class="num" id="cd-secs">00</span>
+        <span class="unit">Detik</span>
       </div>
 
     </div>
@@ -2067,9 +2512,9 @@ footer p{
   </section>
 
 
-  <!-- =====================================================
+  <!-- =======================================================
        DETAIL ACARA
-  ====================================================== -->
+  ======================================================== -->
 
   <section>
 
@@ -2085,16 +2530,13 @@ footer p{
       Klik tombol di bawah untuk petunjuk arah
     </p>
 
-
     <div class="card reveal">
 
       <div class="event-summary">
 
         <div class="event-row">
 
-          <span class="ico">
-            📆
-          </span>
+          <span class="ico">📆</span>
 
           <div>
 
@@ -2110,12 +2552,9 @@ footer p{
 
         </div>
 
-
         <div class="event-row">
 
-          <span class="ico">
-            🕐
-          </span>
+          <span class="ico">🕐</span>
 
           <div>
 
@@ -2131,12 +2570,9 @@ footer p{
 
         </div>
 
-
         <div class="event-row">
 
-          <span class="ico">
-            📍
-          </span>
+          <span class="ico">📍</span>
 
           <div>
 
@@ -2155,7 +2591,6 @@ footer p{
         </div>
 
       </div>
-
 
       <a
         class="btn"
@@ -2176,17 +2611,16 @@ footer p{
         src="https://www.openstreetmap.org/export/embed.html?bbox=100.4560%2C-0.9165%2C100.4630%2C-0.9125&layer=mapnik&marker=-0.9145%2C100.4595"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
-      >
-      </iframe>
+      ></iframe>
 
     </div>
 
   </section>
 
 
-  <!-- =====================================================
+  <!-- =======================================================
        PERJALANAN
-  ====================================================== -->
+  ======================================================== -->
 
   <section>
 
@@ -2197,7 +2631,6 @@ footer p{
     <h2 class="section-title reveal">
       Sekilas Perjalanan
     </h2>
-
 
     <div class="timeline">
 
@@ -2213,7 +2646,6 @@ footer p{
 
       </div>
 
-
       <div class="tl-item reveal">
 
         <div class="tl-year">
@@ -2225,7 +2657,6 @@ footer p{
         </div>
 
       </div>
-
 
       <div class="tl-item reveal">
 
@@ -2244,9 +2675,9 @@ footer p{
   </section>
 
 
-  <!-- =====================================================
+  <!-- =======================================================
        GALERI
-  ====================================================== -->
+  ======================================================== -->
 
   <section>
 
@@ -2262,23 +2693,21 @@ footer p{
       Klik foto untuk melihat lebih besar
     </p>
 
-
     <div class="gallery-row1">
 
       <a
         class="reveal"
-        href="https://picsum.photos/seed/wisuda1/800/1000"
+        href="foto 1.jpeg"
         data-lightbox
       >
 
         <img
-          src="https://picsum.photos/seed/wisuda1/500/650"
+          src="foto 1.jpeg"
           alt="Foto kenangan 1"
           loading="lazy"
         >
 
       </a>
-
 
       <div class="gallery-video reveal">
 
@@ -2293,21 +2722,20 @@ footer p{
             type="video/mp4"
           >
 
-          Maaf, video tidak dapat diputar di perangkat/browser ini.
+          Maaf, video tidak dapat diputar.
 
         </video>
 
       </div>
 
-
       <a
         class="reveal"
-        href="https://picsum.photos/seed/wisuda2/800/1000"
+        href="foto 2.jpeg"
         data-lightbox
       >
 
         <img
-          src="https://picsum.photos/seed/wisuda2/500/650"
+          src="foto 2.jpeg"
           alt="Foto kenangan 2"
           loading="lazy"
         >
@@ -2316,77 +2744,57 @@ footer p{
 
     </div>
 
-
     <p class="gallery-hint reveal">
-      Foto bergeser otomatis — sentuh untuk berhenti sejenak
+      Geser foto untuk melihat kenangan lainnya
     </p>
-
 
     <div class="gallery-row2 reveal">
 
       <div class="gallery-row2-track">
 
-        <a
-          href="https://picsum.photos/seed/wisuda3/800/1000"
-          data-lightbox
-        >
+        <a href="foto 3.jpeg" data-lightbox>
           <img
-            src="https://picsum.photos/seed/wisuda3/500/650"
+            src="foto 3.jpeg"
             alt="Foto kenangan 3"
             loading="lazy"
           >
         </a>
 
-        <a
-          href="https://picsum.photos/seed/wisuda4/800/1000"
-          data-lightbox
-        >
+        <a href="foto 4.jpeg" data-lightbox>
           <img
-            src="https://picsum.photos/seed/wisuda4/500/650"
+            src="foto 4.jpeg"
             alt="Foto kenangan 4"
             loading="lazy"
           >
         </a>
 
-        <a
-          href="https://picsum.photos/seed/wisuda5/800/1000"
-          data-lightbox
-        >
+        <a href="foto 5.jpeg" data-lightbox>
           <img
-            src="https://picsum.photos/seed/wisuda5/500/650"
+            src="foto 5.jpeg"
             alt="Foto kenangan 5"
             loading="lazy"
           >
         </a>
 
-        <a
-          href="https://picsum.photos/seed/wisuda6/800/1000"
-          data-lightbox
-        >
+        <a href="foto 6.jpeg" data-lightbox>
           <img
-            src="https://picsum.photos/seed/wisuda6/500/650"
+            src="foto 6.jpeg"
             alt="Foto kenangan 6"
             loading="lazy"
           >
         </a>
 
-        <a
-          href="https://picsum.photos/seed/wisuda7/800/1000"
-          data-lightbox
-        >
+        <a href="foto 7.jpeg" data-lightbox>
           <img
-            src="https://picsum.photos/seed/wisuda7/500/650"
+            src="foto 7.jpeg"
             alt="Foto kenangan 7"
             loading="lazy"
           >
         </a>
 
-        <a
-          href="https://picsum.photos/seed/wisuda8/800/1000"
-          data-lightbox
-        >
+        <a href="foto 8.jpeg" data-lightbox>
           <img
-            src="https://picsum.photos/seed/wisuda8/500/650"
+            src="foto 8.jpeg"
             alt="Foto kenangan 8"
             loading="lazy"
           >
@@ -2399,9 +2807,9 @@ footer p{
   </section>
 
 
-  <!-- =====================================================
+  <!-- =======================================================
        UCAPAN
-  ====================================================== -->
+  ======================================================== -->
 
   <section>
 
@@ -2416,13 +2824,6 @@ footer p{
     <p class="section-sub reveal">
       Tinggalkan pesan untuk Lann
     </p>
-
-
-    <!--
-      WRAPPER INI MEMBATASI AREA UCAPAN.
-      UCAPAN BERJALAN OTOMATIS KE ATAS.
-      JADI TIDAK MENUMPUK KE BAWAH.
-    -->
 
     <div
       class="wishes-wrapper reveal"
@@ -2455,7 +2856,6 @@ footer p{
 
         </div>
 
-
         <div class="wish-card">
 
           <div class="wish-avatar">
@@ -2482,9 +2882,6 @@ footer p{
 
     </div>
 
-
-    <!-- FORM -->
-
     <form
       class="wish-form"
       id="wishForm"
@@ -2509,20 +2906,20 @@ footer p{
 
     </form>
 
-
     <p
       class="wish-note"
       id="wishNote"
     >
-      Ucapan Anda akan tersimpan dan tampil untuk semua tamu yang membuka undangan ini.
+      Ucapan Anda akan tersimpan dan tampil untuk semua tamu
+      yang membuka undangan ini.
     </p>
 
   </section>
 
 
-  <!-- =====================================================
+  <!-- =======================================================
        FOOTER
-  ====================================================== -->
+  ======================================================== -->
 
   <footer class="reveal">
 
@@ -2561,9 +2958,45 @@ footer p{
 </div>
 
 
-<!-- =====================================================
+<!-- =========================================================
+     SCROLL REMINDER
+========================================================= -->
+
+<button
+  class="scroll-reminder"
+  id="scrollReminder"
+  onclick="handleScrollReminder()"
+  type="button"
+>
+
+  <span id="scrollReminderText">
+    Scroll untuk melihat undangan
+  </span>
+
+  <svg
+    id="scrollReminderIcon"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+  >
+
+    <path
+      d="M12 4v15M6 13l6 6 6-6"
+      stroke="#e6bd78"
+      stroke-width="1.7"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+  </svg>
+
+</button>
+
+
+<!-- =========================================================
      MUSIC
-===================================================== -->
+========================================================= -->
 
 <audio
   id="music"
@@ -2583,7 +3016,9 @@ footer p{
 </button>
 
 
-<!-- LIGHTBOX -->
+<!-- =========================================================
+     LIGHTBOX
+========================================================= -->
 
 <div
   id="lightbox"
@@ -2601,14 +3036,16 @@ footer p{
 
 <script>
 
-/* =====================================================
+/* =========================================================
    NAMA TAMU
-===================================================== */
+========================================================= */
 
 (function(){
 
   const params =
-    new URLSearchParams(window.location.search);
+    new URLSearchParams(
+      window.location.search
+    );
 
   const to =
     params.get('to');
@@ -2622,60 +3059,52 @@ footer p{
 
     document.getElementById(
       'guestName'
-    ).textContent = decoded;
+    ).textContent =
+      decoded;
 
   }
 
 })();
 
 
-/* =====================================================
-   PRELOAD MUSIK
-===================================================== */
-
-window.addEventListener(
-  'DOMContentLoaded',
-  function(){
-
-    document
-      .getElementById('music')
-      .load();
-
-  }
-);
-
-
-/* =====================================================
-   SPARKLE
-===================================================== */
+/* =========================================================
+   SPARKLES OPENING
+========================================================= */
 
 (function(){
 
   const container =
-    document.getElementById('sparkles');
+    document.getElementById(
+      'sparkles'
+    );
 
-  if(!container) return;
+  if(!container)
+    return;
 
-  const total = 22;
-
-  for(let i=0;i<total;i++){
+  for(let i=0;i<28;i++){
 
     const s =
       document.createElement('span');
 
-    s.className = 'sparkle';
+    s.className =
+      'sparkle';
 
     s.style.left =
-      (Math.random()*100)+'%';
+      Math.random()*100+'%';
 
     s.style.top =
-      (Math.random()*100)+'%';
+      Math.random()*100+'%';
+
+    s.style.setProperty(
+      '--duration',
+      2.5+
+      Math.random()*3+
+      's'
+    );
 
     s.style.animationDelay =
-      (Math.random()*3.4)+'s';
-
-    s.style.animationDuration =
-      (2.6+Math.random()*2.4)+'s';
+      Math.random()*3+
+      's';
 
     container.appendChild(s);
 
@@ -2684,9 +3113,176 @@ window.addEventListener(
 })();
 
 
-/* =====================================================
-   FOTO BERJATUHAN
-===================================================== */
+/* =========================================================
+   AMBIENT BOKEH
+========================================================= */
+
+(function(){
+
+  const container =
+    document.getElementById(
+      'ambientEffects'
+    );
+
+  if(!container)
+    return;
+
+  for(let i=0;i<14;i++){
+
+    const b =
+      document.createElement('span');
+
+    b.className =
+      'bokeh';
+
+    const size =
+      15+
+      Math.random()*45;
+
+    b.style.setProperty(
+      '--size',
+      size+'px'
+    );
+
+    b.style.left =
+      Math.random()*100+'%';
+
+    b.style.top =
+      Math.random()*100+'%';
+
+    b.style.setProperty(
+      '--move',
+      (
+        Math.random()*70-35
+      )+'px'
+    );
+
+    b.style.setProperty(
+      '--duration',
+      (
+        5+
+        Math.random()*7
+      )+'s'
+    );
+
+    b.style.animationDelay =
+      (
+        Math.random()*5
+      )+'s';
+
+    container.appendChild(b);
+
+  }
+
+})();
+
+
+/* =========================================================
+   PETAL EFFECT
+========================================================= */
+
+let petalTimer = null;
+
+function createPetal(){
+
+  const container =
+    document.getElementById(
+      'ambientEffects'
+    );
+
+  if(!container)
+    return;
+
+  const petal =
+    document.createElement('span');
+
+  petal.className =
+    'petal';
+
+  const size =
+    7+
+    Math.random()*10;
+
+  petal.style.width =
+    size+'px';
+
+  petal.style.height =
+    size*1.45+'px';
+
+  petal.style.left =
+    Math.random()*100+'%';
+
+  petal.style.setProperty(
+    '--sway',
+    (
+      Math.random()*180-90
+    )+'px'
+  );
+
+  petal.style.animationDuration =
+    (
+      8+
+      Math.random()*8
+    )+'s';
+
+  petal.style.animationDelay =
+    (
+      Math.random()*2
+    )+'s';
+
+  container.appendChild(petal);
+
+  setTimeout(
+    ()=>{
+      petal.remove();
+    },
+    18000
+  );
+
+}
+
+
+function startPetals(){
+
+  if(petalTimer)
+    return;
+
+  for(let i=0;i<12;i++){
+
+    setTimeout(
+      createPetal,
+      i*350
+    );
+
+  }
+
+  petalTimer =
+    setInterval(
+      createPetal,
+      850
+    );
+
+}
+
+
+function stopPetals(){
+
+  if(petalTimer){
+
+    clearInterval(
+      petalTimer
+    );
+
+    petalTimer = null;
+
+  }
+
+}
+
+
+/* =========================================================
+   FOTO BERJATUHAN DI HERO
+========================================================= */
 
 const fallingPhotoSources = [
 
@@ -2712,10 +3308,14 @@ function spawnFallingPhotos(count){
       'fallingPhotos'
     );
 
-  if(!container) return;
+  if(!container)
+    return;
+
+  const hero =
+    container.parentElement;
 
   const heroHeight =
-    container.parentElement.offsetHeight || 500;
+    hero.offsetHeight || 700;
 
   for(let i=0;i<count;i++){
 
@@ -2728,7 +3328,7 @@ function spawnFallingPhotos(count){
     const src =
       fallingPhotoSources[
         Math.floor(
-          Math.random() *
+          Math.random()*
           fallingPhotoSources.length
         )
       ];
@@ -2736,61 +3336,54 @@ function spawnFallingPhotos(count){
     const img =
       document.createElement('img');
 
-    img.src = src;
+    img.src =
+      src;
+
     img.alt = '';
 
     el.appendChild(img);
 
-    const leftPos =
-      Math.random()*100;
-
     const size =
-      46 + Math.random()*26;
-
-    const duration =
-      9 + Math.random()*5;
-
-    const delay =
-      Math.random()*3;
-
-    const rotStart =
-      (Math.random()*20-10).toFixed(1);
-
-    const rotEnd =
-      (Math.random()*50-25).toFixed(1);
-
-    const fallDistance =
-      heroHeight + 160;
+      45+
+      Math.random()*28;
 
     el.style.left =
-      leftPos+'%';
+      Math.random()*100+'%';
 
     el.style.width =
       size+'px';
 
     el.style.height =
-      (size*1.2)+'px';
+      size*1.25+'px';
 
     el.style.setProperty(
-      '--rot-start',
-      rotStart+'deg'
+      '--start',
+      (
+        Math.random()*24-12
+      )+'deg'
     );
 
     el.style.setProperty(
-      '--rot-end',
-      rotEnd+'deg'
+      '--end',
+      (
+        Math.random()*70-35
+      )+'deg'
     );
 
     el.style.setProperty(
-      '--fall-distance',
-      fallDistance+'px'
+      '--distance',
+      heroHeight+180+'px'
     );
 
-    el.style.animationDuration =
-      duration+'s';
+    el.style.setProperty(
+      '--duration',
+      9+
+      Math.random()*6+
+      's'
+    );
 
     el.style.animationDelay =
-      delay+'s';
+      Math.random()*3+'s';
 
     container.appendChild(el);
 
@@ -2798,7 +3391,7 @@ function spawnFallingPhotos(count){
       ()=>{
         el.remove();
       },
-      (duration+delay)*1000+500
+      19000
     );
 
   }
@@ -2808,16 +3401,17 @@ function spawnFallingPhotos(count){
 
 function startFallingPhotosLoop(){
 
-  if(fallingPhotosInterval) return;
+  if(fallingPhotosInterval)
+    return;
 
-  spawnFallingPhotos(8);
+  spawnFallingPhotos(9);
 
   fallingPhotosInterval =
     setInterval(
       ()=>{
         spawnFallingPhotos(5);
       },
-      4500
+      4300
     );
 
 }
@@ -2831,268 +3425,260 @@ function stopFallingPhotosLoop(){
       fallingPhotosInterval
     );
 
-    fallingPhotosInterval = null;
+    fallingPhotosInterval =
+      null;
 
   }
 
 }
 
 
-/* =====================================================
-   HERO OBSERVER
-===================================================== */
+/* =========================================================
+   OPEN INVITATION
+========================================================= */
 
-let heroVisibilityObserver = null;
+function openInvite(){
 
+  document.getElementById(
+    'opening'
+  ).style.display =
+    'none';
 
-function initHeroVisibilityObserver(){
-
-  const heroEl =
-    document.querySelector('.hero');
-
-  const scrollHint =
-    document.getElementById('scrollHint');
-
-  if(!heroEl) return;
-
-
-  if(!('IntersectionObserver' in window)){
-
-    if(scrollHint)
-      scrollHint.classList.add('show');
-
-    return;
-
-  }
-
-
-  if(heroVisibilityObserver)
-    heroVisibilityObserver.disconnect();
-
-
-  heroVisibilityObserver =
-    new IntersectionObserver(
-      (entries)=>{
-
-        entries.forEach(entry=>{
-
-          if(entry.isIntersecting){
-
-            startFallingPhotosLoop();
-
-            if(scrollHint)
-              scrollHint.classList.add('show');
-
-          }else{
-
-            stopFallingPhotosLoop();
-
-            if(scrollHint){
-
-              scrollHint.classList.remove(
-                'show'
-              );
-
-              scrollHint.classList.add(
-                'hide'
-              );
-
-            }
-
-          }
-
-        });
-
-      },
-      {
-        threshold:0.15
-      }
+  const main =
+    document.getElementById(
+      'main'
     );
 
+  main.style.display =
+    'block';
 
-  heroVisibilityObserver.observe(
-    heroEl
+  main.classList.add('show');
+
+  const music =
+    document.getElementById(
+      'music'
+    );
+
+  music.currentTime = 5;
+
+  music.play().catch(
+    ()=>{}
+  );
+
+  document.getElementById(
+    'musicBtn'
+  ).style.display =
+    'flex';
+
+  requestAnimationFrame(
+    ()=>{
+      requestAnimationFrame(
+        ()=>{
+          startFallingPhotosLoop();
+          startPetals();
+          initRevealObserver();
+          initGalleryAutoScroll();
+          initWishesAutoScroll();
+          updateScrollUI();
+        }
+      );
+    }
   );
 
 }
 
 
-/* =====================================================
-   HILANGKAN SCROLL HINT SAAT USER MULAI SCROLL
-===================================================== */
+/* =========================================================
+   SCROLL REMINDER
+========================================================= */
 
-let scrollHintHidden = false;
+function handleScrollReminder(){
+
+  const nearBottom =
+    window.innerHeight+
+    window.scrollY >=
+    document.documentElement.scrollHeight-
+    180;
+
+  if(nearBottom){
+
+    window.scrollTo({
+      top:0,
+      behavior:'smooth'
+    });
+
+  }else{
+
+    const sections =
+      document.querySelectorAll(
+        '#main section'
+      );
+
+    let next =
+      null;
+
+    const current =
+      window.scrollY+
+      window.innerHeight*.35;
+
+    sections.forEach(
+      section=>{
+
+        if(
+          !next &&
+          section.offsetTop >
+          current
+        ){
+          next =
+            section;
+        }
+
+      }
+    );
+
+    if(next){
+
+      next.scrollIntoView({
+        behavior:'smooth',
+        block:'start'
+      });
+
+    }else{
+
+      window.scrollBy({
+        top:window.innerHeight*.75,
+        behavior:'smooth'
+      });
+
+    }
+
+  }
+
+}
+
+
+function updateScrollUI(){
+
+  const reminder =
+    document.getElementById(
+      'scrollReminder'
+    );
+
+  const text =
+    document.getElementById(
+      'scrollReminderText'
+    );
+
+  const icon =
+    document.getElementById(
+      'scrollReminderIcon'
+    );
+
+  const progress =
+    document.getElementById(
+      'scrollProgress'
+    );
+
+  if(!reminder)
+    return;
+
+  const docHeight =
+    document.documentElement.scrollHeight;
+
+  const viewport =
+    window.innerHeight;
+
+  const scrollable =
+    docHeight-viewport;
+
+  const percent =
+    scrollable>0
+      ? (
+        window.scrollY/
+        scrollable
+      )*100
+      : 0;
+
+  if(progress){
+
+    progress.style.width =
+      Math.min(
+        100,
+        Math.max(0,percent)
+      )+'%';
+
+  }
+
+  if(
+    window.scrollY+
+    viewport >=
+    docHeight-180
+  ){
+
+    text.textContent =
+      'Kembali ke atas';
+
+    icon.innerHTML =
+      `
+      <path
+        d="M12 20V5M6 11l6-6 6 6"
+        stroke="#e6bd78"
+        stroke-width="1.7"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      `;
+
+  }else{
+
+    text.textContent =
+      'Scroll untuk melihat undangan';
+
+    icon.innerHTML =
+      `
+      <path
+        d="M12 4v15M6 13l6 6 6-6"
+        stroke="#e6bd78"
+        stroke-width="1.7"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      `;
+
+  }
+
+}
 
 
 window.addEventListener(
   'scroll',
-  function(){
-
-    if(scrollHintHidden)
-      return;
-
-    if(window.scrollY > 50){
-
-      scrollHintHidden = true;
-
-      const hint =
-        document.getElementById(
-          'scrollHint'
-        );
-
-      if(hint){
-
-        hint.classList.remove(
-          'show'
-        );
-
-        hint.classList.add(
-          'hide'
-        );
-
-      }
-
-    }
-
-  },
+  updateScrollUI,
   {
     passive:true
   }
 );
 
 
-/* =====================================================
-   OPEN INVITATION
-===================================================== */
-
-function openInvite(){
-
-  document.getElementById(
-    'opening'
-  ).style.display = 'none';
-
-
-  const main =
-    document.getElementById('main');
-
-  main.style.display = 'block';
-
-  main.classList.add('show');
-
-
-  const music =
-    document.getElementById('music');
-
-  music.currentTime = 5;
-
-  music.play().catch(()=>{});
-
-
-  document.getElementById(
-    'musicBtn'
-  ).style.display = 'flex';
-
-
-  const scrollHint =
-    document.getElementById(
-      'scrollHint'
-    );
-
-  if(scrollHint){
-
-    scrollHint.classList.remove(
-      'hide'
-    );
-
-    scrollHint.classList.add(
-      'show'
-    );
-
-  }
-
-
-  requestAnimationFrame(()=>{
-
-    requestAnimationFrame(()=>{
-
-      startFallingPhotosLoop();
-
-      initHeroVisibilityObserver();
-
-      initRevealObserver();
-
-      initGalleryAutoScroll();
-
-      initWishesAutoScroll();
-
-    });
-
-  });
-
-
-  setTimeout(
-    function(){
-
-      document
-        .querySelectorAll(
-          '.reveal:not(.show)'
-        )
-        .forEach(
-          el=>{
-            el.classList.add('show');
-          }
-        );
-
-    },
-    4000
-  );
-
-}
-
-
-/* =====================================================
-   SCROLL KE WAKTU & TEMPAT
-===================================================== */
-
-function scrollToNext(){
-
-  const target =
-    document.getElementById(
-      'waktu-tempat'
-    );
-
-  if(target){
-
-    target.scrollIntoView({
-      behavior:'smooth'
-    });
-
-  }
-
-}
-
-
-/* =====================================================
+/* =========================================================
    REVEAL
-===================================================== */
+========================================================= */
 
-let revealObserver = null;
+let revealObserver =
+  null;
 
 
 function initRevealObserver(){
 
-  const revealEls =
+  const elements =
     document.querySelectorAll(
-      '.reveal:not(.show)'
+      '.reveal'
     );
 
-  if(!revealEls.length)
-    return;
+  if(
+    !('IntersectionObserver' in window)
+  ){
 
-
-  if(!('IntersectionObserver' in window)){
-
-    revealEls.forEach(
+    elements.forEach(
       el=>{
         el.classList.add('show');
       }
@@ -3102,135 +3688,96 @@ function initRevealObserver(){
 
   }
 
-
-  if(revealObserver)
-    revealObserver.disconnect();
-
-
   revealObserver =
     new IntersectionObserver(
-      (entries,obs)=>{
+      (entries,observer)=>{
 
-        entries.forEach(entry=>{
+        entries.forEach(
+          entry=>{
 
-          if(entry.isIntersecting){
+            if(
+              entry.isIntersecting
+            ){
 
-            const el =
-              entry.target;
-
-            const siblings =
-              Array.from(
-                el.parentElement
-                ? el.parentElement.children
-                : []
-              ).filter(
-                c=>
-                  c.classList.contains(
-                    'reveal'
-                  )
+              setTimeout(
+                ()=>{
+                  entry.target
+                    .classList
+                    .add('show');
+                },
+                80
               );
 
-            const idx =
-              siblings.indexOf(el);
+              observer.unobserve(
+                entry.target
+              );
 
-            const delay =
-              Math.max(idx,0)*90;
-
-            setTimeout(
-              ()=>{
-                el.classList.add(
-                  'show'
-                );
-              },
-              delay
-            );
-
-            obs.unobserve(el);
+            }
 
           }
-
-        });
+        );
 
       },
       {
-        threshold:0.1,
-        rootMargin:'0px 0px -10% 0px'
+        threshold:.08,
+        rootMargin:
+          '0px 0px -8% 0px'
       }
     );
 
-
-  revealEls.forEach(
+  elements.forEach(
     el=>{
       revealObserver.observe(el);
-    }
-  );
-
-
-  revealEls.forEach(
-    el=>{
-
-      const rect =
-        el.getBoundingClientRect();
-
-      if(
-        rect.top < window.innerHeight &&
-        rect.bottom > 0
-      ){
-
-        el.classList.add('show');
-
-        revealObserver.unobserve(el);
-
-      }
-
     }
   );
 
 }
 
 
-/* =====================================================
+/* =========================================================
    MUSIC
-===================================================== */
+========================================================= */
 
 function toggleMusic(){
 
   const music =
-    document.getElementById('music');
+    document.getElementById(
+      'music'
+    );
 
   const btn =
-    document.getElementById('musicBtn');
-
+    document.getElementById(
+      'musicBtn'
+    );
 
   if(music.paused){
 
-    music.play();
+    music.play().catch(
+      ()=>{}
+    );
 
-    btn.textContent = '♪';
+    btn.textContent =
+      '♪';
 
   }else{
 
     music.pause();
 
-    btn.textContent = '❙❙';
+    btn.textContent =
+      '❙❙';
 
   }
 
 }
 
 
-/* =====================================================
+/* =========================================================
    COUNTDOWN
-===================================================== */
-
-/*
-  Jumat, 18 September 2026
-  13.00 WIB
-*/
+========================================================= */
 
 const targetDate =
   new Date(
-    "September 18, 2026 13:00:00"
+    'September 18, 2026 13:00:00'
   ).getTime();
 
 
@@ -3244,68 +3791,67 @@ function pad(n){
 
 function updateCountdown(){
 
-  const now =
-    new Date().getTime();
-
   const distance =
     Math.max(
-      targetDate-now,
+      targetDate-
+      Date.now(),
       0
     );
 
-
   const days =
     Math.floor(
-      distance /
+      distance/
       (1000*60*60*24)
     );
 
   const hours =
     Math.floor(
       (
-        distance %
+        distance%
         (1000*60*60*24)
-      ) /
+      )/
       (1000*60*60)
     );
 
-  const minutes =
+  const mins =
     Math.floor(
       (
-        distance %
+        distance%
         (1000*60*60)
-      ) /
+      )/
       (1000*60)
     );
 
-  const seconds =
+  const secs =
     Math.floor(
       (
-        distance %
+        distance%
         (1000*60)
-      ) /
+      )/
       1000
     );
 
-
   document.getElementById(
     'cd-days'
-  ).textContent = pad(days);
+  ).textContent =
+    pad(days);
 
   document.getElementById(
     'cd-hours'
-  ).textContent = pad(hours);
+  ).textContent =
+    pad(hours);
 
   document.getElementById(
     'cd-mins'
-  ).textContent = pad(minutes);
+  ).textContent =
+    pad(mins);
 
   document.getElementById(
     'cd-secs'
-  ).textContent = pad(seconds);
+  ).textContent =
+    pad(secs);
 
 }
-
 
 updateCountdown();
 
@@ -3315,60 +3861,52 @@ setInterval(
 );
 
 
-/* =====================================================
+/* =========================================================
    GOOGLE CALENDAR
-===================================================== */
+========================================================= */
 
 const EVENT_TITLE =
-  "Wisuda Wulandari Yulianis, S.Kom";
-
+  'Wisuda Wulandari Yulianis, S.Kom';
 
 const EVENT_LOCATION =
-  "Fakultas Teknologi Informasi, Universitas Andalas, Limau Manis, Padang, Sumatera Barat";
-
+  'Fakultas Teknologi Informasi, Universitas Andalas, Limau Manis, Padang, Sumatera Barat';
 
 const EVENT_DESC =
-  "Prosesi wisuda Wulandari Yulianis, S.Kom - Sarjana Komputer S1 Sistem Informasi, Universitas Andalas.";
-
-
-/*
-  18 September 2026
-  13.00 WIB = 06.00 UTC
-  15.00 WIB = 08.00 UTC
-*/
+  'Prosesi wisuda Wulandari Yulianis, S.Kom - Sarjana Komputer S1 Sistem Informasi, Universitas Andalas.';
 
 const EVENT_START_UTC =
-  "20260918T060000Z";
+  '20260918T060000Z';
 
 const EVENT_END_UTC =
-  "20260918T080000Z";
+  '20260918T080000Z';
 
 
 function buildGoogleCalendarLink(){
 
   const base =
-    "https://calendar.google.com/calendar/render?action=TEMPLATE";
-
+    'https://calendar.google.com/calendar/render?action=TEMPLATE';
 
   const params =
     new URLSearchParams({
 
-      text:EVENT_TITLE,
+      text:
+        EVENT_TITLE,
 
       dates:
-        EVENT_START_UTC +
-        "/" +
+        EVENT_START_UTC+
+        '/'+
         EVENT_END_UTC,
 
-      details:EVENT_DESC,
+      details:
+        EVENT_DESC,
 
-      location:EVENT_LOCATION
+      location:
+        EVENT_LOCATION
 
     });
 
-
-  return base +
-    "&" +
+  return base+
+    '&'+
     params.toString();
 
 }
@@ -3380,94 +3918,90 @@ document.getElementById(
   buildGoogleCalendarLink();
 
 
-/* =====================================================
-   DOWNLOAD ICS
-===================================================== */
+/* =========================================================
+   ICS
+========================================================= */
 
 function downloadICS(){
 
   const ics = [
 
-    "BEGIN:VCALENDAR",
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Undangan Wisuda//ID',
+    'BEGIN:VEVENT',
 
-    "VERSION:2.0",
+    'UID:'+
+      Date.now()+
+      '@undangan-wisuda',
 
-    "PRODID:-//Undangan Wisuda//ID",
-
-    "BEGIN:VEVENT",
-
-    "UID:" +
-      Date.now() +
-      "@undangan-wisuda",
-
-    "DTSTAMP:" +
+    'DTSTAMP:'+
       EVENT_START_UTC,
 
-    "DTSTART:" +
+    'DTSTART:'+
       EVENT_START_UTC,
 
-    "DTEND:" +
+    'DTEND:'+
       EVENT_END_UTC,
 
-    "SUMMARY:" +
+    'SUMMARY:'+
       EVENT_TITLE,
 
-    "DESCRIPTION:" +
+    'DESCRIPTION:'+
       EVENT_DESC,
 
-    "LOCATION:" +
+    'LOCATION:'+
       EVENT_LOCATION,
 
-    "END:VEVENT",
+    'END:VEVENT',
+    'END:VCALENDAR'
 
-    "END:VCALENDAR"
-
-  ].join("\r\n");
-
+  ].join('\r\n');
 
   const blob =
     new Blob(
       [ics],
       {
         type:
-          "text/calendar;charset=utf-8"
+          'text/calendar;charset=utf-8'
       }
     );
-
 
   const url =
     URL.createObjectURL(blob);
 
-
   const a =
     document.createElement('a');
 
-  a.href = url;
+  a.href =
+    url;
 
   a.download =
-    "Undangan-Wisuda-Wulandari.ics";
+    'Undangan-Wisuda-Wulandari.ics';
 
   document.body.appendChild(a);
 
   a.click();
 
-  document.body.removeChild(a);
+  a.remove();
 
   URL.revokeObjectURL(url);
 
 }
 
 
-/* =====================================================
+/* =========================================================
    GALERI AUTO SCROLL
-===================================================== */
+========================================================= */
 
-let galleryAutoScrollObserver = null;
-
-let galleryVisible = false;
+let galleryAutoScrollStarted =
+  false;
 
 
 function initGalleryAutoScroll(){
+
+  if(galleryAutoScrollStarted)
+    return;
 
   const wrap =
     document.querySelector(
@@ -3479,21 +4013,15 @@ function initGalleryAutoScroll(){
       '.gallery-row2-track'
     );
 
-
   if(!wrap || !track)
     return;
 
+  galleryAutoScrollStarted =
+    true;
 
   if(
-    window.matchMedia &&
-    window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches
-  )
-    return;
-
-
-  if(!track.dataset.duplicated){
+    !track.dataset.duplicated
+  ){
 
     track.insertAdjacentHTML(
       'beforeend',
@@ -3505,68 +4033,51 @@ function initGalleryAutoScroll(){
 
   }
 
+  let paused =
+    false;
 
-  let paused = false;
+  let resumeTimer =
+    null;
 
-  let resumeTimer = null;
+  let visible =
+    false;
 
   const speed =
-    0.035;
+    .035;
 
+  wrap.addEventListener(
+    'pointerdown',
+    ()=>{
+      paused=true;
 
-  function pause(){
+      if(resumeTimer)
+        clearTimeout(resumeTimer);
+    }
+  );
 
-    paused = true;
+  function resume(){
 
     if(resumeTimer)
       clearTimeout(resumeTimer);
-
-  }
-
-
-  function scheduleResume(){
-
-    if(resumeTimer)
-      clearTimeout(resumeTimer);
-
 
     resumeTimer =
       setTimeout(
         ()=>{
-          paused = false;
+          paused=false;
         },
         2200
       );
 
   }
 
-
-  wrap.addEventListener(
-    'pointerdown',
-    pause
-  );
-
   wrap.addEventListener(
     'pointerup',
-    scheduleResume
-  );
-
-  wrap.addEventListener(
-    'pointerleave',
-    scheduleResume
-  );
-
-  wrap.addEventListener(
-    'touchstart',
-    pause,
-    {
-      passive:true
-    }
+    resume
   );
 
   wrap.addEventListener(
     'touchend',
-    scheduleResume,
+    resume,
     {
       passive:true
     }
@@ -3574,133 +4085,91 @@ function initGalleryAutoScroll(){
 
   wrap.addEventListener(
     'wheel',
-    function(){
-
-      pause();
-
-      scheduleResume();
-
-    },
+    resume,
     {
       passive:true
     }
   );
-
 
   if(
     'IntersectionObserver'
     in window
   ){
 
-    if(galleryAutoScrollObserver)
-      galleryAutoScrollObserver.disconnect();
-
-
-    galleryAutoScrollObserver =
+    const observer =
       new IntersectionObserver(
         entries=>{
 
-          entries.forEach(
-            entry=>{
-              galleryVisible =
-                entry.isIntersecting;
-            }
-          );
+          visible =
+            entries[0]
+              .isIntersecting;
 
         },
         {
-          threshold:0.1
+          threshold:.1
         }
       );
 
-
-    galleryAutoScrollObserver.observe(
-      wrap
-    );
+    observer.observe(wrap);
 
   }else{
 
-    galleryVisible = true;
+    visible=true;
 
   }
 
+  let last =
+    null;
 
-  let lastTime = null;
+  function animate(time){
 
-  let halfWidth =
-    track.scrollWidth/2;
-
-
-  window.addEventListener(
-    'load',
-    function(){
-
-      halfWidth =
-        track.scrollWidth/2;
-
-    }
-  );
-
-
-  setTimeout(
-    function(){
-
-      halfWidth =
-        track.scrollWidth/2;
-
-    },
-    1200
-  );
-
-
-  function step(timestamp){
-
-    if(lastTime === null)
-      lastTime = timestamp;
-
+    if(last===null)
+      last=time;
 
     const delta =
-      timestamp-lastTime;
+      time-last;
 
+    last=time;
 
-    lastTime = timestamp;
-
+    const half =
+      track.scrollWidth/2;
 
     if(
       !paused &&
-      galleryVisible &&
-      halfWidth > 0
+      visible &&
+      half>0
     ){
 
       wrap.scrollLeft +=
         speed*delta;
 
-
       if(
-        wrap.scrollLeft >= halfWidth
+        wrap.scrollLeft>=half
       ){
 
         wrap.scrollLeft -=
-          halfWidth;
+          half;
 
       }
 
     }
 
-
-    requestAnimationFrame(step);
+    requestAnimationFrame(
+      animate
+    );
 
   }
 
-
-  requestAnimationFrame(step);
+  requestAnimationFrame(
+    animate
+  );
 
 }
 
 
-/* =====================================================
+/* =========================================================
    LIGHTBOX
-===================================================== */
+========================================================= */
 
 document.addEventListener(
   'click',
@@ -3711,27 +4180,26 @@ document.addEventListener(
         '[data-lightbox]'
       );
 
-
     if(!link)
       return;
 
-
     e.preventDefault();
-
 
     const img =
       document.getElementById(
         'lightboxImg'
       );
 
-
     img.src =
-      link.getAttribute('href');
+      link.getAttribute(
+        'href'
+      );
 
-
-    document
-      .getElementById('lightbox')
-      .classList.add('show');
+    document.getElementById(
+      'lightbox'
+    ).classList.add(
+      'show'
+    );
 
   }
 );
@@ -3739,16 +4207,18 @@ document.addEventListener(
 
 function closeLightbox(){
 
-  document
-    .getElementById('lightbox')
-    .classList.remove('show');
+  document.getElementById(
+    'lightbox'
+  ).classList.remove(
+    'show'
+  );
 
 }
 
 
-/* =====================================================
+/* =========================================================
    UCAPAN - GOOGLE APPS SCRIPT
-===================================================== */
+========================================================= */
 
 const WISH_APPS_SCRIPT_URL =
   'https://script.google.com/macros/s/AKfycbzW2xVUz8xnyXSD3lDq5owFixgJlhswje0LH9pliK6UlIC1m9s_LqjALkFLB2RPwYRU7w/exec';
@@ -3800,9 +4270,9 @@ function setLocalWishes(list){
 }
 
 
-/* =====================================================
-   BUAT KARTU UCAPAN
-===================================================== */
+/* =========================================================
+   RENDER WISH
+========================================================= */
 
 function renderWishCard(
   name,
@@ -3811,50 +4281,47 @@ function renderWishCard(
 ){
 
   const card =
-    document.createElement('div');
+    document.createElement(
+      'div'
+    );
 
   card.className =
     'wish-card';
-
 
   const initial =
     name
       .charAt(0)
       .toUpperCase();
 
-
   card.innerHTML =
+    `
+    <div class="wish-avatar">
+      ${initial}
+    </div>
 
-    '<div class="wish-avatar">' +
-      initial +
-    '</div>' +
+    <div>
 
-    '<div>' +
+      <p class="wish-name"></p>
 
-      '<p class="wish-name"></p>' +
+      <p class="wish-text"></p>
 
-      '<p class="wish-text"></p>' +
-
-    '</div>';
-
+    </div>
+    `;
 
   card.querySelector(
     '.wish-name'
   ).textContent =
     name;
 
-
   card.querySelector(
     '.wish-text'
   ).textContent =
     msg;
 
-
   const list =
     document.getElementById(
       'wishesList'
     );
-
 
   if(prepend){
 
@@ -3869,23 +4336,17 @@ function renderWishCard(
 }
 
 
-/* =====================================================
-   LOAD UCAPAN
-===================================================== */
+/* =========================================================
+   LOAD WISHES
+========================================================= */
 
 (function loadSavedWishes(){
 
   if(WISH_APPS_SCRIPT_URL){
 
-    if(wishNoteEl){
-
-      wishNoteEl.textContent =
-        'Ucapan Anda akan tersimpan dan tampil untuk semua tamu yang membuka undangan ini.';
-
-    }
-
-
-    fetch(WISH_APPS_SCRIPT_URL)
+    fetch(
+      WISH_APPS_SCRIPT_URL
+    )
 
       .then(
         r=>r.json()
@@ -3894,61 +4355,38 @@ function renderWishCard(
       .then(
         list=>{
 
-          (list || [])
-            .forEach(
-              w=>{
-                renderWishCard(
-                  w.name,
-                  w.msg,
-                  false
-                );
-              }
-            );
+          (list||[]).forEach(
+            w=>{
 
-          /*
-            Setelah data masuk,
-            jalankan kembali ukuran
-            animasi ucapan.
-          */
+              renderWishCard(
+                w.name,
+                w.msg,
+                false
+              );
 
-          if(
-            typeof restartWishesAutoScroll
-            === 'function'
-          ){
+            }
+          );
 
-            restartWishesAutoScroll();
-
-          }
+          restartWishesAutoScroll();
 
         }
       )
 
       .catch(
         ()=>{
-
           if(wishNoteEl){
 
             wishNoteEl.textContent =
               'Tidak bisa memuat ucapan saat ini, coba muat ulang halaman.';
 
           }
-
         }
       );
 
   }else{
 
-    if(wishNoteEl){
-
-      wishNoteEl.textContent =
-        'Ucapan tersimpan di perangkat ini.';
-
-    }
-
-
     const stored =
       getLocalWishes();
-
 
     stored
       .slice()
@@ -3970,26 +4408,30 @@ function renderWishCard(
 })();
 
 
-/* =====================================================
-   UCAPAN OTOMATIS BERJALAN
-===================================================== */
+/* =========================================================
+   WISH AUTO SCROLL
+========================================================= */
 
-let wishAnimationFrame = null;
+let wishAnimationFrame =
+  null;
 
-let wishAutoRunning = false;
+let wishAutoRunning =
+  false;
 
-let wishPauseUntil = 0;
+let wishPauseUntil =
+  0;
 
-let wishPosition = 0;
+let wishPosition =
+  0;
 
-let wishLastTime = null;
+let wishLastTime =
+  null;
 
 
 function initWishesAutoScroll(){
 
   if(wishAutoRunning)
     return;
-
 
   const wrapper =
     document.getElementById(
@@ -4001,20 +4443,11 @@ function initWishesAutoScroll(){
       'wishesList'
     );
 
-
   if(!wrapper || !list)
     return;
 
-
-  /*
-    Kalau hanya ada 1 atau 2 pesan,
-    kita tetap buat salinan.
-    Jadi animasi tetap terlihat
-    mulus dan tidak berhenti.
-  */
-
   if(
-    list.children.length > 0 &&
+    list.children.length &&
     !list.dataset.duplicated
   ){
 
@@ -4022,7 +4455,6 @@ function initWishesAutoScroll(){
       Array.from(
         list.children
       );
-
 
     original.forEach(
       card=>{
@@ -4033,78 +4465,68 @@ function initWishesAutoScroll(){
         clone.dataset.clone =
           'true';
 
-        list.appendChild(clone);
+        list.appendChild(
+          clone
+        );
 
       }
     );
-
 
     list.dataset.duplicated =
       'true';
 
   }
 
+  wishAutoRunning =
+    true;
 
-  wishAutoRunning = true;
-
-  wishPosition = 0;
-
-  wishLastTime = null;
-
+  wishPosition=0;
+  wishLastTime=null;
 
   function animate(timestamp){
 
-    if(wishLastTime === null)
-      wishLastTime = timestamp;
+    if(
+      wishLastTime===null
+    ){
 
+      wishLastTime =
+        timestamp;
+
+    }
 
     const delta =
-      timestamp-wishLastTime;
+      timestamp-
+      wishLastTime;
 
+    wishLastTime =
+      timestamp;
 
-    wishLastTime = timestamp;
-
-
-    const now =
-      Date.now();
-
-
-    if(now >= wishPauseUntil){
-
-      /*
-        Kecepatan vertikal.
-        Semakin kecil = semakin pelan.
-      */
+    if(
+      Date.now()>=
+      wishPauseUntil
+    ){
 
       wishPosition +=
-        delta*0.025;
-
-
-      /*
-        Tinggi setengah isi daftar.
-      */
+        delta*.025;
 
       const halfHeight =
         list.scrollHeight/2;
 
-
       if(
-        halfHeight > 0 &&
-        wishPosition >= halfHeight
+        halfHeight>0 &&
+        wishPosition>=halfHeight
       ){
 
-        wishPosition = 0;
+        wishPosition=0;
 
       }
 
-
       list.style.transform =
-        'translateY(-' +
-        wishPosition +
+        'translateY(-'+
+        wishPosition+
         'px)';
 
     }
-
 
     wishAnimationFrame =
       requestAnimationFrame(
@@ -4113,17 +4535,10 @@ function initWishesAutoScroll(){
 
   }
 
-
   wishAnimationFrame =
     requestAnimationFrame(
       animate
     );
-
-
-  /*
-    Jika disentuh/digeser,
-    berhenti sebentar.
-  */
 
   wrapper.addEventListener(
     'pointerdown',
@@ -4141,10 +4556,6 @@ function initWishesAutoScroll(){
 }
 
 
-/* =====================================================
-   PAUSE UCAPAN
-===================================================== */
-
 function pauseWishes(){
 
   wishPauseUntil =
@@ -4153,27 +4564,7 @@ function pauseWishes(){
 }
 
 
-/* =====================================================
-   RESTART UCAPAN
-===================================================== */
-
 function restartWishesAutoScroll(){
-
-  const list =
-    document.getElementById(
-      'wishesList'
-    );
-
-  if(!list)
-    return;
-
-
-  /*
-    Kalau data baru sudah masuk,
-    tidak perlu menggandakan lagi.
-    Animasi yang sudah ada akan
-    otomatis memakai isi terbaru.
-  */
 
   if(!wishAutoRunning){
 
@@ -4184,70 +4575,53 @@ function restartWishesAutoScroll(){
 }
 
 
-/* =====================================================
-   SUBMIT UCAPAN
-===================================================== */
+/* =========================================================
+   SUBMIT WISH
+========================================================= */
 
 document
-  .getElementById('wishForm')
+  .getElementById(
+    'wishForm'
+  )
   .addEventListener(
     'submit',
     function(e){
 
       e.preventDefault();
 
-
       const nameInput =
         document.getElementById(
           'wishName'
         );
-
 
       const msgInput =
         document.getElementById(
           'wishMsg'
         );
 
-
       const name =
         nameInput.value.trim();
-
 
       const msg =
         msgInput.value.trim();
 
-
       if(!name || !msg)
         return;
-
-
-      /*
-        Masukkan ucapan baru ke paling atas.
-      */
 
       const list =
         document.getElementById(
           'wishesList'
         );
 
-
-      /*
-        Hapus clone terakhir sementara
-        agar pesan baru masuk ke daftar asli.
-      */
-
-      const clones =
-        list.querySelectorAll(
+      list
+        .querySelectorAll(
           '[data-clone="true"]'
+        )
+        .forEach(
+          clone=>{
+            clone.remove();
+          }
         );
-
-
-      clones.forEach(
-        clone=>{
-          clone.remove();
-        }
-      );
-
 
       renderWishCard(
         name,
@@ -4255,17 +4629,10 @@ document
         true
       );
 
-
-      /*
-        Buat ulang clone supaya
-        animasi tetap looping.
-      */
-
       const original =
         Array.from(
           list.children
         );
-
 
       original.forEach(
         card=>{
@@ -4276,40 +4643,33 @@ document
           clone.dataset.clone =
             'true';
 
-          list.appendChild(clone);
+          list.appendChild(
+            clone
+          );
 
         }
       );
 
-
       list.dataset.duplicated =
         'true';
-
-
-      /*
-        Kirim ke Google Apps Script.
-      */
 
       if(WISH_APPS_SCRIPT_URL){
 
         const url =
-          WISH_APPS_SCRIPT_URL +
-          '?name=' +
-          encodeURIComponent(name) +
-          '&msg=' +
+          WISH_APPS_SCRIPT_URL+
+          '?name='+
+          encodeURIComponent(name)+
+          '&msg='+
           encodeURIComponent(msg);
 
-
-        fetch(url)
-          .catch(
-            ()=>{}
-          );
+        fetch(url).catch(
+          ()=>{}
+        );
 
       }else{
 
         const stored =
           getLocalWishes();
-
 
         stored.unshift({
 
@@ -4319,23 +4679,14 @@ document
 
         });
 
-
         setLocalWishes(
           stored
         );
 
       }
 
-
-      nameInput.value = '';
-
-      msgInput.value = '';
-
-
-      /*
-        Beri jeda sedikit supaya
-        ucapan baru terlihat dahulu.
-      */
+      nameInput.value='';
+      msgInput.value='';
 
       wishPauseUntil =
         Date.now()+3500;
@@ -4343,6 +4694,21 @@ document
     }
   );
 
+
+/* =========================================================
+   INITIAL
+========================================================= */
+
+window.addEventListener(
+  'DOMContentLoaded',
+  ()=>{
+    document
+      .getElementById('music')
+      .load();
+
+    updateScrollUI();
+  }
+);
 
 </script>
 
