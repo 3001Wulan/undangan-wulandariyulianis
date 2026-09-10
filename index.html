@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -68,17 +69,14 @@ html{
 body{
   margin:0;
   min-height:100vh;
-
   overflow-x:hidden;
 
   color:var(--cream);
 
   font-family:'EB Garamond',serif;
-
   text-align:center;
 
   background:
-
     radial-gradient(
       ellipse 80% 35% at 50% 0%,
       rgba(247,213,151,.15),
@@ -114,7 +112,6 @@ body::before{
   inset:0;
 
   pointer-events:none;
-
   z-index:0;
 
   background:
@@ -136,11 +133,8 @@ h2,
 h3,
 .display{
   font-family:'Cormorant Garamond',serif;
-
   font-weight:500;
-
   letter-spacing:.035em;
-
   color:var(--gold3);
 }
 
@@ -203,13 +197,9 @@ a{
 
 #ambientEffects{
   position:fixed;
-
   inset:0;
-
   overflow:hidden;
-
   pointer-events:none;
-
   z-index:5;
 }
 
@@ -265,18 +255,15 @@ a{
 
 #opening{
   position:fixed;
-
   inset:0;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 
   padding:30px;
 
   background:
-
     radial-gradient(
       circle at 50% 15%,
       rgba(238,199,128,.16),
@@ -303,7 +290,6 @@ a{
     );
 
   z-index:9999;
-
   overflow:hidden;
 }
 
@@ -312,7 +298,6 @@ a{
   content:"";
 
   position:absolute;
-
   pointer-events:none;
 }
 
@@ -382,7 +367,6 @@ a{
 
 .opening-frame{
   position:relative;
-
   z-index:3;
 
   width:min(470px,100%);
@@ -392,7 +376,6 @@ a{
   border-radius:22px;
 
   background:
-
     linear-gradient(
       145deg,
       rgba(107,45,63,.43),
@@ -404,11 +387,8 @@ a{
     rgba(226,186,119,.21);
 
   box-shadow:
-
     0 30px 90px rgba(0,0,0,.55),
-
     0 0 45px rgba(201,162,90,.04),
-
     inset
     0 1px 0
     rgba(255,255,255,.05);
@@ -424,7 +404,6 @@ a{
     0 auto 20px;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 
@@ -672,7 +651,6 @@ a{
   position:fixed;
 
   left:50%;
-
   bottom:18px;
 
   transform:
@@ -777,7 +755,6 @@ a{
   justify-content:center;
 
   background:
-
     radial-gradient(
       ellipse 70% 50% at 50% 0%,
       rgba(240,205,142,.13),
@@ -822,7 +799,6 @@ a{
 
 .hero > *:not(.falling-photos){
   position:relative;
-
   z-index:2;
 }
 
@@ -963,7 +939,6 @@ a{
     );
 
   box-shadow:
-
     0 0 0 1px
     rgba(255,255,255,.05),
 
@@ -1162,7 +1137,6 @@ section::before{
   height:300px;
 
   left:-170px;
-
   top:15%;
 
   border-radius:50%;
@@ -1186,7 +1160,6 @@ section::after{
   height:260px;
 
   right:-170px;
-
   bottom:5%;
 
   border-radius:50%;
@@ -1203,7 +1176,6 @@ section::after{
 
 section > *{
   position:relative;
-
   z-index:2;
 }
 
@@ -1230,7 +1202,6 @@ section h2.section-title{
 
 /* =========================================================
    PETAL EFFECT
-   MUNCUL DI HALAMAN SETELAH FOTO BERJATUHAN
 ========================================================= */
 
 .petal-layer{
@@ -1356,7 +1327,6 @@ section h2.section-title{
     );
 
   box-shadow:
-
     0 25px 55px
     rgba(0,0,0,.30),
 
@@ -1451,7 +1421,6 @@ section h2.section-title{
   border-radius:19px;
 
   background:
-
     linear-gradient(
       145deg,
       rgba(111,49,67,.44),
@@ -1459,7 +1428,6 @@ section h2.section-title{
     );
 
   box-shadow:
-
     0 22px 55px
     rgba(0,0,0,.30),
 
@@ -1636,7 +1604,6 @@ section h2.section-title{
   border-radius:15px;
 
   background:
-
     linear-gradient(
       145deg,
       rgba(120,57,75,.46),
@@ -1644,7 +1611,6 @@ section h2.section-title{
     );
 
   box-shadow:
-
     0 14px 30px
     rgba(0,0,0,.28),
 
@@ -1774,7 +1740,6 @@ section h2.section-title{
   text-decoration:none;
 
   box-shadow:
-
     0 10px 25px
     rgba(0,0,0,.25),
 
@@ -1804,8 +1769,6 @@ section h2.section-title{
 
 /* =========================================================
    DETAIL ACARA
-   DESKTOP = SAMPINGAN
-   MOBILE = ATAS BAWAH
 ========================================================= */
 
 .event-layout{
@@ -2158,6 +2121,136 @@ section h2.section-title{
 
 
 /* =========================================================
+   KUTIPAN
+   DITAMBAHKAN SETELAH GALERI
+========================================================= */
+
+.quote-section{
+  padding:
+    70px 24px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(23,8,13,.10),
+      rgba(103,44,59,.18),
+      rgba(23,8,13,.10)
+    );
+}
+
+.quote-card{
+  width:min(650px,100%);
+
+  margin:0 auto;
+
+  padding:
+    38px 30px;
+
+  position:relative;
+
+  border:
+    1px solid
+    rgba(226,186,119,.28);
+
+  border-radius:20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(103,44,59,.34),
+      rgba(27,10,16,.58)
+    );
+
+  box-shadow:
+    0 24px 55px
+    rgba(0,0,0,.30),
+
+    inset
+    0 1px 0
+    rgba(255,255,255,.04);
+
+  backdrop-filter:blur(12px);
+}
+
+.quote-mark{
+  position:absolute;
+
+  top:8px;
+  left:20px;
+
+  color:
+    rgba(223,185,112,.25);
+
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:5rem;
+
+  line-height:1;
+}
+
+.quote-text{
+  margin:
+    10px auto 18px;
+
+  max-width:540px;
+
+  color:var(--cream2);
+
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:
+    clamp(
+      1.25rem,
+      4vw,
+      1.65rem
+    );
+
+  font-style:italic;
+
+  line-height:1.55;
+
+  letter-spacing:.015em;
+}
+
+.quote-author{
+  margin:0;
+
+  color:var(--gold2);
+
+  font-size:.82rem;
+
+  letter-spacing:.12em;
+
+  text-transform:uppercase;
+}
+
+.quote-author::before{
+  content:"— ";
+
+  color:var(--rose);
+}
+
+.quote-decoration{
+  width:90px;
+
+  height:1px;
+
+  margin:
+    0 auto 18px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--gold),
+      transparent
+    );
+
+  opacity:.75;
+}
+
+
+/* =========================================================
    LIGHTBOX
 ========================================================= */
 
@@ -2503,7 +2596,6 @@ footer p{
   position:fixed;
 
   right:18px;
-
   bottom:76px;
 
   z-index:9500;
@@ -2579,7 +2671,6 @@ footer p{
       60px 20px;
   }
 
-  /* DETAIL ACARA MENJADI ATAS-BAWAH */
   .event-layout{
     grid-template-columns:1fr;
 
@@ -2654,6 +2745,25 @@ footer p{
     gap:7px;
   }
 
+  .quote-section{
+    padding:
+      60px 20px;
+  }
+
+  .quote-card{
+    padding:
+      34px 22px;
+  }
+
+  .quote-mark{
+    left:13px;
+    top:7px;
+  }
+
+  .quote-text{
+    font-size:1.25rem;
+  }
+
 }
 
 
@@ -2711,6 +2821,10 @@ footer p{
 
   .count-box .unit{
     font-size:.51rem;
+  }
+
+  .quote-text{
+    font-size:1.15rem;
   }
 
 }
@@ -2972,7 +3086,6 @@ footer p{
 
   <!-- =======================================================
        SAVE THE DATE
-       HALAMAN INI DIMULAI DENGAN KELopak
   ======================================================== -->
 
   <section id="waktu-tempat">
@@ -2998,9 +3111,6 @@ footer p{
     <div class="save-date-label reveal">
       ✦ Momen Wisuda ✦
     </div>
-
-
-    <!-- CALENDAR -->
 
     <div
       class="mini-calendar reveal"
@@ -3093,9 +3203,6 @@ footer p{
 
     </div>
 
-
-    <!-- COUNTDOWN -->
-
     <div class="countdown-title reveal">
       Menghitung menuju hari istimewa
     </div>
@@ -3106,63 +3213,23 @@ footer p{
     >
 
       <div class="count-box">
-
-        <span
-          class="num"
-          id="cd-days"
-        >
-          00
-        </span>
-
-        <span class="unit">
-          Hari
-        </span>
-
+        <span class="num" id="cd-days">00</span>
+        <span class="unit">Hari</span>
       </div>
 
       <div class="count-box">
-
-        <span
-          class="num"
-          id="cd-hours"
-        >
-          00
-        </span>
-
-        <span class="unit">
-          Jam
-        </span>
-
+        <span class="num" id="cd-hours">00</span>
+        <span class="unit">Jam</span>
       </div>
 
       <div class="count-box">
-
-        <span
-          class="num"
-          id="cd-mins"
-        >
-          00
-        </span>
-
-        <span class="unit">
-          Menit
-        </span>
-
+        <span class="num" id="cd-mins">00</span>
+        <span class="unit">Menit</span>
       </div>
 
       <div class="count-box">
-
-        <span
-          class="num"
-          id="cd-secs"
-        >
-          00
-        </span>
-
-        <span class="unit">
-          Detik
-        </span>
-
+        <span class="num" id="cd-secs">00</span>
+        <span class="unit">Detik</span>
       </div>
 
     </div>
@@ -3192,10 +3259,7 @@ footer p{
       Informasi lengkap mengenai acara
     </p>
 
-
     <div class="event-layout">
-
-      <!-- KARTU INFORMASI -->
 
       <div class="card reveal">
 
@@ -3275,9 +3339,6 @@ footer p{
         </a>
 
       </div>
-
-
-      <!-- OPENSTREETMAP -->
 
       <div class="map-embed reveal">
 
@@ -3515,6 +3576,43 @@ footer p{
 
 
   <!-- =======================================================
+       KUTIPAN
+  ======================================================== -->
+
+  <section class="quote-section">
+
+    <p class="eyebrow reveal">
+      Sebuah Pengingat
+    </p>
+
+    <h2 class="section-title reveal">
+      Kutipan
+    </h2>
+
+    <div class="quote-card reveal">
+
+      <div class="quote-mark">
+        “
+      </div>
+
+      <p class="quote-text">
+        Setiap perjalanan memiliki ceritanya sendiri.
+        Nikmati prosesnya, hargai setiap langkahnya,
+        dan jangan takut melangkah lebih jauh.
+      </p>
+
+      <div class="quote-decoration"></div>
+
+      <p class="quote-author">
+        Anonim
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =======================================================
        UCAPAN
   ======================================================== -->
 
@@ -3742,7 +3840,6 @@ footer p{
 
 
 <script>
-
 
 /* =========================================================
    NAMA TAMU
@@ -4041,7 +4138,6 @@ function stopFallingPhotosLoop(){
 
 /* =========================================================
    KELOPAK BUNGA
-   DIMULAI DI SECTION SETELAH FOTO
 ========================================================= */
 
 let petalInterval = null;
@@ -5231,7 +5327,6 @@ function initWishesAutoScroll(){
     true;
 
   wishPosition=0;
-
   wishLastTime=null;
 
   function animate(timestamp){
@@ -5437,7 +5532,6 @@ document
       }
 
       nameInput.value='';
-
       msgInput.value='';
 
       wishPauseUntil =
@@ -5468,3 +5562,4 @@ window.addEventListener(
 
 </body>
 </html>
+```
