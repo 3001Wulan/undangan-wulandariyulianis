@@ -1505,14 +1505,10 @@
     renderWishCard(name, msg, true);
 
     if(WISH_APPS_SCRIPT_URL){
-      /* mode 'no-cors' + text/plain supaya tidak kena blokir CORS preflight;
-         kita tidak perlu membaca balasannya, cukup kirim datanya */
-      fetch(WISH_APPS_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ name: name, msg: msg })
-      }).catch(() => {});
+      /* pakai GET (bukan POST) supaya tidak kena masalah redirect Apps Script
+         yang sering membuang data saat memakai POST dari browser */
+      const url = WISH_APPS_SCRIPT_URL + '?name=' + encodeURIComponent(name) + '&msg=' + encodeURIComponent(msg);
+      fetch(url).catch(() => {});
     } else {
       const stored = getLocalWishes();
       stored.unshift({ name: name, msg: msg });
