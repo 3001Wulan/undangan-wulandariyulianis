@@ -321,6 +321,142 @@ a{
 
 
 /* =========================================================
+   GLOBAL KELOPAK BUNGA
+   MUNCUL DI SEMUA BAGIAN KECUALI HERO
+========================================================= */
+
+#globalPetals{
+
+  position:fixed;
+
+  inset:0;
+
+  overflow:hidden;
+
+  pointer-events:none;
+
+  z-index:6;
+
+  transition:opacity .4s ease;
+
+}
+
+body.hero-visible #globalPetals{
+
+  opacity:0;
+
+  visibility:hidden;
+
+}
+
+.global-petal{
+
+  position:absolute;
+
+  top:-40px;
+
+  width:var(--petal-width);
+
+  height:var(--petal-height);
+
+  border-radius:
+    80% 20% 80% 20%;
+
+  background:
+
+    linear-gradient(
+      135deg,
+      rgba(255,235,239,.96),
+      rgba(218,151,171,.84)
+    );
+
+  box-shadow:
+    0 3px 9px rgba(0,0,0,.16);
+
+  opacity:0;
+
+  animation:
+    globalPetalFall
+    var(--petal-duration)
+    linear
+    forwards;
+
+}
+
+.global-petal::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:2px;
+
+  border-radius:inherit;
+
+  background:
+
+    radial-gradient(
+      circle at 32% 24%,
+      rgba(255,255,255,.55),
+      transparent 58%
+    );
+
+}
+
+@keyframes globalPetalFall{
+
+  0%{
+
+    transform:
+      translate3d(0,-40px,0)
+      rotate(0deg)
+      scale(.72);
+
+    opacity:0;
+
+  }
+
+  8%{
+
+    opacity:.76;
+
+  }
+
+  45%{
+
+    transform:
+      translate3d(var(--sway1),45vh,0)
+      rotate(145deg)
+      scale(1);
+
+  }
+
+  78%{
+
+    transform:
+      translate3d(var(--sway2),78vh,0)
+      rotate(260deg)
+      scale(.94);
+
+    opacity:.58;
+
+  }
+
+  100%{
+
+    transform:
+      translate3d(var(--sway3),110vh,0)
+      rotate(360deg)
+      scale(.78);
+
+    opacity:0;
+
+  }
+
+}
+
+
+/* =========================================================
    OPENING
 ========================================================= */
 
@@ -962,6 +1098,7 @@ a{
 
 /* =========================================================
    FALLING PHOTOS
+   FOTO 1 - 9 SAJA
 ========================================================= */
 
 .falling-photos{
@@ -1410,121 +1547,6 @@ section h2.section-title{
   font-size:.95rem;
 
   margin-bottom:28px;
-
-}
-
-
-/* =========================================================
-   PETAL
-========================================================= */
-
-.petal-layer{
-
-  position:absolute;
-
-  inset:0;
-
-  overflow:hidden;
-
-  pointer-events:none;
-
-  z-index:1;
-
-}
-
-.petal{
-
-  position:absolute;
-
-  top:-35px;
-
-  width:10px;
-  height:15px;
-
-  border-radius:
-    80% 20% 80% 20%;
-
-  background:
-
-    linear-gradient(
-      135deg,
-      rgba(255,224,229,.92),
-      rgba(205,129,151,.72)
-    );
-
-  box-shadow:
-    0 3px 8px rgba(0,0,0,.14);
-
-  opacity:0;
-
-  animation:
-    petalFall
-    var(--petal-duration)
-    linear
-    forwards;
-
-}
-
-.petal::after{
-
-  content:"";
-
-  position:absolute;
-
-  inset:2px;
-
-  border-radius:inherit;
-
-  background:
-
-    radial-gradient(
-      circle at 35% 25%,
-      rgba(255,255,255,.45),
-      transparent 55%
-    );
-
-}
-
-@keyframes petalFall{
-
-  0%{
-
-    transform:
-      translate3d(0,-30px,0)
-      rotate(0deg)
-      scale(.8);
-
-    opacity:0;
-
-  }
-
-  10%{
-    opacity:.75;
-  }
-
-  50%{
-
-    transform:
-      translate3d(var(--sway),45vh,0)
-      rotate(160deg)
-      scale(1);
-
-  }
-
-  90%{
-    opacity:.55;
-  }
-
-  100%{
-
-    transform:
-      translate3d(var(--sway2),110vh,0)
-      rotate(330deg)
-      scale(.85);
-
-    opacity:0;
-
-  }
 
 }
 
@@ -3517,14 +3539,33 @@ footer p{
 <body>
 
 
+<!-- =======================================================
+     SCROLL PROGRESS
+======================================================= -->
+
 <div
   class="scroll-progress"
   id="scrollProgress"
 ></div>
 
 
+<!-- =======================================================
+     AMBIENT BOKEH
+======================================================= -->
+
 <div
   id="ambientEffects"
+  aria-hidden="true"
+></div>
+
+
+<!-- =======================================================
+     GLOBAL KELOPAK
+     AKAN DISEMBUNYIKAN SAAT HERO TERLIHAT
+======================================================= -->
+
+<div
+  id="globalPetals"
   aria-hidden="true"
 ></div>
 
@@ -3596,6 +3637,7 @@ footer p{
     <button
       class="open-btn"
       onclick="openInvite()"
+      type="button"
     >
       Buka Undangan
     </button>
@@ -3612,9 +3654,14 @@ footer p{
 <div id="main">
 
 
-  <!-- HERO -->
+  <!-- =====================================================
+       HERO
+  ====================================================== -->
 
-  <div class="hero">
+  <div
+    class="hero"
+    id="heroSection"
+  >
 
     <div
       class="falling-photos"
@@ -3695,7 +3742,9 @@ footer p{
   </div>
 
 
-  <!-- DIVIDER -->
+  <!-- =====================================================
+       DIVIDER
+  ====================================================== -->
 
   <div
     class="hero-divider"
@@ -3721,17 +3770,17 @@ footer p{
           <stop
             offset="0%"
             stop-color="#7a3d4d"
-          >
+          />
 
           <stop
             offset="50%"
             stop-color="#43202b"
-          >
+          />
 
           <stop
             offset="100%"
             stop-color="#7a3d4d"
-          >
+          />
 
         </linearGradient>
 
@@ -3761,12 +3810,6 @@ footer p{
   ====================================================== -->
 
   <section id="waktu-tempat">
-
-    <div
-      class="petal-layer"
-      id="petalLayer"
-      aria-hidden="true"
-    ></div>
 
     <p class="eyebrow reveal">
       Save the Date
@@ -4104,7 +4147,6 @@ footer p{
 
     <div class="gallery-row1">
 
-
       <a
         class="reveal"
         href="foto 10.jpeg"
@@ -4120,9 +4162,7 @@ footer p{
       </a>
 
 
-      <!-- =================================================
-           VIDEO WISUDA
-      ================================================== -->
+      <!-- VIDEO WISUDA -->
 
       <div
         class="gallery-video reveal"
@@ -4181,10 +4221,7 @@ footer p{
       <div class="gallery-row2-track">
 
 
-        <a
-          href="foto 12.jpeg"
-          data-lightbox
-        >
+        <a href="foto 12.jpeg" data-lightbox>
           <img
             src="foto 12.jpeg"
             alt="Foto kenangan 12"
@@ -4193,10 +4230,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 13.jpeg"
-          data-lightbox
-        >
+        <a href="foto 13.jpeg" data-lightbox>
           <img
             src="foto 13.jpeg"
             alt="Foto kenangan 13"
@@ -4205,10 +4239,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 14.jpeg"
-          data-lightbox
-        >
+        <a href="foto 14.jpeg" data-lightbox>
           <img
             src="foto 14.jpeg"
             alt="Foto kenangan 14"
@@ -4217,10 +4248,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 15.jpeg"
-          data-lightbox
-        >
+        <a href="foto 15.jpeg" data-lightbox>
           <img
             src="foto 15.jpeg"
             alt="Foto kenangan 15"
@@ -4229,10 +4257,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 16.jpeg"
-          data-lightbox
-        >
+        <a href="foto 16.jpeg" data-lightbox>
           <img
             src="foto 16.jpeg"
             alt="Foto kenangan 16"
@@ -4241,10 +4266,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 17.jpeg"
-          data-lightbox
-        >
+        <a href="foto 17.jpeg" data-lightbox>
           <img
             src="foto 17.jpeg"
             alt="Foto kenangan 17"
@@ -4253,10 +4275,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 18.jpeg"
-          data-lightbox
-        >
+        <a href="foto 18.jpeg" data-lightbox>
           <img
             src="foto 18.jpeg"
             alt="Foto kenangan 18"
@@ -4265,10 +4284,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 19.jpeg"
-          data-lightbox
-        >
+        <a href="foto 19.jpeg" data-lightbox>
           <img
             src="foto 19.jpeg"
             alt="Foto kenangan 19"
@@ -4277,10 +4293,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 20.jpeg"
-          data-lightbox
-        >
+        <a href="foto 20.jpeg" data-lightbox>
           <img
             src="foto 20.jpeg"
             alt="Foto kenangan 20"
@@ -4289,10 +4302,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 21.jpeg"
-          data-lightbox
-        >
+        <a href="foto 21.jpeg" data-lightbox>
           <img
             src="foto 21.jpeg"
             alt="Foto kenangan 21"
@@ -4301,10 +4311,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 22.jpeg"
-          data-lightbox
-        >
+        <a href="foto 22.jpeg" data-lightbox>
           <img
             src="foto 22.jpeg"
             alt="Foto kenangan 22"
@@ -4313,10 +4320,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 23.jpeg"
-          data-lightbox
-        >
+        <a href="foto 23.jpeg" data-lightbox>
           <img
             src="foto 23.jpeg"
             alt="Foto kenangan 23"
@@ -4325,10 +4329,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 24.jpeg"
-          data-lightbox
-        >
+        <a href="foto 24.jpeg" data-lightbox>
           <img
             src="foto 24.jpeg"
             alt="Foto kenangan 24"
@@ -4337,10 +4338,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 25.jpeg"
-          data-lightbox
-        >
+        <a href="foto 25.jpeg" data-lightbox>
           <img
             src="foto 25.jpeg"
             alt="Foto kenangan 25"
@@ -4349,10 +4347,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 26.jpeg"
-          data-lightbox
-        >
+        <a href="foto 26.jpeg" data-lightbox>
           <img
             src="foto 26.jpeg"
             alt="Foto kenangan 26"
@@ -4361,10 +4356,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 27.jpeg"
-          data-lightbox
-        >
+        <a href="foto 27.jpeg" data-lightbox>
           <img
             src="foto 27.jpeg"
             alt="Foto kenangan 27"
@@ -4373,10 +4365,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 28.jpeg"
-          data-lightbox
-        >
+        <a href="foto 28.jpeg" data-lightbox>
           <img
             src="foto 28.jpeg"
             alt="Foto kenangan 28"
@@ -4385,10 +4374,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 29.jpeg"
-          data-lightbox
-        >
+        <a href="foto 29.jpeg" data-lightbox>
           <img
             src="foto 29.jpeg"
             alt="Foto kenangan 29"
@@ -4397,10 +4383,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 30.jpeg"
-          data-lightbox
-        >
+        <a href="foto 30.jpeg" data-lightbox>
           <img
             src="foto 30.jpeg"
             alt="Foto kenangan 30"
@@ -4409,10 +4392,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 31.jpeg"
-          data-lightbox
-        >
+        <a href="foto 31.jpeg" data-lightbox>
           <img
             src="foto 31.jpeg"
             alt="Foto kenangan 31"
@@ -4421,10 +4401,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 32.jpeg"
-          data-lightbox
-        >
+        <a href="foto 32.jpeg" data-lightbox>
           <img
             src="foto 32.jpeg"
             alt="Foto kenangan 32"
@@ -4433,10 +4410,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 33.jpeg"
-          data-lightbox
-        >
+        <a href="foto 33.jpeg" data-lightbox>
           <img
             src="foto 33.jpeg"
             alt="Foto kenangan 33"
@@ -4445,10 +4419,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 34.jpeg"
-          data-lightbox
-        >
+        <a href="foto 34.jpeg" data-lightbox>
           <img
             src="foto 34.jpeg"
             alt="Foto kenangan 34"
@@ -4457,10 +4428,7 @@ footer p{
         </a>
 
 
-        <a
-          href="foto 35.jpeg"
-          data-lightbox
-        >
+        <a href="foto 35.jpeg" data-lightbox>
           <img
             src="foto 35.jpeg"
             alt="Foto kenangan 35"
@@ -4695,6 +4663,7 @@ footer p{
   onclick="toggleMusic()"
   aria-label="Putar atau jeda musik"
   style="display:none;"
+  type="button"
 >
   ♪
 </button>
@@ -4862,7 +4831,185 @@ footer p{
 
 
 /* =========================================================
+   GLOBAL KELOPAK BUNGA
+========================================================= */
+
+let globalPetalInterval = null;
+
+
+function spawnGlobalPetals(count){
+
+  const container =
+    document.getElementById(
+      'globalPetals'
+    );
+
+  if(!container)
+    return;
+
+  for(let i=0;i<count;i++){
+
+    const petal =
+      document.createElement('span');
+
+    petal.className =
+      'global-petal';
+
+    const width =
+      7+
+      Math.random()*7;
+
+    const height =
+      width*
+      (
+        1.35+
+        Math.random()*.25
+      );
+
+    petal.style.setProperty(
+      '--petal-width',
+      width+'px'
+    );
+
+    petal.style.setProperty(
+      '--petal-height',
+      height+'px'
+    );
+
+    petal.style.left =
+      Math.random()*100+'%';
+
+    petal.style.setProperty(
+      '--sway1',
+      (
+        Math.random()*120-
+        60
+      )+'px'
+    );
+
+    petal.style.setProperty(
+      '--sway2',
+      (
+        Math.random()*180-
+        90
+      )+'px'
+    );
+
+    petal.style.setProperty(
+      '--sway3',
+      (
+        Math.random()*220-
+        110
+      )+'px'
+    );
+
+    petal.style.setProperty(
+      '--petal-duration',
+      (
+        8+
+        Math.random()*8
+      )+'s'
+    );
+
+    petal.style.animationDelay =
+      Math.random()*5+
+      's';
+
+    container.appendChild(petal);
+
+    setTimeout(
+      ()=>{
+        petal.remove();
+      },
+      19000
+    );
+
+  }
+
+}
+
+
+function startGlobalPetalLoop(){
+
+  if(globalPetalInterval)
+    return;
+
+  spawnGlobalPetals(18);
+
+  globalPetalInterval =
+    setInterval(
+      ()=>{
+        spawnGlobalPetals(8);
+      },
+      3600
+    );
+
+}
+
+
+/* =========================================================
+   KONTROL KELOPAK BERDASARKAN HERO
+   HERO = FOTO BERJATUHAN
+   SAAT HERO TERLIHAT, KELOPAK DISEMBUNYIKAN
+========================================================= */
+
+function initHeroPetalVisibility(){
+
+  const hero =
+    document.getElementById(
+      'heroSection'
+    );
+
+  if(!hero)
+    return;
+
+  if(
+    !('IntersectionObserver' in window)
+  ){
+
+    document.body.classList.add(
+      'hero-visible'
+    );
+
+    return;
+
+  }
+
+  const observer =
+    new IntersectionObserver(
+      entries=>{
+
+        const entry =
+          entries[0];
+
+        if(entry.isIntersecting){
+
+          document.body.classList.add(
+            'hero-visible'
+          );
+
+        }else{
+
+          document.body.classList.remove(
+            'hero-visible'
+          );
+
+        }
+
+      },
+      {
+        threshold:.18
+      }
+    );
+
+  observer.observe(hero);
+
+}
+
+
+/* =========================================================
    FOTO BERJATUHAN
+   FOTO 1 - 9 SAJA
 ========================================================= */
 
 const fallingPhotoSources = [
@@ -5016,110 +5163,17 @@ function stopFallingPhotosLoop(){
 
 
 /* =========================================================
-   KELOPAK BUNGA
-========================================================= */
-
-let petalInterval = null;
-
-
-function spawnPetals(count){
-
-  const container =
-    document.getElementById(
-      'petalLayer'
-    );
-
-  if(!container)
-    return;
-
-  for(let i=0;i<count;i++){
-
-    const petal =
-      document.createElement('span');
-
-    petal.className =
-      'petal';
-
-    const size =
-      7+
-      Math.random()*7;
-
-    petal.style.width =
-      size+'px';
-
-    petal.style.height =
-      size*1.45+'px';
-
-    petal.style.left =
-      Math.random()*100+'%';
-
-    petal.style.setProperty(
-      '--sway',
-      (
-        Math.random()*120-60
-      )+'px'
-    );
-
-    petal.style.setProperty(
-      '--sway2',
-      (
-        Math.random()*180-90
-      )+'px'
-    );
-
-    petal.style.setProperty(
-      '--petal-duration',
-      (
-        8+
-        Math.random()*7
-      )+'s'
-    );
-
-    petal.style.animationDelay =
-      Math.random()*5+
-      's';
-
-    container.appendChild(petal);
-
-    setTimeout(
-      ()=>{
-        petal.remove();
-      },
-      18000
-    );
-
-  }
-
-}
-
-
-function startPetalLoop(){
-
-  if(petalInterval)
-    return;
-
-  spawnPetals(16);
-
-  petalInterval =
-    setInterval(
-      ()=>{
-        spawnPetals(7);
-      },
-      3500
-    );
-
-}
-
-
-/* =========================================================
    OPEN INVITATION
 ========================================================= */
 
 function openInvite(){
 
-  document.getElementById(
-    'opening'
-  ).style.display =
+  const opening =
+    document.getElementById(
+      'opening'
+    );
+
+  opening.style.display =
     'none';
 
   const main =
@@ -5164,7 +5218,9 @@ function openInvite(){
 
           startFallingPhotosLoop();
 
-          startPetalLoop();
+          startGlobalPetalLoop();
+
+          initHeroPetalVisibility();
 
           initRevealObserver();
 
@@ -5186,11 +5242,10 @@ function openInvite(){
 
 /* =========================================================
    VIDEO WISUDA
-   AUTOPLAY MUTED
-   FULLSCREEN = SOUND
 ========================================================= */
 
-let wisudaVideoInitialized = false;
+let wisudaVideoInitialized =
+  false;
 
 
 function initWisudaVideo(){
@@ -5211,30 +5266,25 @@ function initWisudaVideo(){
   if(!video || !container)
     return;
 
-  wisudaVideoInitialized = true;
+  wisudaVideoInitialized =
+    true;
 
 
-  /*
-     Kondisi awal:
-     autoplay + mute
-  */
+  video.autoplay =
+    true;
 
-  video.autoplay = true;
+  video.muted =
+    true;
 
-  video.muted = true;
+  video.defaultMuted =
+    true;
 
-  video.defaultMuted = true;
+  video.loop =
+    true;
 
-  video.loop = true;
+  video.playsInline =
+    true;
 
-  video.playsInline = true;
-
-
-  /*
-     Klik video:
-     - suara aktif
-     - video diperbesar
-  */
 
   container.addEventListener(
     'click',
@@ -5244,11 +5294,14 @@ function initWisudaVideo(){
 
       try{
 
-        video.muted = false;
+        video.muted =
+          false;
 
-        video.defaultMuted = false;
+        video.defaultMuted =
+          false;
 
-        video.volume = 1;
+        video.volume =
+          1;
 
 
         if(video.paused){
@@ -5258,10 +5311,6 @@ function initWisudaVideo(){
         }
 
 
-        /*
-           Browser modern
-        */
-
         if(
           video.requestFullscreen
         ){
@@ -5269,10 +5318,6 @@ function initWisudaVideo(){
           await video.requestFullscreen();
 
         }
-
-        /*
-           Safari iPhone/iPad
-        */
 
         else if(
           video.webkitEnterFullscreen
@@ -5284,27 +5329,20 @@ function initWisudaVideo(){
 
       }catch(error){
 
-        /*
-           Jika fullscreen gagal,
-           suara tetap aktif.
-        */
+        video.muted =
+          false;
 
-        video.muted = false;
+        video.defaultMuted =
+          false;
 
-        video.defaultMuted = false;
-
-        video.volume = 1;
+        video.volume =
+          1;
 
       }
 
     }
   );
 
-
-  /*
-     Saat keluar fullscreen:
-     mute kembali.
-  */
 
   document.addEventListener(
     'fullscreenchange',
@@ -5314,19 +5352,17 @@ function initWisudaVideo(){
         !document.fullscreenElement
       ){
 
-        video.muted = true;
+        video.muted =
+          true;
 
-        video.defaultMuted = true;
+        video.defaultMuted =
+          true;
 
       }
 
     }
   );
 
-
-  /*
-     Safari
-  */
 
   document.addEventListener(
     'webkitfullscreenchange',
@@ -5336,9 +5372,11 @@ function initWisudaVideo(){
         !document.webkitFullscreenElement
       ){
 
-        video.muted = true;
+        video.muted =
+          true;
 
-        video.defaultMuted = true;
+        video.defaultMuted =
+          true;
 
       }
 
@@ -5358,22 +5396,21 @@ function startWisudaVideo(){
   if(!video)
     return;
 
+  video.muted =
+    true;
 
-  video.muted = true;
+  video.defaultMuted =
+    true;
 
-  video.defaultMuted = true;
+  video.autoplay =
+    true;
 
-  video.autoplay = true;
+  video.loop =
+    true;
 
-  video.loop = true;
+  video.playsInline =
+    true;
 
-  video.playsInline = true;
-
-
-  /*
-     Browser mengizinkan
-     autoplay karena muted.
-  */
 
   const playPromise =
     video.play();
@@ -5381,14 +5418,7 @@ function startWisudaVideo(){
   if(playPromise){
 
     playPromise.catch(
-      ()=>{
-        /*
-           Jika browser menolak
-           autoplay, video akan
-           tetap bisa diputar
-           setelah user berinteraksi.
-        */
-      }
+      ()=>{}
     );
 
   }
@@ -5606,6 +5636,12 @@ function initRevealObserver(){
     );
 
     return;
+
+  }
+
+  if(revealObserver){
+
+    revealObserver.disconnect();
 
   }
 
@@ -5851,10 +5887,17 @@ function buildGoogleCalendarLink(){
 }
 
 
-document.getElementById(
-  'gcalLink'
-).href =
-  buildGoogleCalendarLink();
+const gcalLink =
+  document.getElementById(
+    'gcalLink'
+  );
+
+if(gcalLink){
+
+  gcalLink.href =
+    buildGoogleCalendarLink();
+
+}
 
 
 /* =========================================================
@@ -5963,9 +6006,7 @@ function initGalleryAutoScroll(){
     true;
 
 
-  /*
-     Deteksi landscape
-  */
+  /* DETEKSI LANDSCAPE */
 
   const galleryImages =
     track.querySelectorAll('img');
@@ -6016,9 +6057,7 @@ function initGalleryAutoScroll(){
   );
 
 
-  /*
-     Duplicate untuk loop
-  */
+  /* DUPLICATE UNTUK LOOP */
 
   if(
     !track.dataset.duplicated
@@ -6052,10 +6091,13 @@ function initGalleryAutoScroll(){
     'pointerdown',
     ()=>{
 
-      paused=true;
+      paused =
+        true;
 
       if(resumeTimer)
-        clearTimeout(resumeTimer);
+        clearTimeout(
+          resumeTimer
+        );
 
     }
   );
@@ -6064,12 +6106,15 @@ function initGalleryAutoScroll(){
   function resume(){
 
     if(resumeTimer)
-      clearTimeout(resumeTimer);
+      clearTimeout(
+        resumeTimer
+      );
 
     resumeTimer =
       setTimeout(
         ()=>{
-          paused=false;
+          paused =
+            false;
         },
         2200
       );
@@ -6124,7 +6169,8 @@ function initGalleryAutoScroll(){
 
   }else{
 
-    visible=true;
+    visible =
+      true;
 
   }
 
@@ -6136,12 +6182,15 @@ function initGalleryAutoScroll(){
   function animate(time){
 
     if(last===null)
-      last=time;
+      last =
+        time;
 
     const delta =
-      time-last;
+      time-
+      last;
 
-    last=time;
+    last =
+      time;
 
     const half =
       track.scrollWidth/2;
@@ -6153,7 +6202,8 @@ function initGalleryAutoScroll(){
     ){
 
       wrap.scrollLeft +=
-        speed*delta;
+        speed*
+        delta;
 
       if(
         wrap.scrollLeft>=half
@@ -6329,6 +6379,9 @@ function renderWishCard(
       'wishesList'
     );
 
+  if(!list)
+    return;
+
   if(prepend){
 
     list.prepend(card);
@@ -6364,11 +6417,19 @@ function renderWishCard(
           (list||[]).forEach(
             w=>{
 
-              renderWishCard(
-                w.name,
-                w.msg,
-                false
-              );
+              if(
+                w &&
+                w.name &&
+                w.msg
+              ){
+
+                renderWishCard(
+                  w.name,
+                  w.msg,
+                  false
+                );
+
+              }
 
             }
           );
@@ -6379,7 +6440,9 @@ function renderWishCard(
       )
 
       .catch(
-        ()=>{}
+        ()=>{
+          restartWishesAutoScroll();
+        }
       );
 
   }else{
@@ -6479,8 +6542,11 @@ function initWishesAutoScroll(){
   wishAutoRunning =
     true;
 
-  wishPosition=0;
-  wishLastTime=null;
+  wishPosition =
+    0;
+
+  wishLastTime =
+    null;
 
 
   function animate(timestamp){
@@ -6507,7 +6573,8 @@ function initWishesAutoScroll(){
     ){
 
       wishPosition +=
-        delta*.025;
+        delta*
+        .025;
 
       const halfHeight =
         list.scrollHeight/2;
@@ -6517,7 +6584,8 @@ function initWishesAutoScroll(){
         wishPosition>=halfHeight
       ){
 
-        wishPosition=0;
+        wishPosition =
+          0;
 
       }
 
@@ -6561,7 +6629,8 @@ function initWishesAutoScroll(){
 function pauseWishes(){
 
   wishPauseUntil =
-    Date.now()+3000;
+    Date.now()+
+    3000;
 
 }
 
@@ -6581,11 +6650,14 @@ function restartWishesAutoScroll(){
    SUBMIT WISH
 ========================================================= */
 
-document
-  .getElementById(
+const wishForm =
+  document.getElementById(
     'wishForm'
-  )
-  .addEventListener(
+  );
+
+if(wishForm){
+
+  wishForm.addEventListener(
     'submit',
     function(e){
 
@@ -6616,9 +6688,7 @@ document
         );
 
 
-      /*
-         Hapus clone lama
-      */
+      /* HAPUS CLONE LAMA */
 
       list
         .querySelectorAll(
@@ -6631,9 +6701,7 @@ document
         );
 
 
-      /*
-         Tambahkan ucapan baru
-      */
+      /* TAMBAHKAN UCAPAN BARU */
 
       renderWishCard(
         name,
@@ -6642,9 +6710,7 @@ document
       );
 
 
-      /*
-         Buat clone lagi
-      */
+      /* BUAT CLONE LAGI */
 
       const original =
         Array.from(
@@ -6671,9 +6737,7 @@ document
         'true';
 
 
-      /*
-         Simpan ke Google Sheets
-      */
+      /* SIMPAN KE GOOGLE SHEETS */
 
       if(WISH_APPS_SCRIPT_URL){
 
@@ -6708,15 +6772,20 @@ document
       }
 
 
-      nameInput.value='';
+      nameInput.value =
+        '';
 
-      msgInput.value='';
+      msgInput.value =
+        '';
 
       wishPauseUntil =
-        Date.now()+3500;
+        Date.now()+
+        3500;
 
     }
   );
+
+}
 
 
 /* =========================================================
@@ -6786,9 +6855,16 @@ window.addEventListener(
   'DOMContentLoaded',
   ()=>{
 
-    document
-      .getElementById('music')
-      .load();
+    const music =
+      document.getElementById(
+        'music'
+      );
+
+    if(music){
+
+      music.load();
+
+    }
 
     detectTopGalleryOrientation();
 
